@@ -21,7 +21,7 @@ struct IdentifiablePlace: Identifiable {
 
 struct MapView: View {
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
-    @State var region: MKCoordinateRegion = MKCoordinateRegion (
+    @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion (
         center: CLLocationCoordinate2D (
             latitude: 36.014279,
             longitude: 129.325785
@@ -33,37 +33,39 @@ struct MapView: View {
     )
     
     var body: some View {
-        ZStack {
-            Map(coordinateRegion: self.$region,
-                annotationItems: [self.place]) { place in
-                MapPin(coordinate: self.place.location,
-                       tint: Color.purple)
-            }
-                .ignoresSafeArea()
-            
+        Map(coordinateRegion: self.$coordinateRegion, annotationItems: [self.place]) { place in
+            MapPin(coordinate: self.place.location, tint: Color.purple)
         }
+        .ignoresSafeArea()
     }
 }
 
 struct MainView: View {
     @State var currentPageIndex: Int = 0
-    
     var body: some View {
-        ZStack {
+        MapView()
+        //        ZStack {
+        //            PageControlView()
+        //                .ignoresSafeArea()
+        //            FloatingTabView(currentPageIndex: self.$currentPageIndex)
+        //        }
+    }
+}
+
+struct PageControlView: View {
+    var body: some View {
+        GeometryReader { geometry in
             ScrollViewReader { scrollProxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         MapView()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                             .id(0)
-                        NavigationView {
-                            Text("마이페이지 상세")
-                                .navigationTitle("마이페이지")
-                                .navigationBarTitleDisplayMode(.large)
-                        }
-                        .id(2)
+                        MyPageView()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                            .id(2)
                     }
                 }
-                FloatingTabView(currentPageIndex: self.$currentPageIndex, scrollProxy: scrollProxy)
             }
         }
     }
@@ -74,13 +76,10 @@ struct FloatingTabView: View {
     
     @Binding var currentPageIndex: Int
     
-    var scrollProxy: ScrollViewProxy
-    
     func floatingTabButton(imageName: String, title: String, pageIndex: Int) -> some View{
         return Button {
             withAnimation {
                 self.currentPageIndex = pageIndex
-                self.scrollProxy.scrollTo(self.currentPageIndex)
                 print("Change Scroll Proxy")
             }
         } label: {
@@ -148,6 +147,6 @@ struct FloatingTabButtonView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MapView()
     }
 }
