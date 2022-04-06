@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct StoryWriteView: View {
+    @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
+    @State var onMap = false
+    
+    let screenHeight = UIScreen.main.bounds.size.height
+    
     var body: some View {
         ZStack{
-            
             Image("back")
                 .resizable()
                 .ignoresSafeArea()
@@ -50,17 +55,13 @@ struct StoryWriteView: View {
                             .foregroundColor(.white)
                     }
                     .padding(.trailing)
-
-                
                 }
                 
                 Spacer()
                 
-                
                 HStack{
                     Spacer()
                     VStack{
-                        
                         Button {
                             Void()
                         } label: {
@@ -77,10 +78,10 @@ struct StoryWriteView: View {
                         .padding(.trailing)
                         .padding(.bottom, 30)
                         
-                        
-                        
                         Button {
-                            Void()
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                onMap.toggle()
+                            }
                         } label: {
                             VStack{
                                 Image(systemName: "map")
@@ -91,18 +92,19 @@ struct StoryWriteView: View {
                                     .foregroundColor(.white)
                                     .padding(.top, 5)
                             }
-                            
                         }
                         .padding(.trailing)
                         .padding(.bottom, 100)
-                        
                     }
                 }
                 
-                
-
+                if onMap {
+                    Map(coordinateRegion: $coordinateRegion)
+                        .padding(.all)
+                        .frame(height: screenHeight * 0.3)
+                        .transition(.move(edge: .bottom))
+                }
             }
-            
         }
     }
 }
