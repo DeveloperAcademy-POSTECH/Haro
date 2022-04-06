@@ -11,6 +11,7 @@ import MapKit
 struct StoryWriteView: View {
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
+    @State var isLike = false
     
     let screenHeight = UIScreen.main.bounds.size.height
     
@@ -63,10 +64,10 @@ struct StoryWriteView: View {
                     Spacer()
                     VStack{
                         Button {
-                            Void()
+                            isLike.toggle()
                         } label: {
                             VStack{
-                                Image(systemName: "heart")
+                                Image(systemName: isLike ? "heart.fill" : "heart")
                                     .font(.title)
                                     .foregroundColor(.white)
                                 Text("좋아요")
