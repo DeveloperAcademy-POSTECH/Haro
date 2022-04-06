@@ -80,7 +80,7 @@ struct StoryWriteView: View {
                         
                         Button {
                             withAnimation(.easeInOut(duration: 0.5)) {
-                                onMap.toggle()
+                                onMap = true
                             }
                         } label: {
                             VStack{
@@ -99,11 +99,37 @@ struct StoryWriteView: View {
                 }
                 
                 if onMap {
-                    Map(coordinateRegion: $coordinateRegion)
-                        .padding(.all)
-                        .frame(height: screenHeight * 0.3)
-                        .transition(.move(edge: .bottom))
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(height: screenHeight * 0.2)
                 }
+            }
+            
+            if onMap {
+                VStack{
+                    Spacer()
+                    
+                    ZStack{
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                onMap = false
+                            }
+                        } label: {
+                            LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom)
+                                .frame(height: screenHeight)
+                        }
+                        
+                        VStack{
+                            Spacer()
+                            Map(coordinateRegion: $coordinateRegion)
+                                .padding(.all)
+                                .padding(.bottom, 30)
+                                .frame(height: screenHeight * 0.3)
+                        }
+                    }
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                
             }
         }
     }
