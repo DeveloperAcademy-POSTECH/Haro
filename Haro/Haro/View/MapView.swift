@@ -41,18 +41,18 @@ struct MapView: View {
 }
 
 struct MainView: View {
-    @State var currentPageIndex: Int = 0
+    @State var currentPageIndex: Int = 2
     var body: some View {
-        MapView()
-        //        ZStack {
-        //            PageControlView()
-        //                .ignoresSafeArea()
-        //            FloatingTabView(currentPageIndex: self.$currentPageIndex)
-        //        }
+        ZStack {
+            PageControlView(currentPageIndex: self.currentPageIndex)
+                .ignoresSafeArea()
+            FloatingTabView(currentPageIndex: self.$currentPageIndex)
+        }
     }
 }
 
 struct PageControlView: View {
+    var currentPageIndex: Int
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scrollProxy in
@@ -61,9 +61,17 @@ struct PageControlView: View {
                         MapView()
                             .frame(width: geometry.size.width, height: geometry.size.height)
                             .id(0)
+                        CommunityView()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                            .id(1)
                         MyPageView()
                             .frame(width: geometry.size.width, height: geometry.size.height)
                             .id(2)
+                    }
+                    .onChange(of: self.currentPageIndex) { target in
+                        withAnimation{
+                            scrollProxy.scrollTo(target)
+                        }
                     }
                 }
             }
@@ -147,6 +155,6 @@ struct FloatingTabButtonView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        MainView()
     }
 }
