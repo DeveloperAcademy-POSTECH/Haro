@@ -2,7 +2,7 @@
 name: Bug Template
 about: Bug를 보고하는 기본 템플릿 입니다.
 title: "[Bug] 버그 제목을 작성해 주세요"
-labels: ''
+labels: 버그
 assignees: ''
 
 ---
