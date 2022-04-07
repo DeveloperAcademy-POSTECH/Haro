@@ -18,6 +18,8 @@
 		A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */; };
 		A8095B4427FD223B00B01CD1 /* CommunityPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */; };
 		A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4527FD224500B01CD1 /* MyPageView.swift */; };
+		C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3527FDA74600671D13 /* FloatingTabView.swift */; };
+		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityWriteView.swift; sourceTree = "<group>"; };
 		A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostView.swift; sourceTree = "<group>"; };
 		A8095B4527FD224500B01CD1 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		C779FB3527FDA74600671D13 /* FloatingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabView.swift; sourceTree = "<group>"; };
+		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 		A8095B3127FD1CAC00B01CD1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C779FB3727FDA7E100671D13 /* MainView.swift */,
 				A8095B3727FD219200B01CD1 /* MapView.swift */,
 				A8095B3927FD21BA00B01CD1 /* StoryView.swift */,
 				A8095B3B27FD21D200B01CD1 /* StoryWriteView.swift */,
@@ -100,6 +105,7 @@
 		A8095B3227FD1CB100B01CD1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -196,8 +202,10 @@
 				A8095B3A27FD21BA00B01CD1 /* StoryView.swift in Sources */,
 				A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */,
 				A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */,
+				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
+				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
 				A8095B3C27FD21D200B01CD1 /* StoryWriteView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
@@ -329,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
@@ -339,13 +348,14 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -361,6 +371,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
@@ -371,13 +382,14 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
