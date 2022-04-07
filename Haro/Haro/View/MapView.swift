@@ -31,9 +31,10 @@ struct PlaceAnnotationView: View {
     }
 }
 
+
 struct MapView: View {
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
-    
+   
     @StateObject var viewModel = MapViewModel()
     
     //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
@@ -54,6 +55,36 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
+            CreateStoryButton()
+        }
+            .ignoresSafeArea()
+    }
+}
+
+
+struct CreateStoryButton: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            Button {
+                print("아무일도 일어나지 않습니다.")
+            } label: {
+                ZStack {
+                    Capsule()
+                        .fill(Color.init(red: 1, green: 144/255, blue: 0))
+                    Text("지금 어떤 일이 일어나고 있나요?")
+                        .lineLimit(1)
+                        .font(.system(size: 15))
+                        .minimumScaleFactor(0.005)
+                        .foregroundColor(.white)
+                        .padding([.leading, .trailing], 30)
+                }
+            }
+            .frame(height: 50)
+            .padding([.leading, .trailing], 90)
+            
+            Spacer()
+                .frame(height: 130)
         }
     }
 }
