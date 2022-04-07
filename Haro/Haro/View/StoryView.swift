@@ -48,14 +48,20 @@ struct StoryView: View {
                     
                     Spacer()
                     
-                    Button {
-                        
+                    NavigationLink {
+                        MainView()
+                            .navigationBarHidden(true)
+                            .navigationBarBackButtonHidden(true)
+                            .transition(.move(edge: .bottom))
                     } label: {
                         Image(systemName: "xmark")
                             .font(.title)
                             .foregroundColor(.white)
                     }
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
                     .padding(.trailing)
+
                 }
                 
                 Spacer()
