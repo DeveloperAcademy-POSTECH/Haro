@@ -6,14 +6,137 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct StoryView: View {
+    @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
+    @State var onMap = false
+    @State var isLike = false
+    
+    let screenHeight = UIScreen.main.bounds.size.height
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            Image("back")
+                .resizable()
+                .ignoresSafeArea()
+            
+            VStack{
+                HStack {
+                    ZStack{
+                        Circle()
+                            .stroke()
+                            .frame(width: 50, height: 50)
+                            .padding()
+                            .foregroundColor(.white)
+                        
+                        Circle()
+                            .stroke()
+                            .frame(width: 30, height: 30)
+                            .padding([.leading, .top], 35)
+                            .foregroundColor(.white)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("이름이름")
+                            .font(.body)
+                            .foregroundColor(.white)
+                        Text("맛집")
+                            .font(.caption)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 20)
+                    
+                    Spacer()
+                    
+                    Button {
+                        Void()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.trailing)
+                }
+                
+                Spacer()
+                
+                HStack{
+                    Spacer()
+                    VStack{
+                        Button {
+                            isLike.toggle()
+                        } label: {
+                            VStack{
+                                Image(systemName: isLike ? "heart.fill" : "heart")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                Text("좋아요")
+                                    .font(.body)
+                                    .foregroundColor(.white)
+                                    .padding(.top, 5)
+                            }
+                        }
+                        .padding(.trailing)
+                        .padding(.bottom, 30)
+                        
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                onMap = true
+                            }
+                        } label: {
+                            VStack{
+                                Image(systemName: "map")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                Text("위치")
+                                    .font(.body)
+                                    .foregroundColor(.white)
+                                    .padding(.top, 5)
+                            }
+                        }
+                        .padding(.trailing)
+                        .padding(.bottom, 100)
+                    }
+                }
+                
+                if onMap {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(height: screenHeight * 0.2)
+                }
+            }
+            
+            if onMap {
+                VStack{
+                    Spacer()
+                    
+                    ZStack{
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                onMap = false
+                            }
+                        } label: {
+                            LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom)
+                                .frame(height: screenHeight)
+                        }
+                        
+                        VStack{
+                            Spacer()
+                            Map(coordinateRegion: $coordinateRegion)
+                                .padding(.all)
+                                .padding(.bottom, 30)
+                                .frame(height: screenHeight * 0.3)
+                        }
+                    }
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                
+            }
+        }
     }
 }
 
-struct StoryView_Previews: PreviewProvider {
+struct StoryWriteView_Previews: PreviewProvider {
     static var previews: some View {
         StoryView()
     }

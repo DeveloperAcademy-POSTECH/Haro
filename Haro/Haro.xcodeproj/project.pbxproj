@@ -93,8 +93,8 @@
 			children = (
 				C779FB3727FDA7E100671D13 /* MainView.swift */,
 				A8095B3727FD219200B01CD1 /* MapView.swift */,
-				A8095B3B27FD21D200B01CD1 /* StoryView.swift */,
 				A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */,
+				A8095B3B27FD21D200B01CD1 /* StoryView.swift */,
 				A8095B3D27FD21DC00B01CD1 /* CommunityView.swift */,
 				A8095B3F27FD21E900B01CD1 /* CommunityListView.swift */,
 				A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */,
@@ -211,7 +211,6 @@
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
 				A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
-				A8095B3C27FD21D200B01CD1 /* StoryWriteView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
 			);
