@@ -45,7 +45,6 @@ struct MapView: View {
     }
 }
 
-
 struct CreateStoryButton: View {
     var body: some View {
         VStack {
