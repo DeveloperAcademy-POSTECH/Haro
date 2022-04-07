@@ -11,13 +11,14 @@
 		A8095B2727FD1BF000B01CD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8095B2627FD1BF000B01CD1 /* Assets.xcassets */; };
 		A8095B2A27FD1BF100B01CD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8095B2927FD1BF100B01CD1 /* Preview Assets.xcassets */; };
 		A8095B3827FD219200B01CD1 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3727FD219200B01CD1 /* MapView.swift */; };
-		A8095B3A27FD21BA00B01CD1 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3927FD21BA00B01CD1 /* StoryView.swift */; };
-		A8095B3C27FD21D200B01CD1 /* StoryWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3B27FD21D200B01CD1 /* StoryWriteView.swift */; };
+		A8095B3A27FD21BA00B01CD1 /* StoryWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */; };
+		A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3B27FD21D200B01CD1 /* StoryView.swift */; };
 		A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3D27FD21DC00B01CD1 /* CommunityView.swift */; };
 		A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B3F27FD21E900B01CD1 /* CommunityListView.swift */; };
 		A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */; };
 		A8095B4427FD223B00B01CD1 /* CommunityPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */; };
 		A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4527FD224500B01CD1 /* MyPageView.swift */; };
+		A8095B4827FDD64E00B01CD1 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */; };
 		C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3527FDA74600671D13 /* FloatingTabView.swift */; };
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
 		C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F81D27FDCB470062C141 /* MapButtonView.swift */; };
@@ -31,13 +32,14 @@
 		A8095B2927FD1BF100B01CD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A8095B3027FD1C2200B01CD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8095B3727FD219200B01CD1 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		A8095B3927FD21BA00B01CD1 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
-		A8095B3B27FD21D200B01CD1 /* StoryWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryWriteView.swift; sourceTree = "<group>"; };
+		A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryWriteView.swift; sourceTree = "<group>"; };
+		A8095B3B27FD21D200B01CD1 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		A8095B3D27FD21DC00B01CD1 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		A8095B3F27FD21E900B01CD1 /* CommunityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListView.swift; sourceTree = "<group>"; };
 		A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityWriteView.swift; sourceTree = "<group>"; };
 		A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostView.swift; sourceTree = "<group>"; };
 		A8095B4527FD224500B01CD1 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		C779FB3527FDA74600671D13 /* FloatingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabView.swift; sourceTree = "<group>"; };
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C796F81D27FDCB470062C141 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
@@ -95,8 +97,8 @@
 			children = (
 				C779FB3727FDA7E100671D13 /* MainView.swift */,
 				A8095B3727FD219200B01CD1 /* MapView.swift */,
-				A8095B3927FD21BA00B01CD1 /* StoryView.swift */,
-				A8095B3B27FD21D200B01CD1 /* StoryWriteView.swift */,
+				A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */,
+				A8095B3B27FD21D200B01CD1 /* StoryView.swift */,
 				A8095B3D27FD21DC00B01CD1 /* CommunityView.swift */,
 				A8095B3F27FD21E900B01CD1 /* CommunityListView.swift */,
 				A8095B4127FD220800B01CD1 /* CommunityWriteView.swift */,
@@ -109,6 +111,7 @@
 		A8095B3227FD1CB100B01CD1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */,
 				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
 				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
@@ -205,15 +208,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8095B4427FD223B00B01CD1 /* CommunityPostView.swift in Sources */,
-				A8095B3A27FD21BA00B01CD1 /* StoryView.swift in Sources */,
+				A8095B3A27FD21BA00B01CD1 /* StoryWriteView.swift in Sources */,
 				A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */,
+				A8095B4827FDD64E00B01CD1 /* CameraViewModel.swift in Sources */,
 				A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */,
 				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,
 				C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */,
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
+				A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
-				A8095B3C27FD21D200B01CD1 /* StoryWriteView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
 				C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */,
