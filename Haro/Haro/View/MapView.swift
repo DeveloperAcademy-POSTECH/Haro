@@ -20,28 +20,44 @@ struct IdentifiablePlace: Identifiable {
     }
 }
 
+struct PlaceAnnotationView: View {
+    var body: some View {
+        Button{
+            print("StoryView")} label: {
+                Image(systemName: "moon.stars.fill")
+                    .font(.title)
+                    .foregroundColor(.purple)
+            }
+    }
+}
+
+
 struct MapView: View {
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
+   
+    @StateObject var viewModel = MapViewModel()
     
-    @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion (
-        center: CLLocationCoordinate2D (
-            latitude: 36.014279,
-            longitude: 129.325785
-        ),
-        span: MKCoordinateSpan (
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005
-        )
-    )
+    //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var body: some View {
-        ZStack {
-            Map(coordinateRegion: self.$coordinateRegion, annotationItems: [self.place] ) { place in
-                MapPin(coordinate: self.place.location, tint: Color.purple)
+        ZStack(alignment: .top) {
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
+                annotationItems: [place])
+            { place in
+                MapAnnotation(coordinate: place.location) {
+                    PlaceAnnotationView()
+                }
             }
+            LocationButton(.currentLocation) {
+                viewModel.requestAllowOnceLocationPermission()
+            }
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            .labelStyle(.iconOnly)
+            .padding(.leading, 300.0)
             CreateStoryButton()
         }
-        .ignoresSafeArea()
+            .ignoresSafeArea()
     }
 }
 
@@ -78,3 +94,36 @@ struct MapView_Previews: PreviewProvider {
         MapView()
     }
 }
+
+final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    
+    let locationManager = CLLocationManager()
+    
+    override init() {
+        super.init()
+        locationManager.delegate = self
+    }
+    
+    func requestAllowOnceLocationPermission() {
+        locationManager.requestLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
+                         [CLLocation]) {
+        guard let latestLocation = locations.first else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span:
+                                                MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+}
+
