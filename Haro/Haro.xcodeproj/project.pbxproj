@@ -19,6 +19,7 @@
 		A8095B4427FD223B00B01CD1 /* CommunityPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */; };
 		A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4527FD224500B01CD1 /* MyPageView.swift */; };
 		A8095B4827FDD64E00B01CD1 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */; };
+		A8250D6627FEC43C00599605 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8250D6527FEC43C00599605 /* CategoryViewModel.swift */; };
 		C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3527FDA74600671D13 /* FloatingTabView.swift */; };
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostView.swift; sourceTree = "<group>"; };
 		A8095B4527FD224500B01CD1 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		A8250D6527FEC43C00599605 /* CategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		C779FB3527FDA74600671D13 /* FloatingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabView.swift; sourceTree = "<group>"; };
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 		A8095B3227FD1CB100B01CD1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A8250D6527FEC43C00599605 /* CategoryViewModel.swift */,
 				A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */,
 				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
 			);
@@ -210,6 +213,7 @@
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
 				A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */,
+				A8250D6627FEC43C00599605 /* CategoryViewModel.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
@@ -341,11 +345,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
-				DEVELOPMENT_TEAM = Z629PZ4XVL;
+				DEVELOPMENT_TEAM = 78F54XW75V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Haro;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -359,7 +365,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -375,11 +381,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
-				DEVELOPMENT_TEAM = Z629PZ4XVL;
+				DEVELOPMENT_TEAM = 78F54XW75V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Haro;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -393,7 +401,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
