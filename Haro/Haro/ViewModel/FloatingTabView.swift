@@ -38,20 +38,13 @@ struct FloatingTabView: View {
                             .stroke(.gray,lineWidth: 1)
                     )
                 HStack(alignment: .center) {
+                    self.floatingTabButton(imageName: "map", title: "지도", pageIndex: 0)
                     Spacer()
+                    self.floatingTabButton(imageName: "person", title: "커뮤니티", pageIndex: 1)
                     Spacer()
-                    Spacer()
-                    HStack {
-                        self.floatingTabButton(imageName: "map", title: "지도", pageIndex: 0)
-                        Spacer()
-                        self.floatingTabButton(imageName: "person", title: "커뮤니티", pageIndex: 1)
-                        Spacer()
-                        self.floatingTabButton(imageName: "person", title: "마이페이지", pageIndex: 2)
-                    }
-                    Spacer()
-                    Spacer()
-                    Spacer()
+                    self.floatingTabButton(imageName: "person", title: "마이페이지", pageIndex: 2)
                 }
+                .padding(.horizontal, 45)
             }
         }
         .padding([.leading, .trailing], 12)
