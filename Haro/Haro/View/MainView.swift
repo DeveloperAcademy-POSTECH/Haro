@@ -30,7 +30,6 @@ struct MainView: View {
                     .animation(.linear(duration: 0.2))
                 }
             }
-            .zIndex(4.0)
         }
     }
 }
