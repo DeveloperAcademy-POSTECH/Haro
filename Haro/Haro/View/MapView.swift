@@ -39,11 +39,13 @@ struct MapView: View {
             Map(coordinateRegion: self.$coordinateRegion, annotationItems: [self.place] ) { place in
                 MapPin(coordinate: self.place.location, tint: Color.purple)
             }
+            .ignoresSafeArea()
             CreateStoryButton()
+            MapButtonView()
         }
-        .ignoresSafeArea()
     }
 }
+
 
 
 struct CreateStoryButton: View {

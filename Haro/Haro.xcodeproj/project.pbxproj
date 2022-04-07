@@ -20,6 +20,8 @@
 		A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B4527FD224500B01CD1 /* MyPageView.swift */; };
 		C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3527FDA74600671D13 /* FloatingTabView.swift */; };
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
+		C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F81D27FDCB470062C141 /* MapButtonView.swift */; };
+		C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F82127FDD4370062C141 /* SelectCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		A8095B4527FD224500B01CD1 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		C779FB3527FDA74600671D13 /* FloatingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabView.swift; sourceTree = "<group>"; };
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C796F81D27FDCB470062C141 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
+		C796F82127FDD4370062C141 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
+				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
+				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -204,11 +210,13 @@
 				A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */,
 				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,
+				C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */,
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
 				A8095B3C27FD21D200B01CD1 /* StoryWriteView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
+				C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

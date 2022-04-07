@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var currentPageIndex: Int = 0
+    @State private var currentPageIndex: Int = 0
+    @State private var showingCategorySheet: Bool = false
+    
     var body: some View {
         ZStack {
             PageControlView(currentPageIndex: self.currentPageIndex)
-                .ignoresSafeArea()
             FloatingTabView(currentPageIndex: self.$currentPageIndex)
+            SelectCategoryView()
+        }
+        .sheet(isPresented: self.$showingCategorySheet) {
+            
+        } content: {
+            SelectCategoryView()
         }
     }
 }
@@ -36,7 +43,7 @@ struct PageControlView: View {
                             .id(2)
                     }
                     .onChange(of: self.currentPageIndex) { target in
-                        withAnimation{
+                        withAnimation {
                             scrollProxy.scrollTo(target)
                         }
                     }
