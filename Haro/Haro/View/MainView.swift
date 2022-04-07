@@ -9,14 +9,15 @@ import SwiftUI
 
 struct MainView: View {
     @State var currentPageIndex: Int = 0
-    @State var storyOn = true
+    @State var storyOn: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                PageControlView(currentPageIndex: self.currentPageIndex)
-                    .ignoresSafeArea()
-                FloatingTabView(currentPageIndex: self.$currentPageIndex)
+        ZStack {
+            PageControlView(currentPageIndex: self.currentPageIndex, storyOn: self.$storyOn)
+                .ignoresSafeArea()
+            FloatingTabView(currentPageIndex: self.$currentPageIndex)
+            if storyOn {
+                StoryView(storyOn: self.$storyOn)
             }
         }
     }
@@ -24,12 +25,13 @@ struct MainView: View {
 
 struct PageControlView: View {
     var currentPageIndex: Int
+    @Binding var storyOn: Bool
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scrollProxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        MapView()
+                        MapView(storyOn: self.$storyOn)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                             .id(0)
                         CommunityView()
