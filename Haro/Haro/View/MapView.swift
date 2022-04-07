@@ -22,12 +22,29 @@ struct IdentifiablePlace: Identifiable {
 
 struct PlaceAnnotationView: View {
     var body: some View {
-        Button{
-            print("StoryView")} label: {
+        ZStack{
+            NavigationLink {
+                StoryView()
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
+            } label: {
                 Image(systemName: "moon.stars.fill")
                     .font(.title)
                     .foregroundColor(.purple)
             }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+        
+        }
+        
+//        Button{
+//            print("StoryView")
+//
+//        } label: {
+//            Image(systemName: "moon.stars.fill")
+//                .font(.title)
+//                .foregroundColor(.purple)
+//        }
     }
 }
 
@@ -42,9 +59,8 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: [place])
-            { place in
-                MapAnnotation(coordinate: place.location) {
+                annotationItems: [place]) {
+                place in MapAnnotation(coordinate: place.location) {
                     PlaceAnnotationView()
                 }
             }
@@ -57,7 +73,7 @@ struct MapView: View {
             .padding(.leading, 300.0)
             CreateStoryButton()
         }
-            .ignoresSafeArea()
+        .ignoresSafeArea()
     }
 }
 

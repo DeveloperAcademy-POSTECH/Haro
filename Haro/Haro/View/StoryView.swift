@@ -49,7 +49,7 @@ struct StoryView: View {
                     Spacer()
                     
                     Button {
-                        Void()
+                        
                     } label: {
                         Image(systemName: "xmark")
                             .font(.title)

@@ -9,11 +9,15 @@ import SwiftUI
 
 struct MainView: View {
     @State var currentPageIndex: Int = 0
+    @State var storyOn = true
+    
     var body: some View {
-        ZStack {
-            PageControlView(currentPageIndex: self.currentPageIndex)
-                .ignoresSafeArea()
-            FloatingTabView(currentPageIndex: self.$currentPageIndex)
+        NavigationView {
+            ZStack {
+                PageControlView(currentPageIndex: self.currentPageIndex)
+                    .ignoresSafeArea()
+                FloatingTabView(currentPageIndex: self.$currentPageIndex)
+            }
         }
     }
 }
