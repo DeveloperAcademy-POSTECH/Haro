@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct MapButtonView: View {
-    
+    @Binding var showingCategoryView: Bool
     
     var body: some View {
         HStack{
             Spacer()
             VStack {
                 MapButton(name: "square.grid.3x2") {
-                    print("Category Button")
+                    self.showingCategoryView.toggle()
                 }
                 MapButton(name: "arkit") {
                     print("ARKit")
@@ -59,8 +59,8 @@ struct MapButton: View {
     }
 }
 
-struct MapButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapButtonView()
-    }
-}
+//struct MapButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapButtonView()
+//    }
+//}

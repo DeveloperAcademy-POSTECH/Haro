@@ -12,57 +12,39 @@ struct SelectCategoryView: View {
     @State var imageName: String = "location"
     
     let firstCategory = ["추천장소", "가게소식", "행사축제", "사건사고"]
+    let screenSize = UIScreen.main.bounds.size
     
     init() {
         UITableView.appearance().backgroundColor = .clear
     }
     
     var body: some View {
-        VStack {
-            Spacer()
-            ZStack {
-                RoundedRectangle(cornerRadius: 25, style: .continuous)
-                    .fill(.white)
-                    .shadow(color: .gray, radius: 2, x: 0, y: -1)
-                NavigationView {
-                    Form {
-                        ForEach(0..<self.firstCategory.count) { index in
-                            Button{
-                                print("index")
-                            } label: {
-                                Text("\(self.firstCategory[index])")
-                                    .foregroundColor(.black)
-                            }
-                        }
-                        .navigationTitle("보고싶은 소식 선택")
-                        .navigationBarTitleDisplayMode(.large)
+        ZStack {
+            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                .fill(.white)
+                .shadow(color: .gray.opacity(0.5), radius: 2, x: 0, y: -2)
+            VStack(alignment: .leading) {
+                Text("받고싶은 소식 선택")
+                    .font(.system(size: 18, weight: .bold, design: .default))
+                    .padding([.top])
+                ForEach(0..<self.firstCategory.count) { index in
+                    Button(self.firstCategory[index]){
+                        
                     }
-                    .background(.white)
-                }
-                .padding(.top, 30)
-                
-            }
-            LocationButton() {
-                self.imageName = (self.imageName == "location") ? "location.fill" : "location"
-                print("LocationButton")
-            }
-            .labelStyle(.iconOnly)
-            .overlay {
-                ZStack {
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    
+                    .foregroundColor(.black)
+                    .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
+                    .padding([.top, .bottom], 5)
+                    .padding(.leading, 15)
                     Rectangle()
-                        .fill(.blue)
-                        .cornerRadius(9)
-                    Image(systemName: self.imageName)
-                        .foregroundColor(.black)
+                        .fill(.gray.opacity(0.6))
+                        .frame(width: self.screenSize.width * 0.85, height: 1)
                 }
-                .frame(width: 60, height: 60)
-
+                Spacer()
             }
         }
-    }
-    
-    func changeColor() {
-        
+        .frame(height: self.screenSize.height * 0.45)
     }
 }
 

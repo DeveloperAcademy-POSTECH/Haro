@@ -35,6 +35,7 @@ struct PlaceAnnotationView: View {
 struct MapView: View {
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
    
+    @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
     
     //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
@@ -48,7 +49,6 @@ struct MapView: View {
                     PlaceAnnotationView()
                 }
             }
-            .ignoresSafeArea()
             LocationButton(.currentLocation) {
                 viewModel.requestAllowOnceLocationPermission()
             }
@@ -57,7 +57,7 @@ struct MapView: View {
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
             CreateStoryButton()
-            MapButtonView()
+            MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
     }
 }
@@ -89,11 +89,11 @@ struct CreateStoryButton: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
+//struct MapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapView()
+//    }
+//}
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     

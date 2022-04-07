@@ -16,7 +16,6 @@ struct FloatingTabView: View {
         return Button {
             withAnimation {
                 self.currentPageIndex = pageIndex
-                print("Change Scroll Proxy")
             }
         } label: {
             let isSelected = (self.currentPageIndex == pageIndex)

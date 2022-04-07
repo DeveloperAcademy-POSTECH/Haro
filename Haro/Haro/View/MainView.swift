@@ -9,30 +9,43 @@ import SwiftUI
 
 struct MainView: View {
     @State private var currentPageIndex: Int = 0
-    @State private var showingCategorySheet: Bool = false
+    @State private var showingCategoryView: Bool = false
+    
+    let screenSize = UIScreen.main.bounds.size
     
     var body: some View {
         ZStack {
-            PageControlView(currentPageIndex: self.currentPageIndex)
+            PageControlView(currentPageIndex: self.currentPageIndex,
+                            showingCategoryView: self.$showingCategoryView)
+            .ignoresSafeArea()
             FloatingTabView(currentPageIndex: self.$currentPageIndex)
-            SelectCategoryView()
-        }
-        .sheet(isPresented: self.$showingCategorySheet) {
-            
-        } content: {
-            SelectCategoryView()
+            ZStack {
+                if self.showingCategoryView {
+                    VStack{
+                        Spacer()
+                        SelectCategoryView()
+                    }
+                    .ignoresSafeArea()
+                    .transition(.move(edge: .bottom))
+                    .animation(.linear(duration: 0.2))
+                }
+            }
+            .zIndex(4.0)
         }
     }
 }
 
 struct PageControlView: View {
     var currentPageIndex: Int
+    @State var scrollAxis: Axis.Set = .horizontal
+    @Binding var showingCategoryView: Bool
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scrollProxy in
-                ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(self.scrollAxis, showsIndicators: false) {
                     HStack {
-                        MapView()
+                        MapView(showingCategoryView: self.$showingCategoryView)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                             .id(0)
                         CommunityView()
