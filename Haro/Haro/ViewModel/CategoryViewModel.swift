@@ -6,31 +6,26 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CategoryViewModel: ObservableObject {
-    @Published var selectedCategory = MainCategory.meeting
-    
-    enum MainCategory: CaseIterable {
-        case meeting, place, news, event, accident
-        
-        var title: String {
-            switch self {
-            case .meeting: return "소모임"
-            case .place: return "장소"
-            case .news: return "소식"
-            case .event: return "이벤트"
-            case .accident: return "사건사고"
-            }
-        }
-        
-        var contents: [String] {
-            switch self {
-            case .meeting: return ["전체", "인문 교양", "체육", "악기 연주"]
-            case .place: return ["카페 / 식당", "문화생활", "옷가게", "산책로 / 공원", "마트"]
-            case .news: return ["신장개업", "가게공지", "할인행사", "기타"]
-            case .event: return ["행사", "축제", "귀여운 동물 출몰", "기타"]
-            case .accident: return ["교통 상황", "범죄 / 화제", "공사중", "기타"]
-            }
-        }
+    @Published var selectedMainCategory = CommunityMainCategory.meeting
+    var mainCategories: [CommunityMainCategory] {
+        return CommunityMainCategory.allCases
+    }
+    var categories: [CommunityCategory] {
+        return CommunityCategory.inside(of: self.selectedMainCategory)
+    }
+    var colors: [Color] {
+        return [
+            Color.init(red: 234/255, green: 246/255, blue: 146/255),
+            Color.init(red: 196/255, green: 197/255, blue: 251/255),
+            Color.init(red: 164/255, green: 225/255, blue: 250/255),
+            Color.init(red: 255/255, green: 214/255, blue: 120/255),
+            Color.init(red: 136/255, green: 156/255, blue: 242/255),
+            Color.init(red: 254/255, green: 156/255, blue: 119/256),
+            Color.green
+        ]
     }
 }
+

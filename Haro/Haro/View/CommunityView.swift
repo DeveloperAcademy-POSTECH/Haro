@@ -10,27 +10,27 @@ import SwiftUI
 struct CommunityView: View {
     var body: some View {
         VStack {
-            HStack {
-                Text("커뮤니티")
-                    .font(.title)
-                    .fontWeight(.bold)
-                Spacer()
-                Image
-                    .init(systemName: "magnifyingglass")
-                    .scaledToFit()
-                    .frame(width: 25.5, height: 25.5)
+            ScrollView {
+                HStack {
+                    Text("커뮤니티")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Spacer()
+                    Image
+                        .init(systemName: "magnifyingglass")
+                        .scaledToFit()
+                        .frame(width: 25.5, height: 25.5)
+                }
+                .padding(.all)
+                
+                Rectangle()
+                    .foregroundColor(.gray)
+                    .cornerRadius(20)
+                    .padding(.horizontal)
+                    .aspectRatio(350/200, contentMode: .fit)
+                
+                CategoryView().padding(.horizontal)
             }
-            .padding(.all)
-            
-            Rectangle()
-                .foregroundColor(.gray)
-                .cornerRadius(20)
-                .padding(.horizontal)
-                .aspectRatio(350/200, contentMode: .fit)
-            
-            CategoryView().padding(.horizontal)
-            
-            Spacer()
         }
     }
 }
@@ -41,11 +41,18 @@ struct CategoryView: View {
     var body: some View {
         VStack {
             HStack {
-                ForEach(CategoryViewModel.MainCategory.allCases, id: \.self) { category in
+                ForEach(viewModel.mainCategories, id: \.self) { category in
                     Button {
-                        self.viewModel.selectedCategory = category
+                        switch category {
+                        case .meeting:
+                            viewModel.selectedMainCategory = .meeting
+                        case .place: viewModel.selectedMainCategory = .place
+                        case .news: viewModel.selectedMainCategory = .news
+                        case .event: viewModel.selectedMainCategory = .event
+                        case .accident: viewModel.selectedMainCategory = .accident
+                        }
                     } label: {
-                        if viewModel.selectedCategory == category {
+                        if viewModel.selectedMainCategory == category {
                             Text(category.title)
                                 .foregroundColor(.black)
                         } else {
@@ -55,25 +62,27 @@ struct CategoryView: View {
                     }
                     .padding(.horizontal, 5)
                     .padding(.vertical, 5)
-                    if category != CategoryViewModel.MainCategory.allCases.last! {
+                    if category != viewModel.mainCategories.last! {
                         Spacer()
                     }
                 }
             }
             
-            ForEach(viewModel.selectedCategory.contents, id: \.self) { content in
+            ForEach(0..<viewModel.categories.count, id: \.self) { number in
                 Button {
                     Void()
                 } label: {
                     HStack {
-                        Text(content)
+                        Text(viewModel.categories[number].text)
                             .padding()
                         Spacer()
                     }
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.yellow)
+                .tint(viewModel.colors[number])
             }
+            Spacer()
+                .frame(height: 120)
         }
     }
 }
