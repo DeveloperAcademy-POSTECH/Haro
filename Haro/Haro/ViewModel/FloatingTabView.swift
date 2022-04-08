@@ -21,7 +21,6 @@ struct FloatingTabView: View {
             let isSelected = (self.currentPageIndex == pageIndex)
             FloatingTabButtonView(imageName: imageName, title: title, isSelected: isSelected)
         }
-        
     }
     
     var body: some View {
@@ -47,6 +46,7 @@ struct FloatingTabView: View {
             }
         }
         .padding([.leading, .trailing], 12)
+        .padding(.bottom, 10)
     }
 }
 

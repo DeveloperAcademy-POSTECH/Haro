@@ -14,7 +14,7 @@ struct SelectCategoryView: View {
     @State var selectedSecondCategory: String = ""
     @State var navigationLinkIsActive: Bool = false
     
-    let firstCategory = ["추천장소", "가게소식", "행사축제", "사건사고"]
+    
     let screenSize = UIScreen.main.bounds.size
     
     init() {
@@ -26,13 +26,11 @@ struct SelectCategoryView: View {
             return AnyView(
                 Text("받고싶은 소식 선택")
                     .font(.system(size: 18, weight: .bold, design: .default))
-                    .padding([.top])
-                    .frame(width: self.screenSize.width * 0.85, alignment: .leading)
             )
         } else {
             return AnyView(
                 Button {
-                    
+                    self.selectedFirstCategory = ""
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -42,8 +40,7 @@ struct SelectCategoryView: View {
                     }
                 }
                     .foregroundColor(.black)
-                    .padding([.top])
-                    .frame(width: self.screenSize.width * 0.85, alignment: .leading)
+                
             )
         }
     }
@@ -55,56 +52,98 @@ struct SelectCategoryView: View {
                 .shadow(color: .gray.opacity(0.5), radius: 2, x: 0, y: -2)
             VStack(alignment: .center) {
                 self.navigationTitleView(selectedFirstCategory: self.selectedFirstCategory)
-                NavigationView {
-                    VStack {
-                        Rectangle()
-                            .frame(height: 0)
-                        ForEach(0..<self.firstCategory.count) { index in
-                            NavigationLink(isActive: self.$navigationLinkIsActive) {
-                                SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
-                                    .onAppear {
-                                        self.selectedFirstCategory = self.firstCategory[index]
-                                    }
-                            } label: {
-                                Text(self.firstCategory[index])
-                                    .font(.system(size: 16, weight: .regular, design: .default))
-                                    .foregroundColor(.black)
-                                    .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
-                                    .padding(.leading, 15)
-                            }
-                            .onAppear {
-                                self.selectedFirstCategory = ""
-                            }
-                            .padding(.bottom, 5)
-                            .padding(.top, 5)
-                            Rectangle()
-                                .fill(.gray.opacity(0.6))
-                                .frame(width: self.screenSize.width * 0.85, height: 1)
-                        }
-                        .frame(width: self.screenSize.width)
-                        Spacer()
-                    }
-                    .navigationBarHidden(true)
-//                    .toolbar {
-//                        ToolbarItem(placement: .principal) {
-//                            Text("받고싶은 소식 선택").font(.headline)
-//                                .font(.system(size: 18, weight: .bold, design: .default))
-//                                .padding([.top])
-//                                .frame(width: self.screenSize.width * 0.85, alignment: .leading)
-//                        }
-//                    }
+                    .padding([.top], 35)
+                    .frame(width: self.screenSize.width * 0.85, alignment: .leading)
+                if self.selectedFirstCategory == "" {
+                    SelectFirstCategoryView(selectedFirstCategory: self.$selectedFirstCategory)
+                } else {
+                    SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous) )
-                Spacer()
+                //                NavigationView {
+                //                    VStack {
+                //                        Rectangle()
+                //                            .frame(height: 0)
+                //                        ForEach(0..<self.firstCategory.count) { index in
+                //                            NavigationLink(isActive: self.$navigationLinkIsActive) {
+                //                                SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
+                //                                    .onAppear {
+                //                                        self.selectedFirstCategory = self.firstCategory[index]
+                //                                    }
+                //                            } label: {
+                //                                Text(self.firstCategory[index])
+                //                                    .font(.system(size: 16, weight: .regular, design: .default))
+                //                                    .foregroundColor(.black)
+                //                                    .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
+                //                                    .padding(.leading, 15)
+                //                            }
+                //                            .onAppear {
+                //                                self.selectedFirstCategory = ""
+                //                            }
+                //                            .padding(.bottom, 5)
+                //                            .padding(.top, 5)
+                //                            Rectangle()
+                //                                .fill(.gray.opacity(0.6))
+                //                                .frame(width: self.screenSize.width * 0.85, height: 1)
+                //                        }
+                //                        .frame(width: self.screenSize.width)
+                //                        Spacer()
+                //                    }
+                //                    .navigationBarHidden(true)
+                //                    .toolbar {
+                //                        ToolbarItem(placement: .principal) {
+                //                            Text("받고싶은 소식 선택").font(.headline)
+                //                                .font(.system(size: 18, weight: .bold, design: .default))
+                //                                .padding([.top])
+                //                                .frame(width: self.screenSize.width * 0.85, alignment: .leading)
+                //                        }
+                //                    }
+                //                }
+                //                .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous) )
                 
+                Rectangle()
+                    .fill(.white)
             }
         }
         .frame(height: self.screenSize.height * 0.45)
     }
 }
 
+struct SelectFirstCategoryView: View {
+    
+    let screenSize = UIScreen.main.bounds.size
+    let firstCategory = ["추천장소", "가게소식", "행사축제", "사건사고"]
+    @Binding var selectedFirstCategory: String
+    
+    var body: some View {
+        VStack {
+            Rectangle()
+                .frame(height: 0)
+            ForEach(0..<self.firstCategory.count) { index in
+                Button {
+                    self.selectedFirstCategory = self.firstCategory[index]
+                } label: {
+                    Text(self.firstCategory[index])
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.black)
+                        .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
+                        .padding(.leading, 15)
+                }
+                .padding(.bottom, 5)
+                .padding(.top, 5)
+                Rectangle()
+                    .fill(.gray.opacity(0.6))
+                    .frame(width: self.screenSize.width * 0.85, height: 1)
+            }
+            .frame(width: self.screenSize.width)
+            Spacer()
+        }
+    }
+}
+
 struct SelectSecondCategoryView: View {
-    var selectedFirstCategory: String
+    @State var currentIndex = 0
+    
+    let selectedFirstCategory: String
     let secondCategory = ["카페", "문화생활", "마트", "공공시설", "옷가게", "식당", "산책로", "공원", "기타"]
     
     var body: some View {
@@ -116,7 +155,7 @@ struct SelectSecondCategoryView: View {
             }
         }
         //        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
+//        .navigationBarBackButtonHidden(true)
         //        .toolbar {
         //            ToolbarItem(placement: .principal) {
         //                Text(self.selectedFirstCategory)

@@ -40,28 +40,36 @@ struct PageControlView: View {
     @Binding var showingCategoryView: Bool
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollViewReader { scrollProxy in
-                ScrollView(self.scrollAxis, showsIndicators: false) {
-                    HStack {
-                        MapView(showingCategoryView: self.$showingCategoryView)
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(0)
-                        CommunityView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(1)
-                        MyPageView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(2)
-                    }
-                    .onChange(of: self.currentPageIndex) { target in
-                        withAnimation {
-                            scrollProxy.scrollTo(target)
-                        }
-                    }
-                }
-            }
+        if self.currentPageIndex == 0 {
+            MapView(showingCategoryView: self.$showingCategoryView)
+        } else if self.currentPageIndex == 1 {
+            CommunityView()
+        } else {
+            MyPageView()
         }
+        
+//        GeometryReader { geometry in
+//            ScrollViewReader { scrollProxy in
+//                ScrollView(self.scrollAxis, showsIndicators: false) {
+//                    HStack {
+//                        MapView(showingCategoryView: self.$showingCategoryView)
+//                            .frame(width: geometry.size.width, height: geometry.size.height)
+//                            .id(0)
+//                        CommunityView()
+//                            .frame(width: geometry.size.width, height: geometry.size.height)
+//                            .id(1)
+//                        MyPageView()
+//                            .frame(width: geometry.size.width, height: geometry.size.height)
+//                            .id(2)
+//                    }
+//                    .onChange(of: self.currentPageIndex) { target in
+//                        withAnimation {
+//                            scrollProxy.scrollTo(target)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
 
