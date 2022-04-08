@@ -10,7 +10,7 @@ import CoreLocationUI
 
 struct SelectCategoryView: View {
     @State var imageName: String = "location"
-    @State var selectedFirstCategory: String = ""
+    @State var selectedFirstCategory: String = "추천장소"
     @State var selectedSecondCategory: String = ""
     @State var navigationLinkIsActive: Bool = false
     
@@ -56,8 +56,10 @@ struct SelectCategoryView: View {
                     .frame(width: self.screenSize.width * 0.85, alignment: .leading)
                 if self.selectedFirstCategory == "" {
                     SelectFirstCategoryView(selectedFirstCategory: self.$selectedFirstCategory)
+                        .frame(width: self.screenSize.width * 0.85)
                 } else {
                     SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
+                        .frame(width: self.screenSize.width * 0.85)
                 }
                 //                NavigationView {
                 //                    VStack {
@@ -144,13 +146,37 @@ struct SelectSecondCategoryView: View {
     @State var currentIndex = 0
     
     let selectedFirstCategory: String
-    let secondCategory = ["카페", "문화생활", "마트", "공공시설", "옷가게", "식당", "산책로", "공원", "기타"]
+    let secondCategory = ["카페", "문화생활", "마트", "공공시설", "옷가게", "식당", "산책로", "공원", "기타"] // count 9
     
     var body: some View {
-        VStack {
-            ForEach(0..<self.secondCategory.count) { index in
-                if self.selectedFirstCategory == "추천장소" {
-                    CategoryButton(title: self.secondCategory[index])
+        VStack(alignment: .leading) {
+            HStack{
+                ForEach(0..<4) { index in
+                    if self.selectedFirstCategory == "추천장소" {
+                        if index < self.secondCategory.count {
+                            CategoryButton(title: self.secondCategory[index])
+                        }
+                    }
+                }
+            }
+            HStack {
+                ForEach(4..<8) { index in
+                    if self.selectedFirstCategory == "추천장소" {
+                        
+                        if index < self.secondCategory.count {
+                            CategoryButton(title: self.secondCategory[index])
+                            
+                        }
+                    }
+                }
+            }
+            HStack{
+                ForEach(8..<12) { index in
+                    if self.selectedFirstCategory == "추천장소" {
+                        if index < self.secondCategory.count {
+                            CategoryButton(title: self.secondCategory[index])
+                        }
+                    }
                 }
             }
         }
@@ -183,24 +209,27 @@ struct SelectSecondCategoryView: View {
 
 struct CategoryButton: View {
     let title: String
+    @State var isSelected: Bool = true
     
     var body: some View {
         Button {
-            
+            self.isSelected.toggle()
         } label: {
             ZStack {
                 
                 Text(self.title)
                     .font(.system(size: 14, weight: .regular, design: .default))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .foregroundColor(.black)
                     .padding([.leading, .trailing], 15)
                     .padding([.top, .bottom], 7)
                     .background {
                         Capsule(style: .continuous)
-                            .fill(Color(.sRGB, white: 0.8, opacity: 1))
+                            .fill(self.isSelected ? Color.blue.opacity(0.6) : Color(.sRGB, white: 0.8, opacity: 1))
                             .overlay(
                                 Capsule(style: .continuous)
-                                    .stroke(.gray, lineWidth: 1)
+                                    .stroke(self.isSelected ? Color.blue.opacity(0.6) : .gray, lineWidth: 1)
                             )
                     }
                 

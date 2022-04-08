@@ -50,10 +50,12 @@ struct PageControlView: View {
         if self.currentPageIndex == 0 {
             MapView(storyOn: self.$storyOn,
                     showingCategoryView: self.$showingCategoryView)
+//            .transition(.move(edge: .leading))
         } else if self.currentPageIndex == 1 {
             CommunityView()
         } else {
             MyPageView()
+//                .transition(.move(edge: .trailing))
         }
         
         //        GeometryReader { geometry in

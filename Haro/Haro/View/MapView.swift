@@ -71,11 +71,11 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
-            .ignoresSafeArea()
-            
+
             CreateStoryButton()
             MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
+        .ignoresSafeArea()
     }
 }
 

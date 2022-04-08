@@ -14,9 +14,9 @@ struct FloatingTabView: View {
     
     func floatingTabButton(imageName: String, title: String, pageIndex: Int) -> some View{
         return Button {
-            withAnimation {
+//            withAnimation {
                 self.currentPageIndex = pageIndex
-            }
+//            }
         } label: {
             let isSelected = (self.currentPageIndex == pageIndex)
             FloatingTabButtonView(imageName: imageName, title: title, isSelected: isSelected)
