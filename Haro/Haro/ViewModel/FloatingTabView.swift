@@ -42,7 +42,7 @@ struct FloatingTabView: View {
                     Spacer()
                     self.floatingTabButton(imageName: "person", title: "마이페이지", pageIndex: 2)
                 }
-                .padding(.horizontal, 45)
+                .padding(.horizontal, 40)
             }
         }
         .padding([.leading, .trailing], 12)
