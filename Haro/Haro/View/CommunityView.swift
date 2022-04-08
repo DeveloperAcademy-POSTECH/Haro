@@ -9,29 +9,34 @@ import SwiftUI
 
 struct CommunityView: View {
     var body: some View {
-        VStack {
-            ScrollView {
-                HStack {
-                    Text("커뮤니티")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Spacer()
-                    Image
-                        .init(systemName: "magnifyingglass")
-                        .scaledToFit()
-                        .frame(width: 25.5, height: 25.5)
+        NavigationView {
+            VStack {
+                ScrollView {
+                    HStack {
+                        Text("커뮤니티")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Spacer()
+                        Image
+                            .init(systemName: "magnifyingglass")
+                            .scaledToFit()
+                            .frame(width: 25.5, height: 25.5)
+                    }
+                    .padding(.all)
+                    
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                        .aspectRatio(350/200, contentMode: .fit)
+                    
+                    CategoryView().padding(.horizontal)
                 }
-                .padding(.all)
-                
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .cornerRadius(20)
-                    .padding(.horizontal)
-                    .aspectRatio(350/200, contentMode: .fit)
-                
-                CategoryView().padding(.horizontal)
             }
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
+        .accentColor(.black)
     }
 }
 
@@ -69,8 +74,8 @@ struct CategoryView: View {
             }
             
             ForEach(0..<viewModel.categories.count, id: \.self) { number in
-                Button {
-                    Void()
+                NavigationLink {
+                    CommunityListView(title: viewModel.categories[number].text)
                 } label: {
                     HStack {
                         Text(viewModel.categories[number].text)

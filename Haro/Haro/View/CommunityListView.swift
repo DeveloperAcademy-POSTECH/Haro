@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct CommunityListView: View {
+    let title: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("text")
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(title)
+        .toolbar {
+            Image
+                .init(systemName: "magnifyingglass")
+                .scaledToFit()
+                .frame(width: 25.5, height: 25.5)
+        }
     }
 }
 
 struct CommunityListView_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityListView()
+        CommunityListView(title: "귀여운 동물 출몰")
     }
 }
