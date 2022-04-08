@@ -63,11 +63,13 @@ struct MapView: View {
 
 
 struct CreateStoryButton: View {
+    @State private var showStoryWriteView = false
+    
     var body: some View {
         VStack {
             Spacer()
             Button {
-                print("아무일도 일어나지 않습니다.")
+                self.showStoryWriteView = true
             } label: {
                 ZStack {
                     Capsule()
@@ -85,6 +87,9 @@ struct CreateStoryButton: View {
             
             Spacer()
                 .frame(height: 130)
+        }
+        .sheet(isPresented: self.$showStoryWriteView) {
+            StoryWriteView(showModal: $showStoryWriteView)
         }
     }
 }

@@ -9,13 +9,16 @@ import SwiftUI
 import AVFoundation
 
 struct StoryWriteView: View {
+    @Binding var showModal: Bool
+    
     var body: some View {
-        CameraView()
+        CameraView(showModal: $showModal)
     }
 }
  
 struct CameraView: View {
     @ObservedObject var camera = CameraViewModel()
+    @Binding var showModal: Bool
     
     var body: some View {
         ZStack {
@@ -23,21 +26,27 @@ struct CameraView: View {
                 .ignoresSafeArea(.all, edges: .all)
             
             VStack {
-                if camera.isTaken {
-                    HStack{
-                        Spacer()
-                        Button {
-                            camera.reTake()
-                        } label: {
-                            Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                .foregroundColor(.black)
-                                .padding()
-                                .background(.white)
-                                .clipShape(Circle())
-                        }
-                        .padding(.trailing)
+                HStack {
+                    Button {
+                        self.showModal.toggle()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
                     }
+                    Spacer()
+                    Button {
+                        camera.reTake()
+                    } label: {
+                        Image(systemName: "arrow.triangle.2.circlepath.camera")
+                            .foregroundColor(.black)
+                            .padding()
+                            .background(.white)
+                            .clipShape(Circle())
+                    }
+                    .opacity(camera.isTaken ? 1 : 0)
                 }
+                .padding([.leading, .trailing, .top])
                 Spacer()
                 HStack {
                     if camera.isTaken {
@@ -46,17 +55,30 @@ struct CameraView: View {
                                 camera.savePic()
                             }
                         } label: {
-                            Text(camera.isSaved ? "Saved" : "Save" )
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
+                            Image(systemName: camera.isSaved ? "square.and.arrow.down.fill" : "square.and.arrow.down" )
+                                .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 20)
-                                .background(.white)
+                                .background(.gray)
                                 .clipShape(Capsule())
                         }
-                        .padding(.leading)
 
                         Spacer()
+                        
+                        Button {
+                            self.showModal.toggle()
+                        } label: {
+                            HStack {
+                                Image(systemName: "map")
+                                    .foregroundColor(.white)
+                                Text("업로드")
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .background(.gray)
+                            .clipShape(Capsule())
+                        }
                     } else {
                         Button {
                             camera.takePic()
@@ -74,6 +96,7 @@ struct CameraView: View {
                     }
                 }
                 .frame(height: 75)
+                .padding([.leading, .trailing])
             }
         }
         .onAppear {
