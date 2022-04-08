@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct StoryView: View {
+    @Binding var storyOn: Bool
+    
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
     @State var isLike = false
@@ -49,13 +51,17 @@ struct StoryView: View {
                     Spacer()
                     
                     Button {
-                        Void()
+                        withAnimation{
+                            self.storyOn.toggle()
+                        }
                     } label: {
                         Image(systemName: "xmark")
                             .font(.title)
                             .foregroundColor(.white)
                     }
                     .padding(.trailing)
+
+
                 }
                 
                 Spacer()
@@ -136,8 +142,8 @@ struct StoryView: View {
     }
 }
 
-struct StoryWriteView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoryView()
-    }
-}
+//struct StoryWriteView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StoryView()
+//    }
+//}

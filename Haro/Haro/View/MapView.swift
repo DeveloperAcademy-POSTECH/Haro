@@ -21,32 +21,47 @@ struct IdentifiablePlace: Identifiable {
 }
 
 struct PlaceAnnotationView: View {
+    @Binding var stroyOn: Bool
     var body: some View {
+//        NavigationLink {
+//            StoryView()
+//                .navigationBarHidden(true)
+//                .navigationBarBackButtonHidden(true)
+//        } label: {
+//            Image(systemName: "moon.stars.fill")
+//                .font(.title)
+//                .foregroundColor(.purple)
+//        }
+//        .navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
+        
         Button{
-            print("StoryView")} label: {
-                Image(systemName: "moon.stars.fill")
-                    .font(.title)
-                    .foregroundColor(.purple)
+            withAnimation (.easeInOut(duration: 0.5)) {
+                stroyOn.toggle()
             }
+
+        } label: {
+            Image(systemName: "moon.stars.fill")
+                .font(.title)
+                .foregroundColor(.purple)
+        }
     }
 }
 
 
 struct MapView: View {
+    @Binding var storyOn: Bool
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
    
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
     
-    //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
     var body: some View {
         ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: [place])
-            { place in
-                MapAnnotation(coordinate: place.location) {
-                    PlaceAnnotationView()
+                annotationItems: [place]) {
+                place in MapAnnotation(coordinate: place.location) {
+                    PlaceAnnotationView(stroyOn: self.$storyOn)
                 }
             }
             LocationButton(.currentLocation) {
@@ -56,6 +71,8 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
+            .ignoresSafeArea()
+            
             CreateStoryButton()
             MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
@@ -63,11 +80,13 @@ struct MapView: View {
 }
 
 struct CreateStoryButton: View {
+    @State private var showStoryWriteView = false
+    
     var body: some View {
         VStack {
             Spacer()
             Button {
-                print("아무일도 일어나지 않습니다.")
+                self.showStoryWriteView = true
             } label: {
                 ZStack {
                     Capsule()
@@ -85,6 +104,9 @@ struct CreateStoryButton: View {
             
             Spacer()
                 .frame(height: 130)
+        }
+        .sheet(isPresented: self.$showStoryWriteView) {
+            StoryWriteView(showModal: $showStoryWriteView)
         }
     }
 }
