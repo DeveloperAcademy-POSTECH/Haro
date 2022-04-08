@@ -21,18 +21,36 @@ struct IdentifiablePlace: Identifiable {
 }
 
 struct PlaceAnnotationView: View {
+    @Binding var stroyOn: Bool
     var body: some View {
+//        NavigationLink {
+//            StoryView()
+//                .navigationBarHidden(true)
+//                .navigationBarBackButtonHidden(true)
+//        } label: {
+//            Image(systemName: "moon.stars.fill")
+//                .font(.title)
+//                .foregroundColor(.purple)
+//        }
+//        .navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
+        
         Button{
-            print("StoryView")} label: {
-                Image(systemName: "moon.stars.fill")
-                    .font(.title)
-                    .foregroundColor(.purple)
+            withAnimation (.easeInOut(duration: 0.5)) {
+                stroyOn.toggle()
             }
+
+        } label: {
+            Image(systemName: "moon.stars.fill")
+                .font(.title)
+                .foregroundColor(.purple)
+        }
     }
 }
 
 
 struct MapView: View {
+    @Binding var storyOn: Bool
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
    
     @StateObject var viewModel = MapViewModel()
@@ -42,10 +60,9 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: [place])
-            { place in
-                MapAnnotation(coordinate: place.location) {
-                    PlaceAnnotationView()
+                annotationItems: [place]) {
+                place in MapAnnotation(coordinate: place.location) {
+                    PlaceAnnotationView(stroyOn: self.$storyOn)
                 }
             }
             LocationButton(.currentLocation) {
@@ -57,7 +74,7 @@ struct MapView: View {
             .padding(.leading, 300.0)
             CreateStoryButton()
         }
-            .ignoresSafeArea()
+        .ignoresSafeArea()
     }
 }
 
@@ -94,11 +111,11 @@ struct CreateStoryButton: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
+//struct MapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapView()
+//    }
+//}
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
