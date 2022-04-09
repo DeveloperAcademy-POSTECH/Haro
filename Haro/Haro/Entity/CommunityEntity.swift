@@ -14,10 +14,10 @@ struct CommunityEntity: Codable {
     let text: String
     let photo: String
     let like: Int
-    let comment: [Comment]
+    let comment: [CommentEntity]
 }
 
-struct Comment: Codable {
+struct CommentEntity: Codable {
     let writerName: String
     let writherPhoto: String
     let text: String
