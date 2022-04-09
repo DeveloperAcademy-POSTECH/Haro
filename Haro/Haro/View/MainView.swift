@@ -19,6 +19,10 @@ struct MainView: View {
             PageControlView(currentPageIndex: self.currentPageIndex,
                             showingCategoryView: self.$showingCategoryView,
                             storyOn: self.$storyOn)
+            .onTapGesture {
+                self.showingCategoryView = false
+            }
+            
             FloatingTabView(currentPageIndex: self.$currentPageIndex)
             if storyOn {
                 StoryView(storyOn: self.$storyOn)
