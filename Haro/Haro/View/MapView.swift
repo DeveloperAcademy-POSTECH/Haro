@@ -23,18 +23,6 @@ struct IdentifiablePlace: Identifiable {
 struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
     var body: some View {
-//        NavigationLink {
-//            StoryView()
-//                .navigationBarHidden(true)
-//                .navigationBarBackButtonHidden(true)
-//        } label: {
-//            Image(systemName: "moon.stars.fill")
-//                .font(.title)
-//                .foregroundColor(.purple)
-//        }
-//        .navigationBarHidden(true)
-//        .navigationBarBackButtonHidden(true)
-        
         Button{
             withAnimation (.easeInOut(duration: 0.5)) {
                 stroyOn.toggle()
@@ -53,9 +41,8 @@ struct MapView: View {
     @Binding var storyOn: Bool
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
    
+    @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
-    
-    //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -72,12 +59,13 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
+
             CreateStoryButton()
+            MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
         .ignoresSafeArea()
     }
 }
-
 
 struct CreateStoryButton: View {
     @State private var showStoryWriteView = false

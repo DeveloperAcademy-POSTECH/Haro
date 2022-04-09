@@ -24,6 +24,8 @@
 		A8B3C8C92800632F004D3841 /* CommunityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B3C8C82800632F004D3841 /* CommunityEntity.swift */; };
 		C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3527FDA74600671D13 /* FloatingTabView.swift */; };
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
+		C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F81D27FDCB470062C141 /* MapButtonView.swift */; };
+		C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F82127FDD4370062C141 /* SelectCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		A8B3C8C82800632F004D3841 /* CommunityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityEntity.swift; sourceTree = "<group>"; };
 		C779FB3527FDA74600671D13 /* FloatingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabView.swift; sourceTree = "<group>"; };
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C796F81D27FDCB470062C141 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
+		C796F82127FDD4370062C141 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 				A8250D6527FEC43C00599605 /* CategoryViewModel.swift */,
 				A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */,
 				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
+				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
+				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -227,12 +233,14 @@
 				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,
 				A82ED57827FFE892002926BB /* CommunityCategory.swift in Sources */,
+				C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */,
 				A8095B4627FD224500B01CD1 /* MyPageView.swift in Sources */,
 				A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */,
 				A8250D6627FEC43C00599605 /* CategoryViewModel.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
+				C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +369,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
-				DEVELOPMENT_TEAM = 78F54XW75V;
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
@@ -381,7 +389,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -397,7 +405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Haro/SupportingFiles\"";
-				DEVELOPMENT_TEAM = 78F54XW75V;
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Haro/SupportingFiles/Info.plist;
@@ -417,7 +425,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MVP.Haro.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

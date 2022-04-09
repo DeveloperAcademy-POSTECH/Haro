@@ -8,16 +8,37 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var currentPageIndex: Int = 0
+    @State private var currentPageIndex: Int = 0
     @State var storyOn: Bool = false
+    @State private var showingCategoryView: Bool = false
+    
+    let screenSize = UIScreen.main.bounds.size
     
     var body: some View {
         ZStack {
-            PageControlView(currentPageIndex: self.currentPageIndex, storyOn: self.$storyOn)
-                .ignoresSafeArea()
+            PageControlView(currentPageIndex: self.currentPageIndex,
+                            showingCategoryView: self.$showingCategoryView,
+                            storyOn: self.$storyOn)
+            .onTapGesture {
+                self.showingCategoryView = false
+            }
+            
             FloatingTabView(currentPageIndex: self.$currentPageIndex)
             if storyOn {
                 StoryView(storyOn: self.$storyOn)
+                    .transition(.move(edge: .bottom))
+            }
+            
+            if self.showingCategoryView {
+                ZStack {
+                    VStack{
+                        Spacer()
+                        SelectCategoryView()
+                    }
+                    .ignoresSafeArea()
+                    .transition(.move(edge: .bottom))
+                    .animation(.linear(duration: 0.2))
+                }
             }
         }
     }
@@ -25,30 +46,45 @@ struct MainView: View {
 
 struct PageControlView: View {
     var currentPageIndex: Int
+
+    @State var scrollAxis: Axis.Set = .horizontal
+    @Binding var showingCategoryView: Bool
     @Binding var storyOn: Bool
+    
     var body: some View {
-        GeometryReader { geometry in
-            ScrollViewReader { scrollProxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        MapView(storyOn: self.$storyOn)
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(0)
-                        CommunityView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(1)
-                        MyPageView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .id(2)
-                    }
-                    .onChange(of: self.currentPageIndex) { target in
-                        withAnimation{
-                            scrollProxy.scrollTo(target)
-                        }
-                    }
-                }
-            }
+        if self.currentPageIndex == 0 {
+            MapView(storyOn: self.$storyOn,
+                    showingCategoryView: self.$showingCategoryView)
+//            .transition(.move(edge: .leading))
+        } else if self.currentPageIndex == 1 {
+            CommunityView()
+        } else {
+            MyPageView()
+//                .transition(.move(edge: .trailing))
         }
+        
+        //        GeometryReader { geometry in
+        //            ScrollViewReader { scrollProxy in
+        //                ScrollView(self.scrollAxis, showsIndicators: false) {
+        //                    HStack {
+        //                        MapView(showingCategoryView: self.$showingCategoryView)
+        //                            .frame(width: geometry.size.width, height: geometry.size.height)
+        //                            .id(0)
+        //                        CommunityView()
+        //                            .frame(width: geometry.size.width, height: geometry.size.height)
+        //                            .id(1)
+        //                        MyPageView()
+        //                            .frame(width: geometry.size.width, height: geometry.size.height)
+        //                            .id(2)
+        //                    }
+        //                    .onChange(of: self.currentPageIndex) { target in
+        //                        withAnimation {
+        //                            scrollProxy.scrollTo(target)
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
     }
 }
 
