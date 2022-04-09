@@ -23,18 +23,6 @@ struct IdentifiablePlace: Identifiable {
 struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
     var body: some View {
-//        NavigationLink {
-//            StoryView()
-//                .navigationBarHidden(true)
-//                .navigationBarBackButtonHidden(true)
-//        } label: {
-//            Image(systemName: "moon.stars.fill")
-//                .font(.title)
-//                .foregroundColor(.purple)
-//        }
-//        .navigationBarHidden(true)
-//        .navigationBarBackButtonHidden(true)
-        
         Button{
             withAnimation (.easeInOut(duration: 0.5)) {
                 stroyOn.toggle()

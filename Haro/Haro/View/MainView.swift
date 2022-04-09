@@ -26,6 +26,7 @@ struct MainView: View {
             FloatingTabView(currentPageIndex: self.$currentPageIndex)
             if storyOn {
                 StoryView(storyOn: self.$storyOn)
+                    .transition(.move(edge: .bottom))
             }
             
             if self.showingCategoryView {
