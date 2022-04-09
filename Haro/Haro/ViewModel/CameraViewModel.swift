@@ -51,14 +51,14 @@ class CameraViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
     func takePic() {
         self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
         withAnimation {
-            self.isTaken.toggle()
+            self.isTaken = true
         }
     }
     
     func reTake() {
         self.session.startRunning()
         withAnimation {
-            self.isTaken.toggle()
+            self.isTaken = false
             self.isSaved = false
         }
     }
