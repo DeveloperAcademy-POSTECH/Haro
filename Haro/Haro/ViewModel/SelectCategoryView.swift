@@ -10,10 +10,9 @@ import CoreLocationUI
 
 struct SelectCategoryView: View {
     @State var imageName: String = "location"
-    @State var selectedFirstCategory: String = "추천장소"
-    @State var selectedSecondCategory: String = ""
+    @State var selectedFirstCategory: StoryMainCategory?
+//    @State var selectedSecondCategory: Dictionary<String,Bool>
     @State var navigationLinkIsActive: Bool = false
-    
     
     let screenSize = UIScreen.main.bounds.size
     
@@ -21,8 +20,8 @@ struct SelectCategoryView: View {
         UITableView.appearance().backgroundColor = .clear
     }
     
-    func navigationTitleView(selectedFirstCategory: String) -> some View {
-        if selectedFirstCategory == "" {
+    func navigationTitleView(selectedFirstCategory: StoryMainCategory?) -> some View {
+        if selectedFirstCategory == nil {
             return AnyView(
                 Text("받고싶은 소식 선택")
                     .font(.system(size: 18, weight: .bold, design: .default))
@@ -30,11 +29,11 @@ struct SelectCategoryView: View {
         } else {
             return AnyView(
                 Button {
-                    self.selectedFirstCategory = ""
+                    self.selectedFirstCategory = nil
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
-                        Text(selectedFirstCategory)
+                        Text(selectedFirstCategory?.title ?? "")
                             .font(.system(size: 18, weight: .bold, design: .default))
                         Spacer()
                     }
@@ -54,11 +53,11 @@ struct SelectCategoryView: View {
                 self.navigationTitleView(selectedFirstCategory: self.selectedFirstCategory)
                     .padding([.top], 35)
                     .frame(width: self.screenSize.width * 0.85, alignment: .leading)
-                if self.selectedFirstCategory == "" {
+                if self.selectedFirstCategory == nil {
                     SelectFirstCategoryView(selectedFirstCategory: self.$selectedFirstCategory)
                         .frame(width: self.screenSize.width * 0.85)
                 } else {
-                    SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
+                    SelectSecondCategoryView(secondCategory: StoryCategory.inside(of: self.selectedFirstCategory ?? .place) )
                         .frame(width: self.screenSize.width * 0.85)
                 }
                 //                NavigationView {
@@ -113,18 +112,18 @@ struct SelectCategoryView: View {
 struct SelectFirstCategoryView: View {
     
     let screenSize = UIScreen.main.bounds.size
-    let firstCategory = ["추천장소", "가게소식", "행사축제", "사건사고"]
-    @Binding var selectedFirstCategory: String
+    let firstCategoryList: [StoryMainCategory] = StoryMainCategory.allCases
+    @Binding var selectedFirstCategory: StoryMainCategory?
     
     var body: some View {
         VStack {
             Rectangle()
                 .frame(height: 0)
-            ForEach(0..<self.firstCategory.count) { index in
+            ForEach(0..<self.firstCategoryList.count) { index in
                 Button {
-                    self.selectedFirstCategory = self.firstCategory[index]
+                    self.selectedFirstCategory = self.firstCategoryList[index]
                 } label: {
-                    Text(self.firstCategory[index])
+                    Text(self.firstCategoryList[index].title)
                         .font(.system(size: 16, weight: .regular, design: .default))
                         .foregroundColor(.black)
                         .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
@@ -142,114 +141,100 @@ struct SelectFirstCategoryView: View {
     }
 }
 
-struct SelectSecondCategoryView: View {
-    @State var currentIndex = 0
+struct SelectSecondCategoryView: View, StoryCategoryDelegate {
+    let secondCategory: [StoryCategory]
+    var selectedSecondCategory: Dictionary<String,Bool> = [:]
+    var categoryDelegate: StoryCategoryDelegate?
     
-    let selectedFirstCategory: String
-    let secondCategory = ["카페", "문화생활", "마트", "공공시설", "옷가게", "식당", "산책로", "공원", "기타"] // count 9
+    init(secondCategory: [StoryCategory]) {
+        self.secondCategory = secondCategory
+        
+        let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
+            (raw.rawString, true)
+        }, uniquingKeysWith: {(first, _) in first})
+        
+        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as? Dictionary<String,Bool> ?? userDefaultsDictionary
+        self.categoryDelegate = self
+        print("SelectSecondCategoryView init")
+    }
+    
+    mutating func toggleCategory(category: StoryCategory) {
+        self.selectedSecondCategory[category.rawString]?.toggle()
+        UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
+        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack{
-                ForEach(0..<4) { index in
-                    if self.selectedFirstCategory == "추천장소" {
-                        if index < self.secondCategory.count {
-                            CategoryButton(title: self.secondCategory[index])
-                        }
+            HStack {
+                ForEach(0...3, id: \.self) { i in
+                    if i < self.secondCategory.count {
+                        CategoryButton(category: self.secondCategory[i],
+                                       categoryDelegate: self.categoryDelegate,
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
                     }
                 }
+                Spacer()
             }
             HStack {
-                ForEach(4..<8) { index in
-                    if self.selectedFirstCategory == "추천장소" {
-                        
-                        if index < self.secondCategory.count {
-                            CategoryButton(title: self.secondCategory[index])
-                            
-                        }
+                ForEach(4...7, id: \.self) { i in
+                    if i < self.secondCategory.count {
+                        CategoryButton(category: self.secondCategory[i],
+                                       categoryDelegate: self.categoryDelegate,
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
                     }
                 }
+                Spacer()
             }
             HStack{
-                ForEach(8..<12) { index in
-                    if self.selectedFirstCategory == "추천장소" {
-                        if index < self.secondCategory.count {
-                            CategoryButton(title: self.secondCategory[index])
-                        }
+                ForEach(8...11, id: \.self) { i in
+                    if i < self.secondCategory.count {
+                        CategoryButton(category: self.secondCategory[i],
+                                       categoryDelegate: self.categoryDelegate,
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
                     }
                 }
+                Spacer()
             }
         }
-        //        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-        //        .toolbar {
-        //            ToolbarItem(placement: .principal) {
-        //                Text(self.selectedFirstCategory)
-        //                    .font(.system(size: 18, weight: .bold, design: .default))
-        //                HStack {
-        //                    Text(self.selectedFirstCategory)
-        //                        .font(.system(size: 18, weight: .bold, design: .default))
-        //                    Image(systemName: "chevron.backward")
-        //
-        //                    Spacer()
-        //                }
-        //            }
-        //        }
-        
-        
-        //            .navigationBarHidden(true)
-        //            .onDisappear{
-        //                withAnimation {
-        //                    self.selectedSecondCategory = ""
-        //                }
-        //            }
-        //            .navigationBarHidden(false)
     }
 }
 
 struct CategoryButton: View {
-    let title: String
-    @State var isSelected: Bool = true
+    let category: StoryCategory
+    @State var categoryDelegate: StoryCategoryDelegate?
+    @State var isSelected: Bool
     
     var body: some View {
         Button {
             self.isSelected.toggle()
+            self.categoryDelegate?.toggleCategory(category: self.category)
         } label: {
-            ZStack {
-                
-                Text(self.title)
-                    .font(.system(size: 14, weight: .regular, design: .default))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .foregroundColor(.black)
-                    .padding([.leading, .trailing], 15)
-                    .padding([.top, .bottom], 7)
-                    .background {
-                        Capsule(style: .continuous)
-                            .fill(self.isSelected ? Color.blue.opacity(0.6) : Color(.sRGB, white: 0.8, opacity: 1))
-                            .overlay(
-                                Capsule(style: .continuous)
-                                    .stroke(self.isSelected ? Color.blue.opacity(0.6) : .gray, lineWidth: 1)
-                            )
-                    }
-                
-            }
+            Text(self.category.text)
+                .font(.system(size: 14, weight: .regular, design: .default))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .foregroundColor(.black)
+                .padding([.leading, .trailing], 15)
+                .padding([.top, .bottom], 7)
+                .background {
+                    Capsule(style: .continuous)
+                        .fill(self.isSelected ? Color.blue.opacity(0.6) : Color(.sRGB, white: 0.8, opacity: 1))
+                        .overlay(
+                            Capsule(style: .continuous)
+                                .stroke(self.isSelected ? Color.blue.opacity(0.6) : .gray, lineWidth: 1)
+                        )
+                }
         }
     }
 }
-//                                    Button(self.firstCategory[index]){
-//
-//                                                            }
-//                                                            .font(.system(size: 16, weight: .regular, design: .default))
-//
-//                                                            .foregroundColor(.black)
-//                                                            .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
-//                                                            .padding([.top, .bottom], 5)
-//                                                            .padding(.leading, 15)
+
+protocol StoryCategoryDelegate {
+    mutating func toggleCategory(category: StoryCategory) -> ()
+}
 
 struct SelectCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        //        SelecteSecondCategoryView(selectedFirstCategory: "asdf")
         SelectCategoryView()
     }
 }
