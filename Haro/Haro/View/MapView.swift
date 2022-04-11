@@ -24,7 +24,7 @@ struct IdentifiablePlace: Identifiable {
 struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
     var storyEntity: StoryEntity
-    let imageSize: CGFloat = 60
+    let imageSize: CGFloat = 45
     
     func categoryImage() -> Image {
         let category = self.storyEntity.category
@@ -94,9 +94,13 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
-            
             CreateStoryButton()
-            MapButtonView(showingCategoryView: self.$showingCategoryView)
+            GeometryReader { geometry in
+                MapButtonView(showingCategoryView: self.$showingCategoryView)
+                    .padding(.top, geometry.safeAreaInsets.bottom - 35)
+            }
+            
+            
         }
         .onAppear {
             if let jsonData = self.readJSON() {
