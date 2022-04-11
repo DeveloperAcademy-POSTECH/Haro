@@ -55,8 +55,8 @@ struct SignUpPageView: View {
                     }
                     .padding(.trailing, 20)
                     
-                    CustomSecureField(placeHolder: "비밀번호", text: $viewModel.pwd)
-                        .foregroundColor(viewModel.pwd.isEmpty ||  viewModel.isValidPassword ? Color.init(red: 255/255, green: 180/255, blue: 10/255) : .red)
+                    CustomSecureField(placeHolder: "비밀번호", text: $viewModel.password)
+                        .foregroundColor(viewModel.password.isEmpty ||  viewModel.isValidPassword ? Color.init(red: 255/255, green: 180/255, blue: 10/255) : .red)
                 }
                 .padding(.horizontal, 35)
                 .padding(.vertical, 10)
@@ -71,8 +71,8 @@ struct SignUpPageView: View {
                     }
                     .padding(.trailing, 20)
                     
-                    CustomSecureField(placeHolder: "비밀번호 확인", text: $viewModel.pwdConfirm)
-                        .foregroundColor(viewModel.pwdConfirm.isEmpty ||  viewModel.isValidPasswordConfirm ? Color.init(red: 255/255, green: 180/255, blue: 10/255) : .red)
+                    CustomSecureField(placeHolder: "비밀번호 확인", text: $viewModel.passwordConfirm)
+                        .foregroundColor(viewModel.passwordConfirm.isEmpty ||  viewModel.isValidPasswordConfirm ? Color.init(red: 255/255, green: 180/255, blue: 10/255) : .red)
                 }
                 .padding(.horizontal, 35)
                 .padding(.vertical, 10)

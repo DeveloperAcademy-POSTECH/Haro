@@ -12,7 +12,9 @@ import SwiftUI
 struct LoginPageView: View {
     let screenHeight = UIScreen.main.bounds.size.height
     let screenWidth = UIScreen.main.bounds.size.width
-    @ObservedObject var viewModel = LoginPageViewModel()
+    @State private var showAlert: Bool = false
+    @State private var email: String = ""
+    @State private var password: String = ""
     
     var body: some View {
         NavigationView{
@@ -30,7 +32,7 @@ struct LoginPageView: View {
                     
                     Spacer()
                     
-                    TextField("이메일", text: $viewModel.email)
+                    TextField("이메일", text: $email)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .padding()
@@ -39,7 +41,7 @@ struct LoginPageView: View {
                         .padding(.horizontal, 30)
                         .padding(.vertical, 10)
                     
-                    SecureField("비밀번호", text: $viewModel.pwd)
+                    SecureField("비밀번호", text: $password)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .padding()
@@ -49,11 +51,7 @@ struct LoginPageView: View {
                         .padding(.vertical, 10)
                     
                     Button {
-//                        guard !$viewModel.email.isEmpty, !$viewModel.pwd.isEmpty else {
-//                            return
-//                        }
-//                        print("login")
-                        Void()
+                        self.showAlert = true
                     } label: {
                         Text("로그인")
                             .font(.headline)
@@ -63,6 +61,9 @@ struct LoginPageView: View {
                             .background(Color.init(red: 255/255, green: 180/255, blue: 10/255))
                             .cornerRadius(80)
                             .padding(.top, 30)
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("로그인 실패"), message: Text("가입되지 않은 사용자입니다."), dismissButton: .cancel())
                     }
                     
                     NavigationLink {

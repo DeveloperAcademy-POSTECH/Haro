@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A29B16D72802CAFE00E8B195 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16D62802CAFE00E8B195 /* LoginPageView.swift */; };
-		A29B16D92803BB4900E8B195 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16D82803BB4900E8B195 /* LoginPageViewModel.swift */; };
 		A29B16DB2803BD2B00E8B195 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16DA2803BD2B00E8B195 /* SignUpPageView.swift */; };
 		A29B16DD2803BD4B00E8B195 /* SignUpPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */; };
 		A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B2227FD1BEF00B01CD1 /* HaroApp.swift */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		A29B16D62802CAFE00E8B195 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
-		A29B16D82803BB4900E8B195 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		A29B16DA2803BD2B00E8B195 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
 		A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageViewModel.swift; sourceTree = "<group>"; };
 		A8095B1F27FD1BEF00B01CD1 /* Haro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haro.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +131,6 @@
 				C779FB3527FDA74600671D13 /* FloatingTabView.swift */,
 				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
-				A29B16D82803BB4900E8B195 /* LoginPageViewModel.swift */,
 				A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */,
 			);
 			path = ViewModel;
@@ -241,7 +238,6 @@
 				A8B3C8C92800632F004D3841 /* CommunityEntity.swift in Sources */,
 				A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */,
 				A8095B4827FDD64E00B01CD1 /* CameraViewModel.swift in Sources */,
-				A29B16D92803BB4900E8B195 /* LoginPageViewModel.swift in Sources */,
 				A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */,
 				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,
 				A8095B4027FD21E900B01CD1 /* CommunityListView.swift in Sources */,

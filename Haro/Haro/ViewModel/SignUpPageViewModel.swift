@@ -10,8 +10,8 @@ import SwiftUI
 class SignUpPageViewModel: ObservableObject{
     @Published var nickName = ""
     @Published var email = ""
-    @Published var pwd = ""
-    @Published var pwdConfirm = ""
+    @Published var password = ""
+    @Published var passwordConfirm = ""
     
     var isValidName: Bool {
         let pattern = "^[a-zA-Z0-9]{5,20}$"
@@ -36,7 +36,7 @@ class SignUpPageViewModel: ObservableObject{
     var isValidPassword: Bool {
         let pattern = "^[A-Z, a-z, 0-9, [!@#$%^&*()_+=?<>,.`~;':\"{}|\\]\\[-]]+.{8,16}$"
         let regex = try? NSRegularExpression(pattern: pattern)
-        if let _ = regex?.firstMatch(in: self.pwd, options: [], range: NSRange(location: 0, length: self.pwd.count)) {
+        if let _ = regex?.firstMatch(in: self.password, options: [], range: NSRange(location: 0, length: self.password.count)) {
             return true
         } else {
             return false
@@ -44,7 +44,7 @@ class SignUpPageViewModel: ObservableObject{
     }
     
     var isValidPasswordConfirm: Bool {
-        return pwd == pwdConfirm
+        return password == passwordConfirm
     }
     
     var isSignUpPossible: Bool {
