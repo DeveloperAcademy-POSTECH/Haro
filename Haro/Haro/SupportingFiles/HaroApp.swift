@@ -11,7 +11,7 @@ import SwiftUI
 struct HaroApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            LoginPageView()
         }
     }
 }
