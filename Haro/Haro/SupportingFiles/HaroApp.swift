@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct HaroApp: App {
+    let login = UserDefaults.standard.bool(forKey: "token")
+    
     var body: some Scene {
         WindowGroup {
-            LoginPageView()
+            if login {
+                MainView()
+            } else {
+                LoginPageView()
+            }
         }
     }
 }
