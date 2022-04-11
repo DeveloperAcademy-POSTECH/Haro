@@ -11,7 +11,6 @@ import CoreLocationUI
 struct SelectCategoryView: View {
     @State var imageName: String = "location"
     @State var selectedFirstCategory: StoryMainCategory?
-//    @State var selectedSecondCategory: Dictionary<String,Bool>
     @State var navigationLinkIsActive: Bool = false
     
     let screenSize = UIScreen.main.bounds.size
@@ -149,19 +148,34 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
     init(secondCategory: [StoryCategory]) {
         self.secondCategory = secondCategory
         
+        // 전부 true인 딕셔너리 생성
         let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
             (raw.rawString, true)
         }, uniquingKeysWith: {(first, _) in first})
         
+        // 첫 실행일 경우 UserDefaults 값이 nil일 거니까, 위에서 만든 딕셔너리 저장
         self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as? Dictionary<String,Bool> ?? userDefaultsDictionary
+        print(self.selectedSecondCategory)
         self.categoryDelegate = self
         print("SelectSecondCategoryView init")
     }
     
     mutating func toggleCategory(category: StoryCategory) {
+        // 선택된 카테고리 토글
+//        self.selectedSecondCategory[category.rawString]?.toggle()
+        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
         self.selectedSecondCategory[category.rawString]?.toggle()
         UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
-        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
+        // UserDefaults에 저장
+//        print("\nBefore UserDefaults")
+//        print((UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>).sorted(by: { $0.key > $1.key }))
+//        print(self.selectedSecondCategory.sorted(by: { $0.key > $1.key }))
+//        UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
+        // 지역 변수에도 저장
+//        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
+//        print("\nAfter UserDefaults")
+        print((UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>).sorted(by: { $0.key > $1.key }))
+        print(self.selectedSecondCategory.sorted(by: { $0.key > $1.key }))
     }
     
     var body: some View {
@@ -207,8 +221,8 @@ struct CategoryButton: View {
     
     var body: some View {
         Button {
-            self.isSelected.toggle()
             self.categoryDelegate?.toggleCategory(category: self.category)
+            self.isSelected.toggle()
         } label: {
             Text(self.category.text)
                 .font(.system(size: 14, weight: .regular, design: .default))
