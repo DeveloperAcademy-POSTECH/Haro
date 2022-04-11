@@ -12,12 +12,9 @@ struct SelectCategoryView: View {
     @State var imageName: String = "location"
     @State var selectedFirstCategory: StoryMainCategory?
     @State var navigationLinkIsActive: Bool = false
+    @Binding var showingCategoryView: Bool
     
     let screenSize = UIScreen.main.bounds.size
-    
-    init() {
-        UITableView.appearance().backgroundColor = .clear
-    }
     
     func navigationTitleView(selectedFirstCategory: StoryMainCategory?) -> some View {
         if selectedFirstCategory == nil {
@@ -34,7 +31,7 @@ struct SelectCategoryView: View {
                         Image(systemName: "chevron.backward")
                         Text(selectedFirstCategory?.title ?? "")
                             .font(.system(size: 18, weight: .bold, design: .default))
-                        Spacer()
+                        
                     }
                 }
                     .foregroundColor(.black)
@@ -49,9 +46,20 @@ struct SelectCategoryView: View {
                 .fill(.white)
                 .shadow(color: .gray.opacity(0.5), radius: 2, x: 0, y: -2)
             VStack(alignment: .center) {
-                self.navigationTitleView(selectedFirstCategory: self.selectedFirstCategory)
-                    .padding([.top], 35)
-                    .frame(width: self.screenSize.width * 0.85, alignment: .leading)
+                HStack(spacing: 10) {
+                    self.navigationTitleView(selectedFirstCategory: self.selectedFirstCategory)
+                    Spacer()
+                    Button {
+                        self.showingCategoryView.toggle()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                    }
+                }
+                .padding([.top], 35)
+                .frame(width: self.screenSize.width * 0.85, alignment: .leading)
+                
+                
                 if self.selectedFirstCategory == nil {
                     SelectFirstCategoryView(selectedFirstCategory: self.$selectedFirstCategory)
                         .frame(width: self.screenSize.width * 0.85)
@@ -59,49 +67,27 @@ struct SelectCategoryView: View {
                     SelectSecondCategoryView(secondCategory: StoryCategory.inside(of: self.selectedFirstCategory ?? .place) )
                         .frame(width: self.screenSize.width * 0.85)
                 }
-                //                NavigationView {
-                //                    VStack {
-                //                        Rectangle()
-                //                            .frame(height: 0)
-                //                        ForEach(0..<self.firstCategory.count) { index in
-                //                            NavigationLink(isActive: self.$navigationLinkIsActive) {
-                //                                SelectSecondCategoryView(selectedFirstCategory: self.selectedFirstCategory)
-                //                                    .onAppear {
-                //                                        self.selectedFirstCategory = self.firstCategory[index]
-                //                                    }
-                //                            } label: {
-                //                                Text(self.firstCategory[index])
-                //                                    .font(.system(size: 16, weight: .regular, design: .default))
-                //                                    .foregroundColor(.black)
-                //                                    .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
-                //                                    .padding(.leading, 15)
-                //                            }
-                //                            .onAppear {
-                //                                self.selectedFirstCategory = ""
-                //                            }
-                //                            .padding(.bottom, 5)
-                //                            .padding(.top, 5)
-                //                            Rectangle()
-                //                                .fill(.gray.opacity(0.6))
-                //                                .frame(width: self.screenSize.width * 0.85, height: 1)
-                //                        }
-                //                        .frame(width: self.screenSize.width)
-                //                        Spacer()
-                //                    }
-                //                    .navigationBarHidden(true)
-                //                    .toolbar {
-                //                        ToolbarItem(placement: .principal) {
-                //                            Text("받고싶은 소식 선택").font(.headline)
-                //                                .font(.system(size: 18, weight: .bold, design: .default))
-                //                                .padding([.top])
-                //                                .frame(width: self.screenSize.width * 0.85, alignment: .leading)
-                //                        }
-                //                    }
-                //                }
-                //                .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous) )
+                
+                Spacer()
+                
+                Button {
+                    self.showingCategoryView.toggle()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20, style: .circular)
+                            .fill(Color(red: 234/255, green: 246/255, blue: 146/255, opacity: 1))
+                        Text("완료")
+                            .font(.system(size: 16, weight: .semibold, design: .default))
+                            .foregroundColor(.black)
+                    }
+                    
+                }
+                .frame(height: 50, alignment: .center)
+                .padding([.leading, .trailing], 20)
                 
                 Rectangle()
                     .fill(.white)
+                    .frame(height: 20)
             }
         }
         .frame(height: self.screenSize.height * 0.45)
@@ -148,34 +134,25 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
     init(secondCategory: [StoryCategory]) {
         self.secondCategory = secondCategory
         
-        // 전부 true인 딕셔너리 생성
         let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
             (raw.rawString, true)
         }, uniquingKeysWith: {(first, _) in first})
+        if let uds = UserDefaults.standard.dictionary(forKey: "StoryCategory") as? Dictionary<String,Bool> {
+            self.selectedSecondCategory = uds
+        } else {
+            self.selectedSecondCategory = userDefaultsDictionary
+            UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
+        }
         
-        // 첫 실행일 경우 UserDefaults 값이 nil일 거니까, 위에서 만든 딕셔너리 저장
-        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as? Dictionary<String,Bool> ?? userDefaultsDictionary
-        print(self.selectedSecondCategory)
         self.categoryDelegate = self
+        print(self.selectedSecondCategory)
         print("SelectSecondCategoryView init")
     }
     
     mutating func toggleCategory(category: StoryCategory) {
-        // 선택된 카테고리 토글
-//        self.selectedSecondCategory[category.rawString]?.toggle()
         self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
         self.selectedSecondCategory[category.rawString]?.toggle()
         UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
-        // UserDefaults에 저장
-//        print("\nBefore UserDefaults")
-//        print((UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>).sorted(by: { $0.key > $1.key }))
-//        print(self.selectedSecondCategory.sorted(by: { $0.key > $1.key }))
-//        UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
-        // 지역 변수에도 저장
-//        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
-//        print("\nAfter UserDefaults")
-        print((UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>).sorted(by: { $0.key > $1.key }))
-        print(self.selectedSecondCategory.sorted(by: { $0.key > $1.key }))
     }
     
     var body: some View {
@@ -233,10 +210,10 @@ struct CategoryButton: View {
                 .padding([.top, .bottom], 7)
                 .background {
                     Capsule(style: .continuous)
-                        .fill(self.isSelected ? Color.blue.opacity(0.6) : Color(.sRGB, white: 0.8, opacity: 1))
+                        .fill(self.isSelected ? Color(red: 234/255, green: 246/255, blue: 146/255) : Color(red: 246/255, green: 248/255, blue: 249/255))
                         .overlay(
                             Capsule(style: .continuous)
-                                .stroke(self.isSelected ? Color.blue.opacity(0.6) : .gray, lineWidth: 1)
+                                .stroke(Color(red: 231/255,  green: 231/255, blue: 231/255), lineWidth: 1)
                         )
                 }
         }
@@ -247,8 +224,8 @@ protocol StoryCategoryDelegate {
     mutating func toggleCategory(category: StoryCategory) -> ()
 }
 
-struct SelectCategoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectCategoryView()
-    }
-}
+//struct SelectCategoryView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectCategoryView()
+//    }
+//}

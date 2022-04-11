@@ -33,7 +33,7 @@ struct MainView: View {
                 ZStack {
                     VStack{
                         Spacer()
-                        SelectCategoryView()
+                        SelectCategoryView(showingCategoryView: self.$showingCategoryView)
                     }
                     .ignoresSafeArea()
                     .transition(.move(edge: .bottom))
