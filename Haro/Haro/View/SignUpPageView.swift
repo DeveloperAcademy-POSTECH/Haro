@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpPageView: View {
     @ObservedObject private var viewModel = SignUpPageViewModel()
+    @State private var goNext = false
     
     var body: some View {
         NavigationView{
@@ -80,7 +81,10 @@ struct SignUpPageView: View {
                 Spacer()
                 
                 Button {
-                    Void()
+                    if viewModel.isSignUpPossible {
+                        UserDefaults.standard.set(true, forKey: "token")
+                        goNext = true
+                    }
                 } label: {
                     Text("회원가입")
                         .font(.headline)
@@ -92,6 +96,7 @@ struct SignUpPageView: View {
                         .cornerRadius(80)
                         .padding(.top, 10)
                 }
+                .fullScreenCover(isPresented: self.$goNext, content: MainView.init)
 
                 Spacer()
             }
