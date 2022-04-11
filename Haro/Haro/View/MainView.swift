@@ -9,26 +9,47 @@ import SwiftUI
 
 struct MainView: View {
     @State var storyOn: Bool = false
+    @State var selection: Int = 0
     @State private var showingCategoryView: Bool = false
     
     var body: some View {
-        TabView {
-            MapView(storyOn: self.$storyOn,
-                    showingCategoryView: self.$showingCategoryView)
-            .tabItem {
-                TabItemView(imageName: "map", title: "지도")
+        ZStack {
+            TabView(selection: self.$selection) {
+                MapView(storyOn: self.$storyOn,
+                        showingCategoryView: self.$showingCategoryView)
+                .tabItem {
+                    TabItemView(imageName: "map", title: "지도")
+                }
+                
+                CommunityView()
+                    .tabItem {
+                        TabItemView(imageName: "person", title: "커뮤니티")
+                    }
+                
+                MyPageView()
+                    .tabItem {
+                        TabItemView(imageName: "person", title: "마이페이지")
+                    }
+                
+            }
+            if storyOn {
+                StoryView(storyOn: self.$storyOn)
+                    .transition(.move(edge: .bottom))
             }
             
-            CommunityView()
-                .tabItem {
-                    TabItemView(imageName: "person", title: "커뮤니티")
+            if self.showingCategoryView {
+                ZStack {
+                    VStack{
+                        Spacer()
+                        SelectCategoryView(showingCategoryView: self.$showingCategoryView)
+                    }
+                    .ignoresSafeArea()
+                    .transition(.move(edge: .bottom))
+                    .animation(.linear(duration: 0.2))
                 }
-            
-            MyPageView()
-                .tabItem {
-                    TabItemView(imageName: "person", title: "마이페이지")
-                }
+            }
         }
+        
     }
     //    @State private var currentPageIndex: Int = 0
     //    @State var storyOn: Bool = false

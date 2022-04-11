@@ -24,6 +24,7 @@ struct IdentifiablePlace: Identifiable {
 struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
     var storyEntity: StoryEntity
+    let imageSize: CGFloat = 60
     
     func categoryImage() -> Image {
         let category = self.storyEntity.category
@@ -49,7 +50,7 @@ struct PlaceAnnotationView: View {
             self.categoryImage()
                 .resizable()
                 .scaledToFit()
-                .frame(width: 30, height: 30)
+                .frame(width: self.imageSize, height: self.imageSize)
             
         }
     }
@@ -97,7 +98,6 @@ struct MapView: View {
             CreateStoryButton()
             MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
-        //        .ignoresSafeArea()
         .onAppear {
             if let jsonData = self.readJSON() {
                 do {
@@ -121,10 +121,6 @@ struct MapView: View {
                     print("error: ", error)
                 }
             }
-            
-            //                let JSONData = try JSONSerialization.data(withJSONObject: JSONObj, options: .prettyPrinted)
-            
-            
         }
     }
 }

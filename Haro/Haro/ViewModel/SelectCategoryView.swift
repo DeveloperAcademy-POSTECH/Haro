@@ -167,6 +167,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                 }
                 Spacer()
             }
+            .frame(alignment: .center)
             HStack {
                 ForEach(4...7, id: \.self) { i in
                     if i < self.secondCategory.count {
@@ -177,6 +178,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                 }
                 Spacer()
             }
+            .frame(alignment: .center)
             HStack{
                 ForEach(8...11, id: \.self) { i in
                     if i < self.secondCategory.count {
@@ -187,6 +189,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                 }
                 Spacer()
             }
+            .frame(alignment: .center)
         }
     }
 }
