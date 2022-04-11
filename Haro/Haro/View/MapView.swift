@@ -36,8 +36,7 @@ struct MapView: View {
     let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
    
     @StateObject var viewModel = MapViewModel()
-    
-    //    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @StateObject var locationManager = MapViewModel()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -48,19 +47,53 @@ struct MapView: View {
                     PlaceAnnotationView()
                 }
             }
-            LocationButton(.currentLocation) {
-                viewModel.requestAllowOnceLocationPermission()
+            
+            HStack {
+                Spacer()
+                
+                VStack {
+                    Button {
+                        Void()
+                    } label: {
+                        Rectangle()
+                            .frame(width: 60, height: 60)
+                            .tint(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                    Button {
+                        Void()
+                    } label: {
+                        Rectangle()
+                            .frame(width: 60, height: 60)
+                            .tint(.white)
+                            .cornerRadius(8)
+                    }
+                    LocationButton(.currentLocation) {
+                        viewModel.requestWhenInUseAuthorization()
+                    }
+                    .foregroundColor(.black)
+                    .tint(.white)
+                    .cornerRadius(8)
+                    .font(.system(size: 26))
+                    .labelStyle(.iconOnly)
+                    .padding()
+                }
+                .padding()
             }
-            .foregroundColor(.white)
-            .cornerRadius(8)
-            .labelStyle(.iconOnly)
-            .padding(.leading, 300.0)
             CreateStoryButton()
         }
-            .ignoresSafeArea()
+        .ignoresSafeArea()
     }
 }
 
+extension Notification.Name {
+  static let goToCurrentLocation = Notification.Name("goToCurrentLocation")
+}
+
+private func goToUserLocation() {
+    NotificationCenter.default.post(name: .goToCurrentLocation, object: nil)
+}
 
 struct CreateStoryButton: View {
     var body: some View {
@@ -96,29 +129,40 @@ struct MapView_Previews: PreviewProvider {
 }
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let locationManager = CLLocationManager()
     
-    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
-    let locationManager = CLLocationManager()
+    @Published var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785),
+        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
+    var locationPermission : Bool {
+        switch self.locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse : return true
+            default : return false
+        }
+    }
     
     override init() {
         super.init()
+        
         locationManager.delegate = self
     }
     
-    func requestAllowOnceLocationPermission() {
+    func requestWhenInUseAuthorization() {
         locationManager.requestLocation()
+        locationManager.delegate = self
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
-                         [CLLocation]) {
-        guard let latestLocation = locations.first else {
-            return
-        }
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        guard let latestLocation = locations.first
+        else { return }
         
         DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span:
-                                                MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+            self.region = MKCoordinateRegion(
+                center: latestLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
         }
     }
     
@@ -126,4 +170,3 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         print(error.localizedDescription)
     }
 }
-
