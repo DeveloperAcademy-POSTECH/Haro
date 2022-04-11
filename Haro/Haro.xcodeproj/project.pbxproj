@@ -28,6 +28,8 @@
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
 		C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F81D27FDCB470062C141 /* MapButtonView.swift */; };
 		C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F82127FDD4370062C141 /* SelectCategoryView.swift */; };
+		C7E5F0392803D07F00705810 /* StoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E5F0382803D07F00705810 /* StoryEntity.swift */; };
+		C7E5F03B2803D56C00705810 /* StoryRawData.json in Resources */ = {isa = PBXBuildFile; fileRef = C7E5F03A2803D56C00705810 /* StoryRawData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C796F81D27FDCB470062C141 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
 		C796F82127FDD4370062C141 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
+		C7E5F0382803D07F00705810 /* StoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEntity.swift; sourceTree = "<group>"; };
+		C7E5F03A2803D56C00705810 /* StoryRawData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StoryRawData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 			children = (
 				A8095B2827FD1BF100B01CD1 /* Preview Content */,
 				A8095B2227FD1BEF00B01CD1 /* HaroApp.swift */,
+				C7E5F03A2803D56C00705810 /* StoryRawData.json */,
 				A8095B3027FD1C2200B01CD1 /* Info.plist */,
 				A8095B2627FD1BF000B01CD1 /* Assets.xcassets */,
 				C733A00128031E7000BADF48 /* RawData.xcassets */,
@@ -156,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				A8B3C8C82800632F004D3841 /* CommunityEntity.swift */,
+				C7E5F0382803D07F00705810 /* StoryEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -220,6 +226,7 @@
 			files = (
 				A8095B2A27FD1BF100B01CD1 /* Preview Assets.xcassets in Resources */,
 				C733A00228031E7000BADF48 /* RawData.xcassets in Resources */,
+				C7E5F03B2803D56C00705810 /* StoryRawData.json in Resources */,
 				A8095B2727FD1BF000B01CD1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +243,7 @@
 				A8B3C8C92800632F004D3841 /* CommunityEntity.swift in Sources */,
 				C733A0002803016B00BADF48 /* StoryCategory.swift in Sources */,
 				A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */,
+				C7E5F0392803D07F00705810 /* StoryEntity.swift in Sources */,
 				A8095B4827FDD64E00B01CD1 /* CameraViewModel.swift in Sources */,
 				A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */,
 				C779FB3627FDA74600671D13 /* FloatingTabView.swift in Sources */,

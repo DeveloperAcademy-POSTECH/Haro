@@ -18,6 +18,15 @@ enum StoryMainCategory: CaseIterable {
         case .accident: return "사건사고"
         }
     }
+    
+    var imageName: String {
+        switch self {
+        case .place: return "place"
+        case .news: return "news"
+        case .event: return "event"
+        case .accident: return "accident"
+        }
+    }
 }
 
 enum StoryCategory: CaseIterable {
