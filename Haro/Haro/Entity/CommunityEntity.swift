@@ -19,7 +19,7 @@ struct CommunityEntity: Codable {
 
 struct CommentEntity: Codable {
     let writerName: String
-    let writherPhoto: String
+    let writerPhoto: String
     let text: String
     let time: String
 }

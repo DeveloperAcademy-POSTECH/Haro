@@ -21,7 +21,7 @@ enum CommunityMainCategory: CaseIterable {
     }
 }
 
-enum CommunityCategory {
+enum CommunityCategory: String {
     case totalMeeting, humanity, exercise, instrument, travel, otherMeeting,
          totalPlace, restaurant, culture, cloth, promenade, mart, otherPlace,
          totalNews, opening, notice, discount, otherNews,
