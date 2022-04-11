@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "slice1.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "slice1@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "slice1@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "place.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

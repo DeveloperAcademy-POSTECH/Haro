@@ -1,107 +1,128 @@
-    [
-        {
-            "userID": "smile",
-            "latitude": 36.0089,
-            "longitude": 129.328,
-            "category": "construction",
-            "imageName": "Smile01"
-        },
-        {
-            "userID": "smile",
-            "latitude": 36.0084,
-            "longitude": 129.3335,
-            "category": "promenade",
-            "imageName": "Smile02"
-        },
-        {
-            "userID": "smile",
-            "latitude": 36.0085,
-            "longitude": 129.3309,
-            "category": "traffic",
-            "imageName": "Smile03"
-        },
-        {
-            "userID": "smile",
-            "latitude": 36.0105,
-            "longitude": 129.329,
-            "category": "construction",
-            "imageName": "Smile04"
-        },
-        {
-            "userID": "smile",
-            "latitude": 36.0107,
-            "longitude": 129.3274,
-            "category": "notice",
-            "imageName": "Smile05"
-        },
-        {
-            "userID": "Min",
-            "latitude": 36.0051,
-            "longitude": 129.3187,
-            "category": "mart",
-            "imageName": "Minmart01"
-        },
-        {
-            "userID": "Min",
-            "latitude": 36.0079,
-            "longitude": 129.33,
-            "category": "mart",
-            "imageName": "Minmart02"
-        },
-        {
-            "userID": "Min",
-            "latitude": 36.0048,
-            "longitude": 129.3168,
-            "category": "park",
-            "imageName": "Minpark01"
-        },
-        {
-            "userID": "Min",
-            "latitude": 36.0127,
-            "longitude": 129.3393,
-            "category": "park",
-            "imageName": "Minpark02"
-        },
-        {
-            "userID": "Min",
-            "latitude": 36.0126,
-            "longitude": 129.3304,
-            "category": "culture",
-            "imageName": "Minculture01"
-        },
-        {
-            "userID": "Zero",
-            "latitude": 36.0082,
-            "longitude": 129.3302,
-            "category": "cafe",
-            "imageName": "Zero0"
-        },
-        {
-            "userID": "Zero",
-            "latitude": 36.0055,
-            "longitude": 129.3229,
-            "category": "restaurant",
-            "imageName": "Zero1"
-        },
-        {
-            "userID": "Zero",
-            "latitude": 36.0057,
-            "longitude": 129.3228,
-            "category": "culture",
-            "imageName": "Zero2"
-        },
-        {
-            "userID": "Zero",
-            "latitude": 35.9926,
-            "longitude": 129.3485,
-            "category": "otherPlace",
-            "imageName": "Zero3"
-        },
-        {
-            "userID": "Zero",
-            "latitude": 36.0063,
-            "longitude": 129.335,
-            "category": "discount",
-            "imageName": "Zero4"
-        }
-    ]
+[
+    {
+        "userID": "smile",
+        "latitude": 36.0089,
+        "longitude": 129.328,
+        "category": "construction",
+        "imageName": "Smile01"
+    },
+    {
+        "userID": "smile",
+        "latitude": 36.0084,
+        "longitude": 129.3335,
+        "category": "promenade",
+        "imageName": "Smile02"
+    },
+    {
+        "userID": "smile",
+        "latitude": 36.0085,
+        "longitude": 129.3309,
+        "category": "traffic",
+        "imageName": "Smile03"
+    },
+    {
+        "userID": "smile",
+        "latitude": 36.0105,
+        "longitude": 129.329,
+        "category": "construction",
+        "imageName": "Smile04"
+    },
+    {
+        "userID": "smile",
+        "latitude": 36.0107,
+        "longitude": 129.3274,
+        "category": "notice",
+        "imageName": "Smile05"
+    },
+    {
+        "userID": "Min",
+        "latitude": 36.0051,
+        "longitude": 129.3187,
+        "category": "mart",
+        "imageName": "Minmart01"
+    },
+    {
+        "userID": "Min",
+        "latitude": 36.0079,
+        "longitude": 129.33,
+        "category": "mart",
+        "imageName": "Minmart02"
+    },
+    {
+        "userID": "Min",
+        "latitude": 36.0048,
+        "longitude": 129.3168,
+        "category": "park",
+        "imageName": "Minpark01"
+    },
+    {
+        "userID": "Min",
+        "latitude": 36.0127,
+        "longitude": 129.3393,
+        "category": "park",
+        "imageName": "Minpark02"
+    },
+    {
+        "userID": "Min",
+        "latitude": 36.0126,
+        "longitude": 129.3304,
+        "category": "culture",
+        "imageName": "Minculture01"
+    },
+    {
+        "userID": "Zero",
+        "latitude": 36.0082,
+        "longitude": 129.3302,
+        "category": "cafe",
+        "imageName": "Zero0"
+    },
+    {
+        "userID": "Zero",
+        "latitude": 36.0055,
+        "longitude": 129.3229,
+        "category": "restaurant",
+        "imageName": "Zero1"
+    },
+    {
+        "userID": "Zero",
+        "latitude": 36.0057,
+        "longitude": 129.3228,
+        "category": "culture",
+        "imageName": "Zero2"
+    },
+    {
+        "userID": "Zero",
+        "latitude": 35.9926,
+        "longitude": 129.3485,
+        "category": "otherPlace",
+        "imageName": "Zero3"
+    },
+    {
+        "userID": "Zero",
+        "latitude": 36.0063,
+        "longitude": 129.335,
+        "category": "discount",
+        "imageName": "Zero4"
+    },
+    {
+        "userID": "Rey",
+        "latitude": 36.008179,
+        "longitude": 129.331589,
+        "category": "cafe",
+        "imageName": "cafe0.jpg"
+    },
+    {
+        "userID": "Rey",
+        "latitude": 36.015126,
+        "longitude": 129.322517,
+        "category": "promenade",
+        "imageName": "promenade0.jpg"
+    },
+    {
+        "userID": "Rey",
+        "latitude": 36.007996,
+        "longitude": 129.32968,
+        "category": "restaurant",
+        "imageName": "restaurant0.jpg"
+    }
+]

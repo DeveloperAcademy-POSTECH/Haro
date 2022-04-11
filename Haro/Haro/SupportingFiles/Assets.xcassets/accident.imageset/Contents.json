@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "slice4.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "slice4@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "slice4@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "accident.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

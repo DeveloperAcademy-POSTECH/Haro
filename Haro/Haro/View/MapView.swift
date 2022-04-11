@@ -25,7 +25,7 @@ struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
     var storyEntity: StoryEntity
     
-    func filterIcon() -> Image {
+    func categoryImage() -> Image {
         let category = self.storyEntity.category
         var imageName = ""
         StoryMainCategory.allCases.map { mainCategory in
@@ -36,7 +36,6 @@ struct PlaceAnnotationView: View {
                 imageName = mainCategory.imageName
             }
         }
-        
         return Image(imageName)
     }
     
@@ -47,9 +46,11 @@ struct PlaceAnnotationView: View {
             }
             
         } label: {
-            self.filterIcon()
-                .font(.title)
-                .foregroundColor(.purple)
+            self.categoryImage()
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+            
         }
     }
 }
@@ -96,7 +97,7 @@ struct MapView: View {
             CreateStoryButton()
             MapButtonView(showingCategoryView: self.$showingCategoryView)
         }
-        .ignoresSafeArea()
+        //        .ignoresSafeArea()
         .onAppear {
             if let jsonData = self.readJSON() {
                 do {
@@ -142,7 +143,7 @@ struct CreateStoryButton: View {
                         .fill(Color.init(red: 1, green: 144/255, blue: 0))
                     Text("지금 어떤 일이 일어나고 있나요?")
                         .lineLimit(1)
-                        .font(.system(size: 15))
+                        .font(.system(size: 16))
                         .minimumScaleFactor(0.005)
                         .foregroundColor(.white)
                         .padding([.leading, .trailing], 30)
@@ -150,9 +151,7 @@ struct CreateStoryButton: View {
             }
             .frame(height: 50)
             .padding([.leading, .trailing], 90)
-            
-            Spacer()
-                .frame(height: 130)
+            .padding(.bottom, 17)
         }
         .sheet(isPresented: self.$showStoryWriteView) {
             StoryWriteView(showModal: $showStoryWriteView)
