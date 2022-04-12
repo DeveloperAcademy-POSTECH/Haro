@@ -8,33 +8,33 @@
 import SwiftUI
 
 struct MyPageView: View {
-    let screenHeight = UIScreen.main.bounds.size.height
-    let screenWidth = UIScreen.main.bounds.size.width
+    let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
+    let image = ImageFileManager.shared.getSavedImage(named: "image")!
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("마이페이지")
-                .font(.system(size: 26))
+                .font(.title)
                 .foregroundColor(Color(red: 36/255, green: 36/255, blue: 36/255))
                 .fontWeight(.heavy)
             
             HStack(alignment: .center, spacing: 16) {
-                Image("back")
+                Image(uiImage: image)
                     .resizable()
                     .cornerRadius(24)
                     .frame(width: 60, height: 60)
                 
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("포항마스터")
-                        .font(.system(size: 16))
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(nickname)
+                        .font(.title3)
                     
                     HStack {
-                        Image(systemName: "flag")
-                            .font(.system(size: 16))
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.callout)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                         
-                        Text("운동중")
-                            .font(.system(size: 16))
+                        Text("운중동")
+                            .font(.callout)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                     }
                 }
@@ -45,16 +45,26 @@ struct MyPageView: View {
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
             
             Text("내가 쓴 글 전체보기")
-                .font(.system(size: 16))
+                .font(.body)
             
             Divider()
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
             
             Text("설정")
-                .font(.system(size: 16))
+                .font(.body)
             
             Divider()
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
+            
+            Button {
+                UserDefaults.standard.setValue(false, forKey: "token")
+                exit(0)
+            } label: {
+                Text("회원 탈퇴")
+                    .font(.body)
+                    .foregroundColor(.black)
+            }
+
             
             Spacer()
         }
