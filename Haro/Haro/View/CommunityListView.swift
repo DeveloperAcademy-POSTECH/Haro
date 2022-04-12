@@ -19,15 +19,21 @@ struct CommunityListView: View {
     var body: some View {
         VStack {
             List(0..<max((viewModel.entity?.count ?? 0), viewModel.meetingEntity?.count ?? 0), id: \.self) { item in
-                if CommunityCategory.inside(of: .meeting).contains(where: { $0 == viewModel.category }) {
-                    CommunityMeetingListCell(category: viewModel.category.rawValue, title: viewModel.title(of: item), descript: viewModel.descript(of: item), attendee: viewModel.attendee(of: item))
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                } else {
-                    CommunityListCell(category: viewModel.category.rawValue, text: viewModel.text(of: item), like: viewModel.like(of: item), comment: viewModel.comment(of: item))
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
+                ZStack{
+                    NavigationLink (destination: CommunityPostView()){
+                        EmptyView()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .frame(width: 0, height: 0)
+                
+                    if CommunityCategory.inside(of: .meeting).contains(where: { $0 == viewModel.category }) {
+                        CommunityMeetingListCell(category: viewModel.category.rawValue, title: viewModel.title(of: item), descript: viewModel.descript(of: item), attendee: viewModel.attendee(of: item))
+                    } else {
+                        CommunityListCell(category: viewModel.category.rawValue, text: viewModel.text(of: item), like: viewModel.like(of: item), comment: viewModel.comment(of: item))
+                    }
                 }
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
             }
             .listRowBackground(Color.red)
             .listStyle(.plain)
