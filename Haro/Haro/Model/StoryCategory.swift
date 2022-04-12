@@ -7,29 +7,20 @@
 
 import Foundation
 
-enum StoryMainCategory: CaseIterable {
+enum StoryMainCategory: String, CaseIterable {
     case place, news, event, accident
     
     var title: String {
         switch self {
-        case .place: return "추천장소"
-        case .news: return "가게소식"
-        case .event: return "행사축제"
+        case .place: return "장소"
+        case .news: return "소식"
+        case .event: return "이벤트"
         case .accident: return "사건사고"
-        }
-    }
-    
-    var imageName: String {
-        switch self {
-        case .place: return "place"
-        case .news: return "news"
-        case .event: return "event"
-        case .accident: return "accident"
         }
     }
 }
 
-enum StoryCategory: CaseIterable {
+enum StoryCategory: String, CaseIterable {
     case cafe, restaurant, culture, cloth, promenade, park, facility, mart, otherPlace,
          opening, notice, discount, otherNews,
          event, festival, animal, otherEvent,
@@ -44,35 +35,6 @@ enum StoryCategory: CaseIterable {
         }
     }
     
-    var rawString: String {
-        switch self {
-        case .cafe: return "cafe"
-        case .restaurant: return "restaurant"
-        case .culture: return "culture"
-        case .cloth: return "cloth"
-        case .promenade: return "promenade"
-        case .park: return "park"
-        case .mart: return "mart"
-        case .facility: return "facility"
-        case .otherPlace: return "otherPlace"
-            
-        case .opening: return "opening"
-        case .notice: return "notice"
-        case .discount: return "discount"
-        case .otherNews: return "otherNews"
-            
-        case .event: return "event"
-        case .festival: return "festival"
-        case .animal: return "animal"
-        case .otherEvent: return "otherEvent"
-            
-        case .traffic: return "traffic"
-        case .crime: return "crime"
-        case .construction: return "construction"
-        case .otherAccident: return "otherAccident"
-        }
-    }
-    
     var text: String {
         switch self {
         case .cafe: return "카페"
@@ -84,7 +46,6 @@ enum StoryCategory: CaseIterable {
         case .mart: return "마트"
         case .facility: return "공공시설"
         case .otherPlace: return "기타"
-            
         case .opening: return "신장개업"
         case .notice: return "가게공지"
         case .discount: return "할인행사"

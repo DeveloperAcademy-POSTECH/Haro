@@ -10,6 +10,13 @@ import MapKit
 
 struct StoryView: View {
     @Binding var storyOn: Bool
+    var storyEntity: StoryEntity? = {
+        if let data = UserDefaults.standard.value(forKey:"SelectedStory") as? Data {
+            let storyEntity = try? PropertyListDecoder().decode(StoryEntity.self, from: data)
+            return storyEntity
+        } else { return nil }
+    }()
+    @State var storyLocationTitle = ""
     
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
@@ -19,8 +26,18 @@ struct StoryView: View {
     
     var body: some View {
         ZStack{
-            Image("back")
+            Rectangle()
+                .fill(.black)
+                .ignoresSafeArea()
+            
+            Image(self.storyEntity?.imageName ?? "")
                 .resizable()
+                .blur(radius: 20)
+                .ignoresSafeArea()
+            
+            Image(self.storyEntity?.imageName ?? "")
+                .resizable()
+                .scaledToFit()
                 .ignoresSafeArea()
             
             VStack{
@@ -39,10 +56,10 @@ struct StoryView: View {
                             .foregroundColor(.white)
                     }
                     VStack(alignment: .leading) {
-                        Text("이름이름")
+                        Text(self.storyEntity?.userID ?? "")
                             .font(.body)
                             .foregroundColor(.white)
-                        Text("맛집")
+                        Text( StoryCategory(rawValue: self.storyEntity?.category ?? "")?.text ?? "")
                             .font(.caption)
                             .foregroundColor(.white)
                     }
@@ -53,6 +70,7 @@ struct StoryView: View {
                     Button {
                         withAnimation{
                             self.storyOn.toggle()
+                            UserDefaults.standard.removeObject(forKey: "SelectedStory")
                         }
                     } label: {
                         Image(systemName: "xmark")
@@ -87,7 +105,20 @@ struct StoryView: View {
                         
                         Button {
                             withAnimation(.easeInOut(duration: 0.5)) {
+                                let location = CLLocation(latitude: self.storyEntity?.latitude ?? 36.014279,
+                                                          longitude: self.storyEntity?.longitude ?? 129.325785)
+                                print(location)
+                                CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "Ko-kr")) { placeMark, e in
+                                    if let name = placeMark?.first?.name {
+                                        self.storyLocationTitle = name
+                                    }
+                                }
                                 onMap = true
+                                self.coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.storyEntity?.latitude ?? 36.014279,
+                                                                                                          longitude: self.storyEntity?.longitude ?? 129.325785),
+                                                                              span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+                                
+                                
                             }
                         } label: {
                             VStack{
@@ -128,10 +159,42 @@ struct StoryView: View {
                         
                         VStack{
                             Spacer()
-                            Map(coordinateRegion: $coordinateRegion)
-                                .padding(.all)
-                                .padding(.bottom, 30)
-                                .frame(height: screenHeight * 0.3)
+                            ZStack {
+                                if let storyEntity = self.storyEntity {
+                                    Map(coordinateRegion: self.$coordinateRegion,
+                                        annotationItems: [IdentifiablePlace(storyEntity: storyEntity)]) { pin in
+                                        MapAnnotation(coordinate: pin.location) {
+                                            PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
+                                                .disabled(true)
+                                        }
+                                    }
+                                    HStack {
+                                        VStack {
+                                            HStack {
+                                                Image(systemName: "mappin.and.ellipse")
+                                                    .resizable()
+                                                    .frame(width: 10, height: 10)
+                                                    .foregroundColor(.white)
+                                                Text("\(self.storyLocationTitle)")
+                                                    .font(.caption)
+                                                    .foregroundColor(.white)
+                                            }
+                                            .padding(.horizontal, 5)
+                                            .padding(.vertical, 3)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill(.black)
+                                            )
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                    }
+                                    .padding([.top, .leading], 12)
+                                }
+                            }
+                            .padding(.all)
+                            .padding(.bottom, 30)
+                            .frame(height: screenHeight * 0.3)
                         }
                     }
                 }
