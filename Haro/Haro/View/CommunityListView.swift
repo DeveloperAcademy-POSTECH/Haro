@@ -20,15 +20,20 @@ struct CommunityListView: View {
         VStack {
             List(0..<max((viewModel.entity?.count ?? 0), viewModel.meetingEntity?.count ?? 0), id: \.self) { item in
                 ZStack{
-                    NavigationLink (destination: CommunityPostView()){
-                        EmptyView()
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .frame(width: 0, height: 0)
-                
                     if CommunityCategory.inside(of: .meeting).contains(where: { $0 == viewModel.category }) {
+                        NavigationLink (destination: CommunityMeetingPostView(entity: viewModel.meetingEntity![item])){
+                            EmptyView()
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .frame(width: 0, height: 0)
+                        
                         CommunityMeetingListCell(category: viewModel.category.rawValue, title: viewModel.title(of: item), descript: viewModel.descript(of: item), attendee: viewModel.attendee(of: item))
                     } else {
+                        NavigationLink (destination: CommunityPostView(entity: viewModel.entity![item])){
+                            EmptyView()
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .frame(width: 0, height: 0)
                         CommunityListCell(category: viewModel.category.rawValue, text: viewModel.text(of: item), like: viewModel.like(of: item), comment: viewModel.comment(of: item))
                     }
                 }
