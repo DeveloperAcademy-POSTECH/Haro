@@ -16,12 +16,11 @@ struct StoryView: View {
             return storyEntity
         } else { return nil }
     }()
-    
+    @State var storyLocationTitle = ""
     
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
     @State var isLike = false
-    
     
     let screenHeight = UIScreen.main.bounds.size.height
     
@@ -106,10 +105,20 @@ struct StoryView: View {
                         
                         Button {
                             withAnimation(.easeInOut(duration: 0.5)) {
+                                let location = CLLocation(latitude: self.storyEntity?.latitude ?? 36.014279,
+                                                          longitude: self.storyEntity?.longitude ?? 129.325785)
+                                print(location)
+                                CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "Ko-kr")) { placeMark, e in
+                                    if let name = placeMark?.first?.name {
+                                        self.storyLocationTitle = name
+                                    }
+                                }
                                 onMap = true
                                 self.coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.storyEntity?.latitude ?? 36.014279,
                                                                                                           longitude: self.storyEntity?.longitude ?? 129.325785),
                                                                               span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+                                
+                                
                             }
                         } label: {
                             VStack{
@@ -150,19 +159,42 @@ struct StoryView: View {
                         
                         VStack{
                             Spacer()
-                            if let storyEntity = self.storyEntity {
-                                Map(coordinateRegion: self.$coordinateRegion,
-                                    annotationItems: [IdentifiablePlace(storyEntity: storyEntity)]) { pin in
-                                    MapAnnotation(coordinate: pin.location) {
-                                        PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
-                                            .disabled(true)
+                            ZStack {
+                                if let storyEntity = self.storyEntity {
+                                    Map(coordinateRegion: self.$coordinateRegion,
+                                        annotationItems: [IdentifiablePlace(storyEntity: storyEntity)]) { pin in
+                                        MapAnnotation(coordinate: pin.location) {
+                                            PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
+                                                .disabled(true)
+                                        }
                                     }
+                                    HStack {
+                                        VStack {
+                                            HStack {
+                                                Image(systemName: "mappin.and.ellipse")
+                                                    .resizable()
+                                                    .frame(width: 10, height: 10)
+                                                    .foregroundColor(.white)
+                                                Text("\(self.storyLocationTitle)")
+                                                    .font(.caption)
+                                                    .foregroundColor(.white)
+                                            }
+                                            .padding(.horizontal, 5)
+                                            .padding(.vertical, 3)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill(.black)
+                                            )
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                    }
+                                    .padding([.top, .leading], 12)
                                 }
-                                    .padding(.all)
-                                    .padding(.bottom, 30)
-                                    .frame(height: screenHeight * 0.3)
                             }
-                            
+                            .padding(.all)
+                            .padding(.bottom, 30)
+                            .frame(height: screenHeight * 0.3)
                         }
                     }
                 }

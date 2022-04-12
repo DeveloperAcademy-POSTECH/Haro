@@ -17,9 +17,9 @@ struct MapButtonView: View {
                 MapButton(name: "square.grid.3x2") {
                     self.showingCategoryView.toggle()
                 }
-                MapButton(name: "arkit") {
-                    print("ARKit")
-                }
+//                MapButton(name: "arkit") {
+//                    print("ARKit")
+//                }
                 MapButton(name: "square.grid.3x2") {
                     print("Category Button")
                 }
