@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import CoreLocationUI
 
 struct MapButtonView: View {
     @Binding var showingCategoryView: Bool
+    @ObservedObject var mapViewModel: MapViewModel
     
     var body: some View {
         HStack{
@@ -17,12 +19,22 @@ struct MapButtonView: View {
                 MapButton(name: "square.grid.3x2") {
                     self.showingCategoryView.toggle()
                 }
-                MapButton(name: "arkit") {
-                    print("ARKit")
+                
+//                MapButton(name: "arkit") {
+//                    print("ARKit")
+//                }
+//                MapButton(name: "square.grid.3x2") {
+//                    print("Category Button")
+//                }
+                LocationButton(.currentLocation) {
+                        self.mapViewModel.requestWhenInUseAuthzorization()
                 }
-                MapButton(name: "square.grid.3x2") {
-                    print("Category Button")
-                }
+                .foregroundColor(.black)
+                .tint(.white)
+                .cornerRadius(8)
+                .font(.system(size: 26))
+                .labelStyle(.iconOnly)
+                
                 Spacer()
             }
             .padding(16)

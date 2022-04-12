@@ -19,7 +19,7 @@ struct SelectCategoryView: View {
     func navigationTitleView(selectedFirstCategory: StoryMainCategory?) -> some View {
         if selectedFirstCategory == nil {
             return AnyView(
-                Text("받고싶은 소식 선택")
+                Text("스토리 카테고리")
                     .font(.system(size: 18, weight: .bold, design: .default))
             )
         } else {
@@ -69,21 +69,23 @@ struct SelectCategoryView: View {
                 }
                 
                 Spacer()
-                
-                Button {
-                    self.showingCategoryView.toggle()
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20, style: .circular)
-                            .fill(Color(red: 234/255, green: 246/255, blue: 146/255, opacity: 1))
-                        Text("완료")
-                            .font(.system(size: 16, weight: .semibold, design: .default))
-                            .foregroundColor(.black)
-                    }
-                    
-                }
-                .frame(height: 50, alignment: .center)
-                .padding([.leading, .trailing], 20)
+//                if selectedFirstCategory != nil {
+//                    Button {
+//                        self.showingCategoryView.toggle()
+//                    } label: {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 20, style: .circular)
+//                                .fill(Color(red: 234/255, green: 246/255, blue: 146/255, opacity: 1))
+//                            Text("완료")
+//                                .font(.system(size: 16, weight: .semibold, design: .default))
+//                                .foregroundColor(.black)
+//                        }
+//
+//                    }
+//                    .frame(height: 50, alignment: .center)
+//                    .padding([.leading, .trailing], 20)
+//
+//                }
                 
                 Rectangle()
                     .fill(.white)
@@ -101,27 +103,30 @@ struct SelectFirstCategoryView: View {
     @Binding var selectedFirstCategory: StoryMainCategory?
     
     var body: some View {
-        VStack {
-            Rectangle()
-                .frame(height: 0)
+        HStack {
+            Spacer()
             ForEach(0..<self.firstCategoryList.count) { index in
                 Button {
                     self.selectedFirstCategory = self.firstCategoryList[index]
                 } label: {
-                    Text(self.firstCategoryList[index].title)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .foregroundColor(.black)
-                        .frame(width: self.screenSize.width * 0.85 - 15, alignment: .leading)
-                        .padding(.leading, 15)
+                    VStack {
+                        RoundedRectangle(cornerRadius: self.screenSize.width * 0.15 * 0.4, style: .circular)
+                            .fill(Color(red: 246/255, green: 248/255, blue: 249/255))
+                            .frame(width: self.screenSize.width * 0.15, height: self.screenSize.width * 0.15)
+                            .overlay(
+                                Image(StoryMainCategory.allCases[index].rawValue)
+                                    .resizable()
+                                    .frame(width: self.screenSize.width * 0.10, height: self.screenSize.width * 0.10)
+                                    .scaledToFit()
+                            )
+                        Text(self.firstCategoryList[index].title)
+                            .font(.system(size: 12, weight: .semibold, design: .default))
+                            .foregroundColor(.black)
+                            .frame(alignment: .center)
+                    }
                 }
-                .padding(.bottom, 5)
-                .padding(.top, 5)
-                Rectangle()
-                    .fill(.gray.opacity(0.6))
-                    .frame(width: self.screenSize.width * 0.85, height: 1)
+                Spacer()
             }
-            .frame(width: self.screenSize.width)
-            Spacer()
         }
     }
 }
@@ -131,28 +136,27 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
     var selectedSecondCategory: Dictionary<String,Bool> = [:]
     var categoryDelegate: StoryCategoryDelegate?
     
+    @AppStorage("StoryCategory", store: .standard) var selectedCategoryData: Data?
+    
     init(secondCategory: [StoryCategory]) {
         self.secondCategory = secondCategory
-        
-        let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
-            (raw.rawString, true)
-        }, uniquingKeysWith: {(first, _) in first})
-        if let uds = UserDefaults.standard.dictionary(forKey: "StoryCategory") as? Dictionary<String,Bool> {
-            self.selectedSecondCategory = uds
-        } else {
-            self.selectedSecondCategory = userDefaultsDictionary
-            UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
+        do {
+            self.selectedSecondCategory = try JSONDecoder().decode([String:Bool].self, from: self.selectedCategoryData ?? Data())
+        } catch  {
+            print("Decoding Error")
         }
-        
         self.categoryDelegate = self
-        print(self.selectedSecondCategory)
-        print("SelectSecondCategoryView init")
     }
     
     mutating func toggleCategory(category: StoryCategory) {
-        self.selectedSecondCategory = UserDefaults.standard.dictionary(forKey: "StoryCategory") as! Dictionary<String,Bool>
-        self.selectedSecondCategory[category.rawString]?.toggle()
-        UserDefaults.standard.set(self.selectedSecondCategory, forKey: "StoryCategory")
+        do {
+            self.selectedSecondCategory = try JSONDecoder().decode([String:Bool].self, from: self.selectedCategoryData ?? Data())
+            self.selectedSecondCategory[category.rawValue]?.toggle()
+            let data = try JSONEncoder().encode(self.selectedSecondCategory)
+            self.selectedCategoryData = data
+        } catch {
+            print("Codable Error")
+        }
     }
     
     var body: some View {
@@ -162,7 +166,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()
@@ -173,7 +177,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()
@@ -184,7 +188,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()

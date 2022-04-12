@@ -12,6 +12,7 @@ struct MainView: View {
     @State var storyOn: Bool = false
     @State private var showingCategoryView: Bool = false
     
+    
     var body: some View {
         ZStack {
             TabView {
@@ -65,26 +66,6 @@ struct TabItemView: View {
             Image(systemName: self.imageName)
             Text(self.title)
         }
-    }
-}
-
-struct PageControlView: View {
-    var currentPageIndex: Int
-    
-    @State var scrollAxis: Axis.Set = .horizontal
-    @Binding var showingCategoryView: Bool
-    @Binding var storyOn: Bool
-    
-    var body: some View {
-        if self.currentPageIndex == 0 {
-            MapView(storyOn: self.$storyOn,
-                    showingCategoryView: self.$showingCategoryView)
-        } else if self.currentPageIndex == 1 {
-            CommunityView()
-        } else {
-            MyPageView()
-        }
-        
     }
 }
 

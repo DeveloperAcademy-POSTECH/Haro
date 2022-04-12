@@ -29,12 +29,12 @@ struct PlaceAnnotationView: View {
     func categoryImage() -> Image {
         let category = self.storyEntity.category
         var imageName = ""
-        StoryMainCategory.allCases.map { mainCategory in
+        StoryMainCategory.allCases.forEach { mainCategory in
             let categoryArray = StoryCategory.inside(of: mainCategory).map {
-                $0.rawString
+                $0.rawValue
             }
             if categoryArray.contains(category) {
-                imageName = mainCategory.imageName
+                imageName = mainCategory.rawValue
             }
         }
         return Image(imageName)
@@ -43,9 +43,14 @@ struct PlaceAnnotationView: View {
     var body: some View {
         Button{
             withAnimation (.easeInOut(duration: 0.5)) {
-                stroyOn.toggle()
+                print("debug")
+                do {
+                    UserDefaults.standard.set(try PropertyListEncoder().encode(self.storyEntity), forKey:"SelectedStory")
+                } catch {
+                    print("error")
+                }
+                self.stroyOn.toggle()
             }
-            
         } label: {
             self.categoryImage()
                 .resizable()
@@ -60,6 +65,7 @@ struct PlaceAnnotationView: View {
 struct MapView: View {
     @Binding var storyOn: Bool
     @State var mapPins: [IdentifiablePlace] = []
+    @AppStorage("StoryCategory", store: .standard) var selectedCategoryData: Data = UserDefaults.standard.data(forKey: "StoryCategory") ?? Data()
     
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
@@ -81,86 +87,62 @@ struct MapView: View {
     }
 
     
+    func initSelectedCategory() {
+        let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
+            (raw.rawValue, true)
+        }, uniquingKeysWith: {(first, _) in first})
+        
+        if self.selectedCategoryData.isEmpty {
+            guard let data = try? JSONEncoder().encode(userDefaultsDictionary) else { return }
+            self.selectedCategoryData = data
+        }
+    }
+    
+    func showPin() {
+        if let jsonData = self.readJSON() {
+            do {
+                let selectedCategoryDictionary = try JSONDecoder().decode([String:Bool].self, from: self.selectedCategoryData)
+                let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
+                self.mapPins = mapPinsData.filter { storyEntity in
+                    selectedCategoryDictionary[storyEntity.category] ?? false
+                }.map { (storyEntity) -> IdentifiablePlace in
+                    return IdentifiablePlace(storyEntity: storyEntity)
+                }
+            } catch {
+                print("Error")
+            }
+        }
+        
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: mapPins) { pin in
+            Map(coordinateRegion: self.$viewModel.region, showsUserLocation: true,
+                annotationItems: self.mapPins) { pin in
                 MapAnnotation(coordinate: pin.location) {
                     PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
                 }
             }
             
-            HStack {
-                Spacer()
-                
-                VStack {
-                    Button {
-                        Void()
-                    } label: {
-                        Rectangle()
-                            .frame(width: 60, height: 60)
-                            .tint(.white)
-                            .cornerRadius(8)
-                    }
-                    .padding()
-                    Button {
-                        Void()
-                    } label: {
-                        Rectangle()
-                            .frame(width: 60, height: 60)
-                            .tint(.white)
-                            .cornerRadius(8)
-                    }
-                    LocationButton(.currentLocation) {
-                        viewModel.requestWhenInUseAuthorization()
-                    }
-                    .foregroundColor(.black)
-                    .tint(.white)
-                    .cornerRadius(8)
-                    .font(.system(size: 26))
-                    .labelStyle(.iconOnly)
-                    .padding()
-                }
-                .padding()
-            }
             CreateStoryButton()
+            
             GeometryReader { geometry in
-                MapButtonView(showingCategoryView: self.$showingCategoryView)
+                MapButtonView(showingCategoryView: self.$showingCategoryView, mapViewModel: self.viewModel)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
-            
-            
         }
         .onAppear {
-            if let jsonData = self.readJSON() {
-                do {
-                    let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
-                    print(mapPinsData)
-                    self.mapPins = mapPinsData.map { (storyEntity) -> IdentifiablePlace in
-                        return IdentifiablePlace(storyEntity: storyEntity)
-                    }
-                } catch let DecodingError.dataCorrupted(context) {
-                    print(context)
-                } catch let DecodingError.keyNotFound(key, context) {
-                    print("Key '\(key)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.valueNotFound(value, context) {
-                    print("Value '\(value)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.typeMismatch(type, context)  {
-                    print("Type '\(type)' mismatch:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch {
-                    print("error: ", error)
-                }
-            }
+            self.initSelectedCategory()
+            self.showPin()
         }
-        .ignoresSafeArea()
+        .onChange(of: self.selectedCategoryData.count) { _ in
+            self.showPin()
+        }
     }
 }
 
 extension Notification.Name {
-  static let goToCurrentLocation = Notification.Name("goToCurrentLocation")
+    static let goToCurrentLocation = Notification.Name("goToCurrentLocation")
 }
 
 private func goToUserLocation() {
@@ -170,6 +152,22 @@ private func goToUserLocation() {
 
 struct CreateStoryButton: View {
     @State private var showStoryWriteView = false
+    
+    func readJSON() -> Data? {
+        do {
+            if let bundlePath = Bundle.main.url(forResource: "StoryRawData", withExtension: "json") {
+                print(bundlePath)
+                let jsonData = try Data(contentsOf: bundlePath)
+                return jsonData
+            } else {
+                return nil
+            }
+        } catch {
+            print("JSON Read Error")
+        }
+        
+        return nil
+    }
     
     var body: some View {
         VStack {
@@ -193,7 +191,7 @@ struct CreateStoryButton: View {
             .padding(.bottom, 17)
         }
         .sheet(isPresented: self.$showStoryWriteView) {
-            StoryWriteView(showModal: $showStoryWriteView)
+            StoryWriteView(showModal: self.$showStoryWriteView)
         }
     }
 }
@@ -205,16 +203,14 @@ struct CreateStoryButton: View {
 //}
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     
-    @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785),
-        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    )
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+    
     var locationPermission : Bool {
         switch self.locationManager.authorizationStatus {
-            case .authorizedAlways, .authorizedWhenInUse : return true
-            default : return false
+        case .authorizedAlways, .authorizedWhenInUse : return true
+        default : return false
         }
     }
     
@@ -224,6 +220,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         locationManager.delegate = self
     }
     
+
     func requestWhenInUseAuthorization() {
         locationManager.requestLocation()
         locationManager.delegate = self
