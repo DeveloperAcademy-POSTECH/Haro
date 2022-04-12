@@ -17,7 +17,6 @@ struct StoryView: View {
         } else { return nil }
     }()
     @State var storyLocationTitle = ""
-    
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
     @State var isLike = false
