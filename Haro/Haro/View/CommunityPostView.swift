@@ -70,21 +70,20 @@ struct CommunityPostView: View {
                     Text("포항마스터")
                         .font(.system(size: 16))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                     
                     Spacer()
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 20)
                 
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(width: screenWidth - 40, height: 0.8)
-                    .padding(.bottom, 10)
+                Divider()
+                    .background(.gray)
+                    .padding(.horizontal, 20)
                 
                 Text("게시판 내용 게시판 내용 게시판 내용 게시판 내용 게시판 내용 게시판 내용")
                     .font(.custom("", size: 15))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
                 
@@ -105,27 +104,26 @@ struct CommunityPostView: View {
                             .padding(.trailing, -5)
                         Text(String(likeNum))
                             .font(.system(size: 13))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                     }
                     .padding(.trailing, 2)
                     
                     Image(systemName: "message.fill")
                         .font(.system(size: 13))
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color(red: 220/255, green: 220/255, blue: 225/255))
                         .padding(.trailing, -5)
                     Text(String(commentNum))
                         .font(.system(size: 13))
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
 
                     
                 }
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
                 
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(width: screenWidth - 40, height: 0.8)
-                    .padding(.bottom, 10)
+                Divider()
+                    .background(.gray)
+                    .padding(.horizontal, 20)
                 
                 ForEach(commentSample) {
                     CommentView($0.userName, $0.commentStr, $0.time)
@@ -181,7 +179,7 @@ struct CommentView: View {
                     Text(userName)
                         .font(.system(size: 16))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                         .padding(.top, 5)
                         .padding(.bottom, 1)
                     
@@ -197,7 +195,7 @@ struct CommentView: View {
                 HStack{
                     Text(commentStr)
                         .font(.system(size: 13))
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                         .padding(.trailing, 20)
                     Spacer()
                 }
