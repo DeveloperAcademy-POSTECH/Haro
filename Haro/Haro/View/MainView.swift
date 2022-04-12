@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State var storyOn: Bool = false
     @State private var showingCategoryView: Bool = false
     

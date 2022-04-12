@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A29B16D72802CAFE00E8B195 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16D62802CAFE00E8B195 /* LoginPageView.swift */; };
+		A29B16DB2803BD2B00E8B195 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16DA2803BD2B00E8B195 /* SignUpPageView.swift */; };
+		A29B16DD2803BD4B00E8B195 /* SignUpPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */; };
 		A8095B2327FD1BEF00B01CD1 /* HaroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B2227FD1BEF00B01CD1 /* HaroApp.swift */; };
 		A8095B2727FD1BF000B01CD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8095B2627FD1BF000B01CD1 /* Assets.xcassets */; };
 		A8095B2A27FD1BF100B01CD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8095B2927FD1BF100B01CD1 /* Preview Assets.xcassets */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		A29B16D62802CAFE00E8B195 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
+		A29B16DA2803BD2B00E8B195 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
+		A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageViewModel.swift; sourceTree = "<group>"; };
 		A8095B1F27FD1BEF00B01CD1 /* Haro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8095B2227FD1BEF00B01CD1 /* HaroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaroApp.swift; sourceTree = "<group>"; };
 		A8095B2627FD1BF000B01CD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				A8095B4327FD223B00B01CD1 /* CommunityPostView.swift */,
 				A8095B4527FD224500B01CD1 /* MyPageView.swift */,
 				A29B16D62802CAFE00E8B195 /* LoginPageView.swift */,
+				A29B16DA2803BD2B00E8B195 /* SignUpPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */,
 				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
+				A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -253,8 +259,10 @@
 				A8095B3C27FD21D200B01CD1 /* StoryView.swift in Sources */,
 				A8250D6627FEC43C00599605 /* CategoryViewModel.swift in Sources */,
 				C779FB3827FDA7E100671D13 /* MainView.swift in Sources */,
+				A29B16DD2803BD4B00E8B195 /* SignUpPageViewModel.swift in Sources */,
 				A8095B3E27FD21DC00B01CD1 /* CommunityView.swift in Sources */,
 				A8095B3827FD219200B01CD1 /* MapView.swift in Sources */,
+				A29B16DB2803BD2B00E8B195 /* SignUpPageView.swift in Sources */,
 				C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */,
 				A29B16D72802CAFE00E8B195 /* LoginPageView.swift in Sources */,
 			);
