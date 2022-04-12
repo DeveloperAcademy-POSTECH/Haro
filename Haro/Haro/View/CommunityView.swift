@@ -75,7 +75,7 @@ struct CategoryView: View {
             
             ForEach(0..<viewModel.categories.count, id: \.self) { number in
                 NavigationLink {
-                    CommunityListView(title: viewModel.categories[number].text)
+                    CommunityListView(of: viewModel.categories[number])
                 } label: {
                     HStack {
                         Text(viewModel.categories[number].text)

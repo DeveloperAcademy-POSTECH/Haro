@@ -7,209 +7,186 @@
 
 import SwiftUI
 
-struct Comment {
-    let id: UUID = UUID()
-    let userName: String
-    let commentStr: String
-    let time: Int
-}
-
-//extension Comment: Codable {}
-extension Comment: Identifiable {}
-//extension Comment: Equatable {}
-
 struct CommunityPostView: View {
-    let screenHeight = UIScreen.main.bounds.size.height
-    let screenWidth = UIScreen.main.bounds.size.width
-    
-    @State var likePost: Bool = false
-    @State var likeNum: Int = 0
-    @State var commentNum: Int = 5
-    
-    let commentSample = [
-        Comment(userName: "유저1", commentStr: "유저1이 작성한 댓글내용입니다.유저1이 작성한 댓글내용입니다.유저1이 작성한 댓글내용입니다.", time: 1),
-        Comment(userName: "유저2", commentStr: "유저2이 작성한 댓글내용입니다ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ", time: 2),
-        Comment(userName: "유저3", commentStr: "유저3이 작성한 댓글내용입니다.", time: 3),
-        Comment(userName: "유저4", commentStr: "유저4이 작성한 댓글내용입니다.", time: 4),
-        Comment(userName: "유저5", commentStr: "유저5이 작성한 댓글내용입니다.", time: 5),
-        Comment(userName: "유저6", commentStr: "유저6이 작성한 댓글내용입니다.", time: 6),
-        Comment(userName: "유저7", commentStr: "유저7이 작성한 댓글내용입니다.", time: 7)
-    
-    ]
+    let entity: CommunityEntity
+    @State var showLike: Bool = false
     
     var body: some View {
         VStack{
-            HStack{
-                Button {
-                    Void()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                }
-                Spacer()
-                Button {
-                    Void()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                }
-            }
-            .padding(.horizontal, 30)
-            .padding(.bottom, 30)
-            
             ScrollView{
                 HStack{
-                    Image("back")
+                    Image(entity.writerPhoto)
                         .resizable()
                         .frame(width: 35, height: 35)
-                        .cornerRadius(100)
-                        .padding(.trailing, 5)
-                    
-                    Text("포항마스터")
-                        .font(.system(size: 16))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
-                    
+                        .clipShape(Circle())
+                    Text(entity.writerName)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding(.leading, 14)
                     Spacer()
                 }
-                .padding(.bottom, 10)
-                .padding(.horizontal, 20)
                 
                 Divider()
-                    .background(.gray)
-                    .padding(.horizontal, 20)
+                    .padding(.vertical, 11)
                 
-                Text("게시판 내용 게시판 내용 게시판 내용 게시판 내용 게시판 내용 게시판 내용")
-                    .font(.custom("", size: 15))
-                    .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 10)
+                HStack{
+                    Text(entity.text)
+                    Spacer()
+                }
                 
-                Image("back")
+                Image(entity.photo)
                     .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .cornerRadius(12)
-                    .frame(width: screenWidth - 40, height: screenHeight * 0.25)
                 
                 HStack{
                     Spacer()
                     Button {
-                        likePost.toggle()
-                        likePost ? (likeNum += 1) : (likeNum -= 1)
+                        showLike.toggle()
                     } label: {
-                        Image(systemName: likePost ? "heart.fill" : "heart")
-                            .font(.system(size: 13))
+                        Image(systemName: showLike ? "heart.fill" : "heart")
+                            .font(.callout)
                             .foregroundColor(.red)
                             .padding(.trailing, -5)
-                        Text(String(likeNum))
-                            .font(.system(size: 13))
-                            .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                        Text(showLike ? "\(entity.like + 1)" : "\(entity.like)")
+                            .font(.callout)
+                            .foregroundColor(.black)
                     }
                     .padding(.trailing, 2)
                     
                     Image(systemName: "message.fill")
-                        .font(.system(size: 13))
-                        .foregroundColor(Color(red: 220/255, green: 220/255, blue: 225/255))
+                        .font(.callout)
+                        .foregroundColor(.gray)
                         .padding(.trailing, -5)
-                    Text(String(commentNum))
-                        .font(.system(size: 13))
-                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
-
-                    
+                    Text("\(entity.comment.count)")
+                        .font(.callout)
+                        .foregroundColor(.black)
                 }
                 .padding(.vertical, 10)
-                .padding(.horizontal, 20)
                 
                 Divider()
-                    .background(.gray)
-                    .padding(.horizontal, 20)
                 
-                ForEach(commentSample) {
-                    CommentView($0.userName, $0.commentStr, $0.time)
+                ForEach(0..<entity.comment.count, id: \.self) {
+                    CommentView(
+                        entity.comment[$0].writerPhoto,
+                        entity.comment[$0].writerName,
+                        entity.comment[$0].text,
+                        entity.comment[$0].time
+                    )
                 }
             }
             
             HStack{
                 TextField("댓글을 입력해주세요", text: .constant(""))
-                    .textFieldStyle(.roundedBorder)
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
-                    .padding(.vertical, 5)
-                    .padding(.horizontal, 20)
-                
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 10)
+                    .font(.callout)
+                    .overlay(Capsule().stroke(.gray))
                 Button {
                     Void()
                 } label: {
                     Image(systemName: "paperplane")
-                        .font(.system(size: 20))
+                        .font(.title2)
                         .foregroundColor(.gray)
                 }
-                .padding(.trailing, 20)
+    
             }
-            .padding(.vertical)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Image
+                .init(systemName: "magnifyingglass")
+                .scaledToFit()
+                .frame(width: 25.5, height: 25.5)
+                .padding(.trailing, 5)
+        }
+        .padding(.horizontal)
     }
 }
 
 struct CommentView: View {
-    var time: Int
-    var userName: String
-    var commentStr: String
+    let userImage: String
+    let userName: String
+    let time: String
+    let commentString: String
     
-    init(_ userName: String = "NoName", _ commentStr: String = "댓글 내용입니다", _ time: Int = 0){
+    init(_ userImage:String, _ userName: String, _ commentString: String, _ time: String){
+        self.userImage = userImage
         self.userName = userName
-        self.commentStr = commentStr
+        self.commentString = commentString
         self.time = time
     }
     
     var body: some View {
         HStack{
             VStack{
-                Image("back")
+                Image(userImage)
                     .resizable()
                     .frame(width: 35, height: 35)
-                    .cornerRadius(100)
-                    .padding(.leading, 20)
+                    .clipShape(Circle())
                 Spacer()
             }
             
             VStack{
                 HStack{
                     Text(userName)
-                        .font(.system(size: 16))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
-                        .padding(.top, 5)
-                        .padding(.bottom, 1)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
                     
-                    Text(String(time) + "분 전")
-                        .font(.system(size: 12))
+                    Text(time)
+                        .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.leading, 1)
-                        .padding(.top, 3)
-                    
                     Spacer()
                 }
+                .padding(.bottom, 1)
                 
                 HStack{
-                    Text(commentStr)
-                        .font(.system(size: 13))
-                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
-                        .padding(.trailing, 20)
+                    Text(commentString)
+                        .font(.body)
+                        .foregroundColor(.black)
                     Spacer()
                 }
             }
-            .padding(.horizontal, 12)
-            .padding(.bottom, 15)
-                
+            .padding(.vertical, 10)
         }
     }
 }
 
 struct CommunityPostView_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityPostView()
-        
+        CommunityPostView(
+            entity:
+                CommunityEntity(
+                    writerName: "writerName",
+                    writerPhoto: "Smile",
+                    category: "category",
+                    text: "text",
+                    photo: "cat02",
+                    like: 1,
+                    comment: [
+                        CommentEntity(
+                            writerName: "gani",
+                            writerPhoto: "Gani",
+                            text: "text",
+                            time: "time"
+                        ),
+                        CommentEntity(
+                            writerName: "rey",
+                            writerPhoto: "Rey",
+                            text: "text",
+                            time: "time"
+                        ),
+                        CommentEntity(
+                            writerName: "min",
+                            writerPhoto: "Min",
+                            text: "text",
+                            time: "time"
+                        )
+                    ]
+                )
+        )
     }
 }
