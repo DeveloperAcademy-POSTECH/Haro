@@ -13,11 +13,23 @@ struct HaroApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if login {
-                MainView()
-            } else {
-                LoginPageView()
-            }
+            MainView()
+//            if login {
+//                MainView()
+//            } else {
+//                LoginPageView()
+//            }
+        }
+    }
+}
+
+
+struct TestView: View {
+    @State var string0 = "STring"
+    var body: some View {
+        Text("\(self.string0)")
+        Button("Chang") {
+            self.string0 = "asdfasdf"
         }
     }
 }

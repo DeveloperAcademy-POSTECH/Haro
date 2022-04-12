@@ -60,6 +60,7 @@ struct PlaceAnnotationView: View {
 struct MapView: View {
     @Binding var storyOn: Bool
     @State var mapPins: [IdentifiablePlace] = []
+    @AppStorage("StoryCategory", store: .standard) var selectedCategoryData: Data = UserDefaults.standard.data(forKey: "StoryCategory") ?? Data()
     
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
@@ -79,16 +80,45 @@ struct MapView: View {
         return nil
     }
     
+    func initSelectedCategory() {
+        let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
+            (raw.rawString, true)
+        }, uniquingKeysWith: {(first, _) in first})
+        
+        if self.selectedCategoryData.isEmpty {
+            guard let data = try? JSONEncoder().encode(userDefaultsDictionary) else { return }
+            self.selectedCategoryData = data
+        }
+    }
+    
+    func showPin() {
+        if let jsonData = self.readJSON() {
+            do {
+                let selectedCategoryDictionary = try JSONDecoder().decode([String:Bool].self, from: self.selectedCategoryData)
+                let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
+                self.mapPins = mapPinsData.filter { storyEntity in
+                    selectedCategoryDictionary[storyEntity.category] ?? false
+                }.map { (storyEntity) -> IdentifiablePlace in
+                    return IdentifiablePlace(storyEntity: storyEntity)
+                }
+            } catch {
+                print("Error")
+            }
+        }
+        
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: mapPins) { pin in
+            Map(coordinateRegion: self.$viewModel.region, showsUserLocation: true,
+                annotationItems: self.mapPins) { pin in
                 MapAnnotation(coordinate: pin.location) {
                     PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
                 }
             }
+            
             LocationButton(.currentLocation) {
-                viewModel.requestAllowOnceLocationPermission()
+                self.viewModel.requestAllowOnceLocationPermission()
             }
             .foregroundColor(.white)
             .cornerRadius(8)
@@ -99,31 +129,13 @@ struct MapView: View {
                 MapButtonView(showingCategoryView: self.$showingCategoryView)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
-            
-            
         }
         .onAppear {
-            if let jsonData = self.readJSON() {
-                do {
-                    let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
-                    self.mapPins = mapPinsData.map { (storyEntity) -> IdentifiablePlace in
-                        return IdentifiablePlace(storyEntity: storyEntity)
-                    }
-                } catch let DecodingError.dataCorrupted(context) {
-                    print(context)
-                } catch let DecodingError.keyNotFound(key, context) {
-                    print("Key '\(key)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.valueNotFound(value, context) {
-                    print("Value '\(value)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.typeMismatch(type, context)  {
-                    print("Type '\(type)' mismatch:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch {
-                    print("error: ", error)
-                }
-            }
+            self.initSelectedCategory()
+            self.showPin()
+        }
+        .onChange(of: self.selectedCategoryData.count) { _ in
+            self.showPin()
         }
     }
 }
@@ -151,31 +163,6 @@ struct CreateStoryButton: View {
         VStack {
             Spacer()
             Button {
-                //                var mapPinsData: [StoryEntity] = []
-                //                if let jsonData = self.readJSON() {
-                //                    do {
-                //                        mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
-                //                    } catch {
-                //                        print("error: ", error)
-                //                    }
-                //                }
-                //                let newPinData = StoryEntity(userID: "TestUser", latitude: 36.008179, longitude: 129.331589, category: "restaurant", imageName: "restaurant0.jpg")
-                //                mapPinsData.append(newPinData)
-                //                print(mapPinsData)
-                
-                //                    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-                //                if let documentDirectoryUrl = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first {
-                //                        let fileUrl = documentDirectoryUrl.appendingPathComponent("rawData.json")
-                //                        print(fileUrl)
-                //                        do {
-                //                            let newData = try JSONEncoder().encode(mapPinsData)
-                //                            let jsonString = String(decoding: newData, as: UTF8.self)
-                //                        try jsonString.write(to: fileUrl, atomically: true, encoding: .utf8)
-                //                        print(jsonString)
-                //                        } catch {
-                //                            print(error)
-                //                        }
-                //                    }
                 self.showStoryWriteView = true
             } label: {
                 ZStack {
@@ -194,7 +181,7 @@ struct CreateStoryButton: View {
             .padding(.bottom, 17)
         }
         .sheet(isPresented: self.$showStoryWriteView) {
-            StoryWriteView(showModal: $showStoryWriteView)
+            StoryWriteView(showModal: self.$showStoryWriteView)
         }
     }
 }
