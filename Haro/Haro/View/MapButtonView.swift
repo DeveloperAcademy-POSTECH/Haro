@@ -19,19 +19,19 @@ struct MapButtonView: View {
                 MapButton(name: "square.grid.3x2") {
                     self.showingCategoryView.toggle()
                 }
-                LocationButton(.currentLocation) {
-                    self.mapViewModel.updatingLcationToggle()
-                }
-                .foregroundColor(Color(uiColor: UIColor.darkGray))
-                .tint(.white)
-                .font(.system(size: 26))
-                .labelStyle(.iconOnly)
-                .cornerRadius(15)
-                .shadow(color: .gray, radius: 1, x: 0, y: 0.5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 17)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(.gray, lineWidth: 1)
-                )
+                    LocationButton(.currentLocation) {
+                        self.mapViewModel.updatingLcationToggle()
+                    }
+                    .foregroundColor(Color(uiColor: UIColor.darkGray))
+                    .tint(.white)
+                    .font(.system(size: 26))
+                    .labelStyle(.iconOnly)
+                    .cornerRadius(15)
+                }
+                .shadow(color: .gray, radius: 1, x: 0, y: 0.5)
                 .frame(width: 60, height: 60)
                 
                 Spacer()
@@ -58,7 +58,7 @@ struct MapButton: View {
                 .frame(width: 60, height: 60)
                 .shadow(color: .gray, radius: 1, x: 0, y: 0.5)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 17)
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(.gray, lineWidth: 1)
                 )
             Button(action: self.buttonAction) {

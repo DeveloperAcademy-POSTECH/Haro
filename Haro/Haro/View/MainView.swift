@@ -17,6 +17,7 @@ struct MainView: View {
             TabView {
                 MapView(storyOn: self.$storyOn,
                         showingCategoryView: self.$showingCategoryView)
+                .accentColor(.blue)
                 .edgesIgnoringSafeArea(.top)
                 .tabItem {
                     TabItemView(imageName: "map", title: "지도")
