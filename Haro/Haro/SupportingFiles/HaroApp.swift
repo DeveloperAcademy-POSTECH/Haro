@@ -13,12 +13,11 @@ struct HaroApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
-//            if login {
-//                MainView()
-//            } else {
-//                LoginPageView()
-//            }
+            if login {
+                MainView()
+            } else {
+                LoginPageView()
+            }
         }
     }
 }
