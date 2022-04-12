@@ -80,14 +80,13 @@ struct CategoryView: View {
                     HStack {
                         Text(viewModel.categories[number].text)
                             .padding()
+                            .foregroundColor(number == 0 ? .black : .white)
                         Spacer()
                     }
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(viewModel.colors[number])
             }
-            Spacer()
-                .frame(height: 120)
         }
     }
 }

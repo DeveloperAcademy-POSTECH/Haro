@@ -9,6 +9,7 @@ import Foundation
 
 struct StoryEntity: Codable {
     let userID: String
+    let userPhoto: String
     let latitude: Double
     let longitude: Double
     let category: String

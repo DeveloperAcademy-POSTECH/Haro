@@ -35,6 +35,32 @@ enum StoryCategory: String, CaseIterable {
         }
     }
     
+    var main: StoryMainCategory {
+        switch self {
+        case .cafe: fallthrough
+        case .restaurant: fallthrough
+        case .culture: fallthrough
+        case .cloth: fallthrough
+        case .promenade: fallthrough
+        case .park: fallthrough
+        case .facility: fallthrough
+        case .mart: fallthrough
+        case .otherPlace: return .place
+        case .opening: fallthrough
+        case .notice: fallthrough
+        case .discount: fallthrough
+        case .otherNews: return .news
+        case .event: fallthrough
+        case .festival: fallthrough
+        case .animal: fallthrough
+        case .otherEvent: return .event
+        case .traffic: fallthrough
+        case .crime: fallthrough
+        case .construction: fallthrough
+        case .otherAccident: return .accident
+        }
+    }
+    
     var text: String {
         switch self {
         case .cafe: return "카페"
