@@ -29,9 +29,9 @@ struct PlaceAnnotationView: View {
     func categoryImage() -> Image {
         let category = self.storyEntity.category
         var imageName = ""
-        StoryMainCategory.allCases.map { mainCategory in
+        StoryMainCategory.allCases.forEach { mainCategory in
             let categoryArray = StoryCategory.inside(of: mainCategory).map {
-                $0.rawString
+                $0.rawValue
             }
             if categoryArray.contains(category) {
                 imageName = mainCategory.rawValue
@@ -43,9 +43,14 @@ struct PlaceAnnotationView: View {
     var body: some View {
         Button{
             withAnimation (.easeInOut(duration: 0.5)) {
-                stroyOn.toggle()
+                print("debug")
+                do {
+                    UserDefaults.standard.set(try PropertyListEncoder().encode(self.storyEntity), forKey:"SelectedStory")
+                } catch {
+                    print("error")
+                }
+                self.stroyOn.toggle()
             }
-            
         } label: {
             self.categoryImage()
                 .resizable()
@@ -82,7 +87,7 @@ struct MapView: View {
     
     func initSelectedCategory() {
         let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
-            (raw.rawString, true)
+            (raw.rawValue, true)
         }, uniquingKeysWith: {(first, _) in first})
         
         if self.selectedCategoryData.isEmpty {
@@ -129,6 +134,8 @@ struct MapView: View {
                 MapButtonView(showingCategoryView: self.$showingCategoryView)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
+            
+            
         }
         .onAppear {
             self.initSelectedCategory()
@@ -137,6 +144,8 @@ struct MapView: View {
         .onChange(of: self.selectedCategoryData.count) { _ in
             self.showPin()
         }
+        
+        
     }
 }
 

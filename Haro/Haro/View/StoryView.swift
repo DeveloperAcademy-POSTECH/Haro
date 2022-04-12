@@ -10,6 +10,12 @@ import MapKit
 
 struct StoryView: View {
     @Binding var storyOn: Bool
+    var storyEntity: StoryEntity? = {
+        if let data = UserDefaults.standard.value(forKey:"SelectedStory") as? Data {
+            let storyEntity = try? PropertyListDecoder().decode(StoryEntity.self, from: data)
+            return storyEntity
+        } else { return nil }
+    }()
     
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
@@ -18,14 +24,19 @@ struct StoryView: View {
     let screenHeight = UIScreen.main.bounds.size.height
     
     var body: some View {
-        ZStack{
-            Image("back")
-                .resizable()
+        ZStack {
+            Rectangle()
+                .fill(.black)
                 .ignoresSafeArea()
             
-            VStack{
+            Image(self.storyEntity?.imageName ?? "")
+                .resizable()
+                .scaledToFit()
+                .ignoresSafeArea()
+            
+            VStack {
                 HStack {
-                    ZStack{
+                    ZStack {
                         Circle()
                             .stroke()
                             .frame(width: 50, height: 50)
@@ -39,10 +50,10 @@ struct StoryView: View {
                             .foregroundColor(.white)
                     }
                     VStack(alignment: .leading) {
-                        Text("이름이름")
+                        Text(self.storyEntity?.userID ?? "")
                             .font(.body)
                             .foregroundColor(.white)
-                        Text("맛집")
+                        Text( StoryCategory(rawValue: self.storyEntity?.category ?? "")?.rawValue ?? "")
                             .font(.caption)
                             .foregroundColor(.white)
                     }
@@ -53,6 +64,7 @@ struct StoryView: View {
                     Button {
                         withAnimation{
                             self.storyOn.toggle()
+                            UserDefaults.standard.removeObject(forKey: "SelectedStory")
                         }
                     } label: {
                         Image(systemName: "xmark")
@@ -88,6 +100,9 @@ struct StoryView: View {
                         Button {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 onMap = true
+                                self.coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.storyEntity?.latitude ?? 36.014279,
+                                                                                                          longitude: self.storyEntity?.longitude ?? 129.325785),
+                                                                              span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
                             }
                         } label: {
                             VStack{
@@ -128,7 +143,7 @@ struct StoryView: View {
                         
                         VStack{
                             Spacer()
-                            Map(coordinateRegion: $coordinateRegion)
+                            Map(coordinateRegion: self.$coordinateRegion)
                                 .padding(.all)
                                 .padding(.bottom, 30)
                                 .frame(height: screenHeight * 0.3)

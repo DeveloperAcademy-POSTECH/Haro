@@ -22,14 +22,3 @@ struct HaroApp: App {
         }
     }
 }
-
-
-struct TestView: View {
-    @State var string0 = "STring"
-    var body: some View {
-        Text("\(self.string0)")
-        Button("Chang") {
-            self.string0 = "asdfasdf"
-        }
-    }
-}

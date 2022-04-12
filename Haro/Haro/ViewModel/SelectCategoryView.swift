@@ -120,7 +120,8 @@ struct SelectFirstCategoryView: View {
                                     .scaledToFit()
                             )
                         Text(self.firstCategoryList[index].title)
-                            .font(.system(size: 12, weight: .regular, design: .default))
+                            .font(.system(size: 12, weight: .semibold, design: .default))
+                            .foregroundColor(.black)
                             .frame(alignment: .center)
                     }
                 }
@@ -150,7 +151,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
     mutating func toggleCategory(category: StoryCategory) {
         do {
             self.selectedSecondCategory = try JSONDecoder().decode([String:Bool].self, from: self.selectedCategoryData ?? Data())
-            self.selectedSecondCategory[category.rawString]?.toggle()
+            self.selectedSecondCategory[category.rawValue]?.toggle()
             let data = try JSONEncoder().encode(self.selectedSecondCategory)
             self.selectedCategoryData = data
         } catch {
@@ -165,7 +166,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()
@@ -176,7 +177,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()
@@ -187,7 +188,7 @@ struct SelectSecondCategoryView: View, StoryCategoryDelegate {
                     if i < self.secondCategory.count {
                         CategoryButton(category: self.secondCategory[i],
                                        categoryDelegate: self.categoryDelegate,
-                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawString] ?? true)
+                                       isSelected: self.selectedSecondCategory[self.secondCategory[i].rawValue] ?? true)
                     }
                 }
                 Spacer()
