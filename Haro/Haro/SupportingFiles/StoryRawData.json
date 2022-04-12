@@ -109,20 +109,20 @@
         "latitude": 36.008179,
         "longitude": 129.331589,
         "category": "cafe",
-        "imageName": "cafe0.jpg"
+        "imageName": "cafe0"
     },
     {
         "userID": "Rey",
         "latitude": 36.015126,
         "longitude": 129.322517,
         "category": "promenade",
-        "imageName": "promenade0.jpg"
+        "imageName": "promenade0"
     },
     {
         "userID": "Rey",
         "latitude": 36.007996,
         "longitude": 129.32968,
         "category": "restaurant",
-        "imageName": "restaurant0.jpg"
+        "imageName": "restaurant0"
     }
 ]

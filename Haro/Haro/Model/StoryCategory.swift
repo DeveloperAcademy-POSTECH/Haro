@@ -7,24 +7,15 @@
 
 import Foundation
 
-enum StoryMainCategory: CaseIterable {
+enum StoryMainCategory: String, CaseIterable {
     case place, news, event, accident
     
     var title: String {
         switch self {
-        case .place: return "추천장소"
-        case .news: return "가게소식"
-        case .event: return "행사축제"
+        case .place: return "장소"
+        case .news: return "소식"
+        case .event: return "이벤트"
         case .accident: return "사건사고"
-        }
-    }
-    
-    var imageName: String {
-        switch self {
-        case .place: return "place"
-        case .news: return "news"
-        case .event: return "event"
-        case .accident: return "accident"
         }
     }
 }

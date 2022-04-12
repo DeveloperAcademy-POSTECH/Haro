@@ -34,7 +34,7 @@ struct PlaceAnnotationView: View {
                 $0.rawString
             }
             if categoryArray.contains(category) {
-                imageName = mainCategory.imageName
+                imageName = mainCategory.rawValue
             }
         }
         return Image(imageName)
@@ -106,7 +106,6 @@ struct MapView: View {
             if let jsonData = self.readJSON() {
                 do {
                     let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
-                    print(mapPinsData)
                     self.mapPins = mapPinsData.map { (storyEntity) -> IdentifiablePlace in
                         return IdentifiablePlace(storyEntity: storyEntity)
                     }
@@ -132,10 +131,51 @@ struct MapView: View {
 struct CreateStoryButton: View {
     @State private var showStoryWriteView = false
     
+    func readJSON() -> Data? {
+        do {
+            if let bundlePath = Bundle.main.url(forResource: "StoryRawData", withExtension: "json") {
+                print(bundlePath)
+                let jsonData = try Data(contentsOf: bundlePath)
+                return jsonData
+            } else {
+                return nil
+            }
+        } catch {
+            print("JSON Read Error")
+        }
+        
+        return nil
+    }
+    
     var body: some View {
         VStack {
             Spacer()
             Button {
+                //                var mapPinsData: [StoryEntity] = []
+                //                if let jsonData = self.readJSON() {
+                //                    do {
+                //                        mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
+                //                    } catch {
+                //                        print("error: ", error)
+                //                    }
+                //                }
+                //                let newPinData = StoryEntity(userID: "TestUser", latitude: 36.008179, longitude: 129.331589, category: "restaurant", imageName: "restaurant0.jpg")
+                //                mapPinsData.append(newPinData)
+                //                print(mapPinsData)
+                
+                //                    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+                //                if let documentDirectoryUrl = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first {
+                //                        let fileUrl = documentDirectoryUrl.appendingPathComponent("rawData.json")
+                //                        print(fileUrl)
+                //                        do {
+                //                            let newData = try JSONEncoder().encode(mapPinsData)
+                //                            let jsonString = String(decoding: newData, as: UTF8.self)
+                //                        try jsonString.write(to: fileUrl, atomically: true, encoding: .utf8)
+                //                        print(jsonString)
+                //                        } catch {
+                //                            print(error)
+                //                        }
+                //                    }
                 self.showStoryWriteView = true
             } label: {
                 ZStack {
