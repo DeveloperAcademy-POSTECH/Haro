@@ -54,10 +54,6 @@ struct CommunityListCell: View {
             .background(.white)
             .cornerRadius(20)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
-        .background(Color(red: 242/255, green: 244/255, blue: 246/255))
-        .cornerRadius(20)
     }
 }
 
