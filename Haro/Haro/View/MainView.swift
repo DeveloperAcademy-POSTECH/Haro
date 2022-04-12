@@ -12,7 +12,6 @@ struct MainView: View {
     @State var storyOn: Bool = false
     @State private var showingCategoryView: Bool = false
     
-    
     var body: some View {
         ZStack {
             TabView {
@@ -21,17 +20,19 @@ struct MainView: View {
                 .edgesIgnoringSafeArea(.top)
                 .tabItem {
                     TabItemView(imageName: "map", title: "지도")
+                        .environment(\.symbolVariants, .none)
                 }
                 
                 CommunityView()
                     .tabItem {
-                        TabItemView(imageName: "person", title: "커뮤니티")
-                            .padding(0)
+                        TabItemView(imageName: "doc.plaintext", title: "커뮤니티")
+                            .environment(\.symbolVariants, .none)
                     }
                 
                 MyPageView()
                     .tabItem {
                         TabItemView(imageName: "person", title: "마이페이지")
+                            .environment(\.symbolVariants, .none)
                     }
             }
             .accentColor(.black)
@@ -53,7 +54,6 @@ struct MainView: View {
                 }
             }
         }
-        
     }
 }
 

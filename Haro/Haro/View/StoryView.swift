@@ -42,23 +42,37 @@ struct StoryView: View {
             VStack{
                 HStack {
                     ZStack{
-                        Circle()
-                            .stroke()
-                            .frame(width: 50, height: 50)
-                            .padding()
-                            .foregroundColor(.white)
-                        
-                        Circle()
-                            .stroke()
-                            .frame(width: 30, height: 30)
-                            .padding([.leading, .top], 35)
-                            .foregroundColor(.white)
+                        if let storyEntity = storyEntity {
+                            Image(storyEntity.userPhoto)
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .padding()
+                                .clipShape(Circle())
+                            
+                            Image(StoryCategory(rawValue: storyEntity.category)!.main.rawValue)
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding([.leading, .top], 35)
+                                .clipShape(Circle())
+                        } else {
+                            Circle()
+                                .stroke()
+                                .frame(width: 50, height: 50)
+                                .padding()
+                                .foregroundColor(.white)
+                            
+                            Circle()
+                                .stroke()
+                                .frame(width: 30, height: 30)
+                                .padding([.leading, .top], 35)
+                                .foregroundColor(.white)
+                        }
                     }
                     VStack(alignment: .leading) {
                         Text(self.storyEntity?.userID ?? "")
                             .font(.body)
                             .foregroundColor(.white)
-                        Text( StoryCategory(rawValue: self.storyEntity?.category ?? "")?.text ?? "")
+                        Text(StoryCategory(rawValue: storyEntity!.category)!.text)
                             .font(.caption)
                             .foregroundColor(.white)
                     }
