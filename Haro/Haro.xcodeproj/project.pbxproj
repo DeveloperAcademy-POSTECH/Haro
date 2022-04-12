@@ -122,6 +122,7 @@
 		A8095B3127FD1CAC00B01CD1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C779FB3727FDA7E100671D13 /* MainView.swift */,
 				A8095B3727FD219200B01CD1 /* MapView.swift */,
 				A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */,
@@ -143,7 +144,6 @@
 			children = (
 				A8250D6527FEC43C00599605 /* CategoryViewModel.swift */,
 				A8095B4727FDD64E00B01CD1 /* CameraViewModel.swift */,
-				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C796F82127FDD4370062C141 /* SelectCategoryView.swift */,
 				A823E3EA28044A0C00548F05 /* CommunityListViewModel.swift */,
 				A29B16DC2803BD4B00E8B195 /* SignUpPageViewModel.swift */,

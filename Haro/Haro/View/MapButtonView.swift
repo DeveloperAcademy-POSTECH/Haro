@@ -19,21 +19,20 @@ struct MapButtonView: View {
                 MapButton(name: "square.grid.3x2") {
                     self.showingCategoryView.toggle()
                 }
-                
-                //                MapButton(name: "arkit") {
-                //                    print("ARKit")
-                //                }
-                //                MapButton(name: "square.grid.3x2") {
-                //                    print("Category Button")
-                //                }
                 LocationButton(.currentLocation) {
                     self.mapViewModel.updatingLcationToggle()
                 }
-                .foregroundColor(.black)
+                .foregroundColor(Color(uiColor: UIColor.darkGray))
                 .tint(.white)
-                .cornerRadius(8)
                 .font(.system(size: 26))
                 .labelStyle(.iconOnly)
+                .cornerRadius(15)
+                .shadow(color: .gray, radius: 1, x: 0, y: 0.5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 17)
+                        .stroke(.gray, lineWidth: 1)
+                )
+                .frame(width: 60, height: 60)
                 
                 Spacer()
             }
@@ -70,9 +69,3 @@ struct MapButton: View {
         .frame(width: self.buttonSize, height: self.buttonSize)
     }
 }
-
-//struct MapButtonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapButtonView()
-//    }
-//}
