@@ -69,7 +69,7 @@ struct MapView: View {
     
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
-
+    @State var locationAuthorizationStatus = CLLocationManager().authorizationStatus
     
     func readJSON() -> Data? {
         do {
@@ -124,7 +124,9 @@ struct MapView: View {
                 }
             }
             
-            CreateStoryButton()
+            if self.viewModel.isShowingStoryButton() {
+                CreateStoryButton()
+            }
             
             GeometryReader { geometry in
                 MapButtonView(showingCategoryView: self.$showingCategoryView, mapViewModel: self.viewModel)
@@ -204,6 +206,7 @@ struct CreateStoryButton: View {
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
+    var isUpdatingLcation: Bool = false
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
     
@@ -216,20 +219,49 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     
     override init() {
         super.init()
-        
-        locationManager.delegate = self
+        self.locationManager.delegate = self
     }
     
-    func requestWhenInUseAuthorization() {
-        locationManager.requestLocation()
-        locationManager.delegate = self
+    func isShowingStoryButton() -> Bool {
+        switch self.locationManager.authorizationStatus {
+        case .notDetermined, .restricted, .denied:
+            return false
+        default:
+            return true
+        }
     }
     
-    func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
+    func requestLocationAuthorization() {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let locationManager = CLLocationManager()
+        switch locationManager.authorizationStatus {
+        case .restricted, .denied:
+            // 설정 화면으로
+            break
+        case .authorizedAlways, .authorizedWhenInUse:
+            self.updatingLcationToggle()
+        default:
+            break
+        }
+    }
+    
+    func updatingLcationToggle() {
+        if self.isUpdatingLcation {
+            self.requestLocationAuthorization()
+        } else {
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.isUpdatingLcation = true
         guard let latestLocation = locations.first
         else { return }
-        
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(
                 center: latestLocation.coordinate,
