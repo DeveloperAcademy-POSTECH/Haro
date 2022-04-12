@@ -20,14 +20,14 @@ struct MapButtonView: View {
                     self.showingCategoryView.toggle()
                 }
                 
-//                MapButton(name: "arkit") {
-//                    print("ARKit")
-//                }
-//                MapButton(name: "square.grid.3x2") {
-//                    print("Category Button")
-//                }
+                //                MapButton(name: "arkit") {
+                //                    print("ARKit")
+                //                }
+                //                MapButton(name: "square.grid.3x2") {
+                //                    print("Category Button")
+                //                }
                 LocationButton(.currentLocation) {
-                        self.mapViewModel.requestWhenInUseAuthorization()
+                    self.mapViewModel.updatingLcationToggle()
                 }
                 .foregroundColor(.black)
                 .tint(.white)
