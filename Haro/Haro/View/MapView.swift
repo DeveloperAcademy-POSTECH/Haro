@@ -122,20 +122,12 @@ struct MapView: View {
                 }
             }
             
-            LocationButton(.currentLocation) {
-                self.viewModel.requestAllowOnceLocationPermission()
-            }
-            .foregroundColor(.white)
-            .cornerRadius(8)
-            .labelStyle(.iconOnly)
-            .padding(.leading, 300.0)
             CreateStoryButton()
+            
             GeometryReader { geometry in
-                MapButtonView(showingCategoryView: self.$showingCategoryView)
+                MapButtonView(showingCategoryView: self.$showingCategoryView, mapViewModel: self.viewModel)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
-            
-            
         }
         .onAppear {
             self.initSelectedCategory()
@@ -148,6 +140,15 @@ struct MapView: View {
         
     }
 }
+
+extension Notification.Name {
+    static let goToCurrentLocation = Notification.Name("goToCurrentLocation")
+}
+
+private func goToUserLocation() {
+    NotificationCenter.default.post(name: .goToCurrentLocation, object: nil)
+}
+
 
 struct CreateStoryButton: View {
     @State private var showStoryWriteView = false
@@ -202,18 +203,27 @@ struct CreateStoryButton: View {
 //}
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    let locationManager = CLLocationManager()
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
     
-    let locationManager = CLLocationManager()
+    var locationPermission : Bool {
+        switch self.locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse : return true
+        default : return false
+        }
+    }
+    
+    
     
     override init() {
         super.init()
         locationManager.delegate = self
     }
     
-    func requestAllowOnceLocationPermission() {
+    func requestWhenInUseAuthzorization() {
         locationManager.requestLocation()
+        locationManager.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
@@ -224,7 +234,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: latestLocation.coordinate, span:
-                                                MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+                                                MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         }
     }
     
