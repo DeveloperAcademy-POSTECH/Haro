@@ -23,3 +23,13 @@ struct CommentEntity: Codable {
     let text: String
     let time: String
 }
+
+struct CommunityMeetingEntity: Codable {
+    let writerName: String
+    let writerPhoto: String
+    let category: String
+    let title: String
+    let descript: String
+    let photo: String
+    let attendee: String
+}

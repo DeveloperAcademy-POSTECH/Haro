@@ -18,10 +18,16 @@ struct CommunityListView: View {
     
     var body: some View {
         VStack {
-            List(0..<(viewModel.entity?.count ?? 0), id: \.self) { item in
-                CommunityListCell(category: viewModel.category.rawValue, text: viewModel.text(of: item), like: viewModel.like(of: item), comment: viewModel.comment(of: item))
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
+            List(0..<max((viewModel.entity?.count ?? 0), viewModel.meetingEntity?.count ?? 0), id: \.self) { item in
+                if CommunityCategory.inside(of: .meeting).contains(where: { $0 == viewModel.category }) {
+                    CommunityMeetingListCell(category: viewModel.category.rawValue, title: viewModel.title(of: item), descript: viewModel.descript(of: item), attendee: viewModel.attendee(of: item))
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                } else {
+                    CommunityListCell(category: viewModel.category.rawValue, text: viewModel.text(of: item), like: viewModel.like(of: item), comment: viewModel.comment(of: item))
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                }
             }
             .listRowBackground(Color.red)
             .listStyle(.plain)
@@ -39,6 +45,56 @@ struct CommunityListView: View {
         .onAppear {
             viewModel.configure()
         }
+    }
+}
+
+struct CommunityMeetingListCell: View {
+    let category: String
+    let title: String
+    let descript: String
+    let attendee: String
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HStack(alignment: .top) {
+                    Image(category)
+                        .frame(width: 30, height: 30)
+                    VStack{
+                        HStack {
+                            Text(title)
+                                .fontWeight(.bold)
+                                .font(.body)
+                                .minimumScaleFactor(1)
+                                .lineLimit(1)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer()
+                        }
+                        .padding(.vertical, 5)
+                        HStack {
+                            Text(descript)
+                                .font(.caption)
+                                .minimumScaleFactor(1)
+                                .lineLimit(3)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer()
+                        }
+                    }
+                }
+                HStack {
+                    Spacer()
+                    Text("🌞" + attendee)
+                }
+                .padding(.bottom, 5)
+            }
+            .padding(10)
+            .background(.white)
+            .cornerRadius(20)
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 3)
+        .cornerRadius(20)
+        .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
     }
 }
 

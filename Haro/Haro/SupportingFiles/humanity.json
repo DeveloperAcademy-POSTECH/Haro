@@ -1,0 +1,20 @@
+[
+    {
+      "writerName": "gani",
+      "writerPhoto": "Gani",
+      "category": "humanity",
+      "title": "논현동 철학 독서 모임",
+      "descript": "주말마다 철학 채 읽는 독서모임입니다.\n논현동 주변 카페에서 모여요!",
+      "photo": "book",
+      "attendee": "Gani 외 13명",
+    },
+    {
+      "writerName": "smile",
+      "writerPhoto": "Smile",
+      "category": "humanity",
+      "title": "모각코",
+      "descript": "모여서 각자 코딩하는 모임입니다. \n게더에서 모여요!",
+      "photo": "mogakko",
+      "attendee": "Smile 외 34명",
+    }
+]
