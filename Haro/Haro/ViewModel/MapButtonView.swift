@@ -27,7 +27,7 @@ struct MapButtonView: View {
 //                    print("Category Button")
 //                }
                 LocationButton(.currentLocation) {
-                        self.mapViewModel.requestWhenInUseAuthzorization()
+                        self.mapViewModel.requestWhenInUseAuthorization()
                 }
                 .foregroundColor(.black)
                 .tint(.white)

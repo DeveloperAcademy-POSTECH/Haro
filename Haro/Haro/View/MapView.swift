@@ -214,14 +214,12 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
     
-    
-    
     override init() {
         super.init()
         locationManager.delegate = self
     }
     
-    func requestWhenInUseAuthzorization() {
+    func requestWhenInUseAuthorization() {
         locationManager.requestLocation()
         locationManager.delegate = self
     }
