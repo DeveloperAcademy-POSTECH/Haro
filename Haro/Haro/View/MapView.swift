@@ -10,28 +10,48 @@ import MapKit
 import CoreLocationUI
 
 struct IdentifiablePlace: Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     let location: CLLocationCoordinate2D
-    init(id: UUID = UUID(), lat: Double, long: Double) {
-        self.id = id
+    let storyEntity: StoryEntity
+    init(storyEntity: StoryEntity) {
+        self.storyEntity = storyEntity
         self.location = CLLocationCoordinate2D(
-            latitude: lat,
-            longitude: long)
+            latitude: storyEntity.latitude,
+            longitude: storyEntity.longitude)
     }
 }
 
 struct PlaceAnnotationView: View {
     @Binding var stroyOn: Bool
+    var storyEntity: StoryEntity
+    let imageSize: CGFloat = 45
+    
+    func categoryImage() -> Image {
+        let category = self.storyEntity.category
+        var imageName = ""
+        StoryMainCategory.allCases.map { mainCategory in
+            let categoryArray = StoryCategory.inside(of: mainCategory).map {
+                $0.rawString
+            }
+            if categoryArray.contains(category) {
+                imageName = mainCategory.imageName
+            }
+        }
+        return Image(imageName)
+    }
+    
     var body: some View {
         Button{
             withAnimation (.easeInOut(duration: 0.5)) {
                 stroyOn.toggle()
             }
-
+            
         } label: {
-            Image(systemName: "moon.stars.fill")
-                .font(.title)
-                .foregroundColor(.purple)
+            self.categoryImage()
+                .resizable()
+                .scaledToFit()
+                .frame(width: self.imageSize, height: self.imageSize)
+            
         }
     }
 }
@@ -39,17 +59,32 @@ struct PlaceAnnotationView: View {
 
 struct MapView: View {
     @Binding var storyOn: Bool
-    let place: IdentifiablePlace = IdentifiablePlace(lat: 36.014279, long: 129.325785)
-   
+    @State var mapPins: [IdentifiablePlace] = []
+    
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
+    
+    func readJSON() -> Data? {
+        do {
+            if let bundlePath = Bundle.main.url(forResource: "StoryRawData", withExtension: "json") {
+                let jsonData = try Data(contentsOf: bundlePath)
+                return jsonData
+            } else {
+                return nil
+            }
+        } catch {
+            print("JSON Read Error")
+        }
+        
+        return nil
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true,
-                annotationItems: [place]) {
-                place in MapAnnotation(coordinate: place.location) {
-                    PlaceAnnotationView(stroyOn: self.$storyOn)
+                annotationItems: mapPins) { pin in
+                MapAnnotation(coordinate: pin.location) {
+                    PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
                 }
             }
             LocationButton(.currentLocation) {
@@ -59,11 +94,38 @@ struct MapView: View {
             .cornerRadius(8)
             .labelStyle(.iconOnly)
             .padding(.leading, 300.0)
-
             CreateStoryButton()
-            MapButtonView(showingCategoryView: self.$showingCategoryView)
+            GeometryReader { geometry in
+                MapButtonView(showingCategoryView: self.$showingCategoryView)
+                    .padding(.top, geometry.safeAreaInsets.bottom - 35)
+            }
+            
+            
         }
-        .ignoresSafeArea()
+        .onAppear {
+            if let jsonData = self.readJSON() {
+                do {
+                    let mapPinsData = try JSONDecoder().decode([StoryEntity].self, from: jsonData)
+                    print(mapPinsData)
+                    self.mapPins = mapPinsData.map { (storyEntity) -> IdentifiablePlace in
+                        return IdentifiablePlace(storyEntity: storyEntity)
+                    }
+                } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+            }
+        }
     }
 }
 
@@ -81,7 +143,7 @@ struct CreateStoryButton: View {
                         .fill(Color.init(red: 1, green: 144/255, blue: 0))
                     Text("지금 어떤 일이 일어나고 있나요?")
                         .lineLimit(1)
-                        .font(.system(size: 15))
+                        .font(.system(size: 16))
                         .minimumScaleFactor(0.005)
                         .foregroundColor(.white)
                         .padding([.leading, .trailing], 30)
@@ -89,9 +151,7 @@ struct CreateStoryButton: View {
             }
             .frame(height: 50)
             .padding([.leading, .trailing], 90)
-            
-            Spacer()
-                .frame(height: 130)
+            .padding(.bottom, 17)
         }
         .sheet(isPresented: self.$showStoryWriteView) {
             StoryWriteView(showModal: $showStoryWriteView)
