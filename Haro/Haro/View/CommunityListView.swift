@@ -148,6 +148,7 @@ struct CommunityListCell: View {
         .padding(.horizontal, 3)
         .cornerRadius(20)
         .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
+
     }
 }
 

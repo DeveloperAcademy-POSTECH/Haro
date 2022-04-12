@@ -29,7 +29,6 @@ class CameraViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
         case .denied: self.alert.toggle()
         default : return
         }
-        
     }
     
     func setUp() {

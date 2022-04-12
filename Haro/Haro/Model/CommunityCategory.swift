@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum CommunityMainCategory: CaseIterable {
     case meeting, place, news, event, accident
     
