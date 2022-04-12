@@ -69,6 +69,7 @@ struct MapView: View {
     
     @Binding var showingCategoryView: Bool
     @StateObject var viewModel = MapViewModel()
+
     
     func readJSON() -> Data? {
         do {
@@ -84,6 +85,7 @@ struct MapView: View {
         
         return nil
     }
+
     
     func initSelectedCategory() {
         let userDefaultsDictionary: Dictionary<String,Bool> = Dictionary(StoryCategory.allCases.map { raw in
@@ -136,8 +138,6 @@ struct MapView: View {
         .onChange(of: self.selectedCategoryData.count) { _ in
             self.showPin()
         }
-        
-        
     }
 }
 
@@ -214,27 +214,28 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
     
-    
-    
     override init() {
         super.init()
+        
         locationManager.delegate = self
     }
     
-    func requestWhenInUseAuthzorization() {
+
+    func requestWhenInUseAuthorization() {
         locationManager.requestLocation()
         locationManager.delegate = self
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
-                         [CLLocation]) {
-        guard let latestLocation = locations.first else {
-            return
-        }
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        guard let latestLocation = locations.first
+        else { return }
         
         DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span:
-                                                MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.region = MKCoordinateRegion(
+                center: latestLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
         }
     }
     
@@ -242,4 +243,3 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         print(error.localizedDescription)
     }
 }
-
