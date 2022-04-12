@@ -8,22 +8,32 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var currentPageIndex: Int = 0
     @State var storyOn: Bool = false
     @State private var showingCategoryView: Bool = false
     
-    let screenSize = UIScreen.main.bounds.size
-    
     var body: some View {
         ZStack {
-            PageControlView(currentPageIndex: self.currentPageIndex,
-                            showingCategoryView: self.$showingCategoryView,
-                            storyOn: self.$storyOn)
-            .onTapGesture {
-                self.showingCategoryView = false
+            TabView {
+                MapView(storyOn: self.$storyOn,
+                        showingCategoryView: self.$showingCategoryView)
+                .edgesIgnoringSafeArea(.top)
+                .tabItem {
+                    TabItemView(imageName: "map", title: "지도")
+                }
+                
+                CommunityView()
+                    .tabItem {
+                        TabItemView(imageName: "person", title: "커뮤니티")
+                            .padding(0)
+                    }
+                
+                MyPageView()
+                    .tabItem {
+                        TabItemView(imageName: "person", title: "마이페이지")
+                    }
             }
+            .accentColor(.black)
             
-            FloatingTabView(currentPageIndex: self.$currentPageIndex)
             if storyOn {
                 StoryView(storyOn: self.$storyOn)
                     .transition(.move(edge: .bottom))
@@ -33,7 +43,7 @@ struct MainView: View {
                 ZStack {
                     VStack{
                         Spacer()
-                        SelectCategoryView()
+                        SelectCategoryView(showingCategoryView: self.$showingCategoryView)
                     }
                     .ignoresSafeArea()
                     .transition(.move(edge: .bottom))
@@ -41,12 +51,25 @@ struct MainView: View {
                 }
             }
         }
+        
+    }
+}
+
+struct TabItemView: View {
+    var imageName: String
+    var title: String
+    
+    var body: some View {
+        VStack {
+            Image(systemName: self.imageName)
+            Text(self.title)
+        }
     }
 }
 
 struct PageControlView: View {
     var currentPageIndex: Int
-
+    
     @State var scrollAxis: Axis.Set = .horizontal
     @Binding var showingCategoryView: Bool
     @Binding var storyOn: Bool
@@ -55,36 +78,12 @@ struct PageControlView: View {
         if self.currentPageIndex == 0 {
             MapView(storyOn: self.$storyOn,
                     showingCategoryView: self.$showingCategoryView)
-//            .transition(.move(edge: .leading))
         } else if self.currentPageIndex == 1 {
             CommunityView()
         } else {
             MyPageView()
-//                .transition(.move(edge: .trailing))
         }
         
-        //        GeometryReader { geometry in
-        //            ScrollViewReader { scrollProxy in
-        //                ScrollView(self.scrollAxis, showsIndicators: false) {
-        //                    HStack {
-        //                        MapView(showingCategoryView: self.$showingCategoryView)
-        //                            .frame(width: geometry.size.width, height: geometry.size.height)
-        //                            .id(0)
-        //                        CommunityView()
-        //                            .frame(width: geometry.size.width, height: geometry.size.height)
-        //                            .id(1)
-        //                        MyPageView()
-        //                            .frame(width: geometry.size.width, height: geometry.size.height)
-        //                            .id(2)
-        //                    }
-        //                    .onChange(of: self.currentPageIndex) { target in
-        //                        withAnimation {
-        //                            scrollProxy.scrollTo(target)
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
     }
 }
 
