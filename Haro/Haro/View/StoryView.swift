@@ -17,16 +17,23 @@ struct StoryView: View {
         } else { return nil }
     }()
     
+    
     @State var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion ( center: CLLocationCoordinate2D ( latitude: 36.014279, longitude: 129.325785 ), span: MKCoordinateSpan ( latitudeDelta: 0.005, longitudeDelta: 0.005 ) )
     @State var onMap = false
     @State var isLike = false
     
+    
     let screenHeight = UIScreen.main.bounds.size.height
     
     var body: some View {
-        ZStack {
+        ZStack{
             Rectangle()
                 .fill(.black)
+                .ignoresSafeArea()
+            
+            Image(self.storyEntity?.imageName ?? "")
+                .resizable()
+                .blur(radius: 20)
                 .ignoresSafeArea()
             
             Image(self.storyEntity?.imageName ?? "")
@@ -34,9 +41,9 @@ struct StoryView: View {
                 .scaledToFit()
                 .ignoresSafeArea()
             
-            VStack {
+            VStack{
                 HStack {
-                    ZStack {
+                    ZStack{
                         Circle()
                             .stroke()
                             .frame(width: 50, height: 50)
@@ -53,7 +60,7 @@ struct StoryView: View {
                         Text(self.storyEntity?.userID ?? "")
                             .font(.body)
                             .foregroundColor(.white)
-                        Text( StoryCategory(rawValue: self.storyEntity?.category ?? "")?.rawValue ?? "")
+                        Text( StoryCategory(rawValue: self.storyEntity?.category ?? "")?.text ?? "")
                             .font(.caption)
                             .foregroundColor(.white)
                     }
@@ -143,10 +150,19 @@ struct StoryView: View {
                         
                         VStack{
                             Spacer()
-                            Map(coordinateRegion: self.$coordinateRegion)
-                                .padding(.all)
-                                .padding(.bottom, 30)
-                                .frame(height: screenHeight * 0.3)
+                            if let storyEntity = self.storyEntity {
+                                Map(coordinateRegion: self.$coordinateRegion,
+                                    annotationItems: [IdentifiablePlace(storyEntity: storyEntity)]) { pin in
+                                    MapAnnotation(coordinate: pin.location) {
+                                        PlaceAnnotationView(stroyOn: self.$storyOn, storyEntity: pin.storyEntity)
+                                            .disabled(true)
+                                    }
+                                }
+                                    .padding(.all)
+                                    .padding(.bottom, 30)
+                                    .frame(height: screenHeight * 0.3)
+                            }
+                            
                         }
                     }
                 }

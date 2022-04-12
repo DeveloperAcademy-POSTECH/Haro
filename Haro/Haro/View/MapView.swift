@@ -203,7 +203,7 @@ struct CreateStoryButton: View {
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
-    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
     
     let locationManager = CLLocationManager()
     
