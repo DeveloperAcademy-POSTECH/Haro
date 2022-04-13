@@ -31,6 +31,9 @@
 		A8B3C8C92800632F004D3841 /* CommunityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B3C8C82800632F004D3841 /* CommunityEntity.swift */; };
 		C733A0002803016B00BADF48 /* StoryCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7339FFF2803016B00BADF48 /* StoryCategory.swift */; };
 		C733A00228031E7000BADF48 /* RawData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C733A00128031E7000BADF48 /* RawData.xcassets */; };
+		C743F2EB2806F8310013CF01 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743F2EA2806F8310013CF01 /* ARView.swift */; };
+		C743F32E28070DDB0013CF01 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C743F32D28070DDB0013CF01 /* Scene.sks */; };
+		C743F332280710EB0013CF01 /* ARScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743F331280710EB0013CF01 /* ARScene.swift */; };
 		C779FB3827FDA7E100671D13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779FB3727FDA7E100671D13 /* MainView.swift */; };
 		C796F81E27FDCB470062C141 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F81D27FDCB470062C141 /* MapButtonView.swift */; };
 		C796F82227FDD4370062C141 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796F82127FDD4370062C141 /* SelectCategoryView.swift */; };
@@ -65,6 +68,9 @@
 		A8B3C8C82800632F004D3841 /* CommunityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityEntity.swift; sourceTree = "<group>"; };
 		C7339FFF2803016B00BADF48 /* StoryCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCategory.swift; sourceTree = "<group>"; };
 		C733A00128031E7000BADF48 /* RawData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RawData.xcassets; sourceTree = "<group>"; };
+		C743F2EA2806F8310013CF01 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
+		C743F32D28070DDB0013CF01 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
+		C743F331280710EB0013CF01 /* ARScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARScene.swift; sourceTree = "<group>"; };
 		C779FB3727FDA7E100671D13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C796F81D27FDCB470062C141 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
 		C796F82127FDD4370062C141 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 				C796F81D27FDCB470062C141 /* MapButtonView.swift */,
 				C779FB3727FDA7E100671D13 /* MainView.swift */,
 				A8095B3727FD219200B01CD1 /* MapView.swift */,
+				C743F2EA2806F8310013CF01 /* ARView.swift */,
 				A8095B3927FD21BA00B01CD1 /* StoryWriteView.swift */,
 				A8095B3B27FD21D200B01CD1 /* StoryView.swift */,
 				A8095B3D27FD21DC00B01CD1 /* CommunityView.swift */,
@@ -156,6 +163,8 @@
 			children = (
 				A8095B2827FD1BF100B01CD1 /* Preview Content */,
 				A8095B2227FD1BEF00B01CD1 /* HaroApp.swift */,
+				C743F32D28070DDB0013CF01 /* Scene.sks */,
+				C743F331280710EB0013CF01 /* ARScene.swift */,
 				A8095B3027FD1C2200B01CD1 /* Info.plist */,
 				A8095B2627FD1BF000B01CD1 /* Assets.xcassets */,
 				A823E3EE2804552D00548F05 /* animal.json */,
@@ -243,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8095B2A27FD1BF100B01CD1 /* Preview Assets.xcassets in Resources */,
+				C743F32E28070DDB0013CF01 /* Scene.sks in Resources */,
 				C733A00228031E7000BADF48 /* RawData.xcassets in Resources */,
 				C7E5F03B2803D56C00705810 /* StoryRawData.json in Resources */,
 				A8095B2727FD1BF000B01CD1 /* Assets.xcassets in Resources */,
@@ -260,9 +270,11 @@
 			files = (
 				A8682C822805A00F002D1FB9 /* CommunityMeetingPostView.swift in Sources */,
 				A8095B4427FD223B00B01CD1 /* CommunityPostView.swift in Sources */,
+				C743F332280710EB0013CF01 /* ARScene.swift in Sources */,
 				A8095B3A27FD21BA00B01CD1 /* StoryWriteView.swift in Sources */,
 				A8B3C8C92800632F004D3841 /* CommunityEntity.swift in Sources */,
 				C733A0002803016B00BADF48 /* StoryCategory.swift in Sources */,
+				C743F2EB2806F8310013CF01 /* ARView.swift in Sources */,
 				A8095B4227FD220800B01CD1 /* CommunityWriteView.swift in Sources */,
 				A823E3EB28044A0C00548F05 /* CommunityListViewModel.swift in Sources */,
 				C7E5F0392803D07F00705810 /* StoryEntity.swift in Sources */,

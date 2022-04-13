@@ -68,9 +68,9 @@ struct MapView: View {
     @AppStorage("StoryCategory", store: .standard) var selectedCategoryData: Data = UserDefaults.standard.data(forKey: "StoryCategory") ?? Data()
     
     @Binding var showingCategoryView: Bool
+    @Binding var showingARView: Bool
     @StateObject var viewModel = MapViewModel()
-    @State var locationAuthorizationStatus = CLLocationManager().authorizationStatus
-    
+     
     func readJSON() -> Data? {
         do {
             if let bundlePath = Bundle.main.url(forResource: "StoryRawData", withExtension: "json") {
@@ -129,7 +129,10 @@ struct MapView: View {
             }
             
             GeometryReader { geometry in
-                MapButtonView(showingCategoryView: self.$showingCategoryView, mapViewModel: self.viewModel)
+                // ??
+                MapButtonView(showingCategoryView: self.$showingCategoryView,
+                              showingARView: self.$showingARView,
+                              mapViewModel: self.viewModel)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
         }
@@ -246,6 +249,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         let locationManager = CLLocationManager()
         switch locationManager.authorizationStatus {
         case .restricted, .denied:
+            print(".restricted, .denied")
             self.isUpdatingLcation = false
         case .authorizedAlways, .authorizedWhenInUse:
             self.updatingLcationToggle()
