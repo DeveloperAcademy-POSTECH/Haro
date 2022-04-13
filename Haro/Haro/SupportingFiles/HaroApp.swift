@@ -13,7 +13,7 @@ struct HaroApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if login {
+            if self.login {
                 MainView()
             } else {
                 LoginPageView()

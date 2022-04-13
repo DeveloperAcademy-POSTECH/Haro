@@ -206,12 +206,16 @@ struct CreateStoryButton: View {
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    var isUpdatingLcation: Bool = false
+    @Published var isUpdatingLcation: Bool = false
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
     
     var locationPermission : Bool {
         switch self.locationManager.authorizationStatus {
+//        case .notDetermined:
+//            return false
+//        case .restricted, .denied:
+//            return false
         case .authorizedAlways, .authorizedWhenInUse : return true
         default : return false
         }
@@ -234,6 +238,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func requestLocationAuthorization() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.startUpdatingLocation()
     }
     
@@ -241,8 +246,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         let locationManager = CLLocationManager()
         switch locationManager.authorizationStatus {
         case .restricted, .denied:
-            // 설정 화면으로
-            break
+            self.isUpdatingLcation = false
         case .authorizedAlways, .authorizedWhenInUse:
             self.updatingLcationToggle()
         default:
@@ -252,14 +256,19 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     
     func updatingLcationToggle() {
         if self.isUpdatingLcation {
-            self.requestLocationAuthorization()
+            self.locationManager.stopUpdatingLocation()
+            self.isUpdatingLcation = false
+            print("isUpdatingLcation Off, \(self.isUpdatingLcation)")
         } else {
-            self.locationManager.startUpdatingLocation()
+            if self.locationPermission {
+                self.requestLocationAuthorization()
+                self.isUpdatingLcation = true
+                print("isUpdatingLcation On, \(self.isUpdatingLcation)")
+            }
         }
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.isUpdatingLcation = true
         guard let latestLocation = locations.first
         else { return }
         DispatchQueue.main.async {

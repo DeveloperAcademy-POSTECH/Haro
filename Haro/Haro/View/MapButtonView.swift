@@ -10,7 +10,7 @@ import CoreLocationUI
 
 struct MapButtonView: View {
     @Binding var showingCategoryView: Bool
-    @ObservedObject var mapViewModel: MapViewModel
+    @StateObject var mapViewModel: MapViewModel
     
     var body: some View {
         HStack{
@@ -25,6 +25,7 @@ struct MapButtonView: View {
                     LocationButton(.currentLocation) {
                         self.mapViewModel.updatingLcationToggle()
                     }
+                    .symbolVariant(self.mapViewModel.isUpdatingLcation ? .fill : .none)
                     .foregroundColor(Color(uiColor: UIColor.darkGray))
                     .tint(.white)
                     .font(.system(size: 26))
