@@ -14,67 +14,74 @@ struct CommunityPostView: View {
     var body: some View {
         VStack{
             ScrollView{
-                HStack{
-                    Image(entity.writerPhoto)
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .clipShape(Circle())
-                    Text(entity.writerName)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                        .padding(.leading, 14)
-                    Spacer()
-                }
-                
-                Divider()
-                    .padding(.vertical, 11)
-                
-                HStack{
-                    Text(entity.text)
-                    Spacer()
-                }
-                
-                Image(entity.photo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(12)
-                
-                HStack{
-                    Spacer()
-                    Button {
-                        showLike.toggle()
-                    } label: {
-                        Image(systemName: showLike ? "heart.fill" : "heart")
-                            .font(.callout)
-                            .foregroundColor(.red)
-                            .padding(.trailing, -5)
-                        Text(showLike ? "\(entity.like + 1)" : "\(entity.like)")
-                            .font(.callout)
-                            .foregroundColor(.black)
+                VStack{
+                    HStack{
+                        Image(entity.writerPhoto)
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .clipShape(Circle())
+                        Text(entity.writerName)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                            .padding(.leading, 14)
+                        Spacer()
                     }
-                    .padding(.trailing, 2)
                     
-                    Image(systemName: "message.fill")
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                        .padding(.trailing, -5)
-                    Text("\(entity.comment.count)")
-                        .font(.callout)
-                        .foregroundColor(.black)
+                    Divider()
+                        .padding(.vertical, 11)
+                    
+                    HStack{
+                        Text(entity.text)
+                            .font(.subheadline)
+                            .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                        Spacer()
+                    }
+                    .padding(.bottom, 8)
+                    
+                    Image(entity.photo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(12)
+                    
+                    HStack{
+                        Spacer()
+                        Button {
+                            showLike.toggle()
+                        } label: {
+                            Image(systemName: showLike ? "heart.fill" : "heart")
+                                .font(.subheadline)
+                                .foregroundColor(.red)
+                                .padding(.trailing, -5)
+                            Text(showLike ? "\(entity.like + 1)" : "\(entity.like)")
+                                .font(.subheadline)
+                                .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                        }
+                        .padding(.trailing, 2)
+                        
+                        Image(systemName: "message.fill")
+                            .font(.subheadline)
+                            .foregroundColor(Color(red: 215/255, green: 215/255, blue: 220/255))
+                            .padding(.trailing, -5)
+                        Text("\(entity.comment.count)")
+                            .font(.subheadline)
+                            .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                        
+                    }
+                    .padding(.vertical, 10)
+                    
+                    Divider()
+                    
+                    ForEach(0..<entity.comment.count, id: \.self) {
+                        CommentView(
+                            entity.comment[$0].writerPhoto,
+                            entity.comment[$0].writerName,
+                            entity.comment[$0].text,
+                            entity.comment[$0].time
+                        )
+                    }
                 }
-                .padding(.vertical, 10)
-                
-                Divider()
-                
-                ForEach(0..<entity.comment.count, id: \.self) {
-                    CommentView(
-                        entity.comment[$0].writerPhoto,
-                        entity.comment[$0].writerName,
-                        entity.comment[$0].text,
-                        entity.comment[$0].time
-                    )
-                }
+                .padding(.horizontal, 18)
             }
             
             HStack{
@@ -83,6 +90,7 @@ struct CommunityPostView: View {
                     .padding(.horizontal, 10)
                     .font(.callout)
                     .overlay(Capsule().stroke(.gray))
+                
                 Button {
                     Void()
                 } label: {
@@ -90,8 +98,8 @@ struct CommunityPostView: View {
                         .font(.title2)
                         .foregroundColor(.gray)
                 }
-    
             }
+            .padding(.horizontal, 18)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -101,7 +109,7 @@ struct CommunityPostView: View {
                 .frame(width: 25.5, height: 25.5)
                 .padding(.trailing, 5)
         }
-        .padding(.horizontal)
+        .padding(.top, 10)
     }
 }
 
@@ -131,9 +139,9 @@ struct CommentView: View {
             VStack{
                 HStack{
                     Text(userName)
-                        .font(.title3)
+                        .font(.body)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
                     
                     Text(time)
                         .font(.caption)
@@ -145,8 +153,9 @@ struct CommentView: View {
                 
                 HStack{
                     Text(commentString)
-                        .font(.body)
-                        .foregroundColor(.black)
+                        .font(.subheadline)
+                        .foregroundColor(Color(red: 53/255, green: 60/255, blue: 73/255))
+                    
                     Spacer()
                 }
             }

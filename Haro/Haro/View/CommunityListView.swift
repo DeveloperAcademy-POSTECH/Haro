@@ -43,7 +43,6 @@ struct CommunityListView: View {
             .listRowBackground(Color.red)
             .listStyle(.plain)
         }
-        .padding(.horizontal, 18)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(title)
         .toolbar {
@@ -102,8 +101,8 @@ struct CommunityMeetingListCell: View {
             .background(.white)
             .cornerRadius(20)
         }
+        .padding(.horizontal, 18)
         .padding(.vertical, 10)
-        .padding(.horizontal, 3)
         .cornerRadius(20)
         .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
     }
@@ -144,8 +143,8 @@ struct CommunityListCell: View {
             .background(.white)
             .cornerRadius(20)
         }
+        .padding(.horizontal, 18)
         .padding(.vertical, 10)
-        .padding(.horizontal, 3)
         .cornerRadius(20)
         .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
 
