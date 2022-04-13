@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
-    let image = ImageFileManager.shared.getSavedImage(named: "image")!
+    let image = ImageFileManager.shared.getSavedImage(named: "image") ?? UIImage(named: "noProfile")!
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
