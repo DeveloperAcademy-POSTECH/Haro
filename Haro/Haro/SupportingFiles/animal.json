@@ -148,4 +148,51 @@
             }
         ]
     }
+    ,{
+        "writerName": "rey",
+        "writerPhoto": "Rey",
+        "category": "animal",
+        "text": "저 이따가 강아지 데리고 산책 나갈건데 혹시 견주분들 중 포스텍쪽에서 만나서 같이 산책하실 분 계신가요?\n 저희 강아지들끼리 친구 만들어줘요 ㅎㅎ🤩",
+        "photo": "dog",
+        "like": 14,
+        "comment":
+        [
+            {
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "저요!! 어디에서 몇시쯤 하실건가요?",
+                "time": "5분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "제 개는 성격이 안좋아서 아쉽네여 ㅜㅜ",
+                "time": "7분 전"
+            }
+            ,{
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "강아지는 안키우지만 가도 될까요..ㅎㅎ",
+                "time": "13분 전"
+            }
+            ,{
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "저요!! 어디에서 몇시쯤 하실건가요?",
+                "time": "5분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "제 개는 성격이 안좋아서 아쉽네여 ㅜㅜ",
+                "time": "7분 전"
+            }
+            ,{
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "강아지는 안키우지만 가도 될까요..ㅎㅎ",
+                "time": "13분 전"
+            }
+        ]
+    }
 ]

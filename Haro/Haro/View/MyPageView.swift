@@ -17,6 +17,7 @@ struct MyPageView: View {
                 .font(.title)
                 .foregroundColor(Color(red: 36/255, green: 36/255, blue: 36/255))
                 .fontWeight(.heavy)
+                .padding(.bottom, 10)
             
             HStack(alignment: .center, spacing: 16) {
                 Image(uiImage: image)
@@ -30,11 +31,11 @@ struct MyPageView: View {
                     
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
-                            .font(.callout)
+                            .font(.subheadline)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                         
                         Text("운중동")
-                            .font(.callout)
+                            .font(.subheadline)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                     }
                 }
@@ -45,13 +46,13 @@ struct MyPageView: View {
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
             
             Text("내가 쓴 글 전체보기")
-                .font(.body)
+                .font(.callout)
             
             Divider()
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
             
             Text("설정")
-                .font(.body)
+                .font(.callout)
             
             Divider()
                 .foregroundColor(Color(red: 231/255, green: 231/255, blue: 231/255))
@@ -61,15 +62,14 @@ struct MyPageView: View {
                 exit(0)
             } label: {
                 Text("회원 탈퇴")
-                    .font(.body)
+                    .font(.callout)
                     .foregroundColor(.black)
             }
-
             
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 30)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 17)
     }
 }
 
