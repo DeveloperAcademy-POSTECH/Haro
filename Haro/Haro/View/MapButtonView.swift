@@ -10,7 +10,7 @@ import CoreLocationUI
 
 struct MapButtonView: View {
     @Binding var showingCategoryView: Bool
-    @Binding var showingARView: Bool
+    @StateObject var arViewLocation: ARViewLocation
     @StateObject var mapViewModel: MapViewModel
     
     var body: some View {
@@ -20,9 +20,12 @@ struct MapButtonView: View {
                 MapButton(name: "square.grid.3x2") {
                     self.showingCategoryView.toggle()
                 }
+                
                 MapButton(name: "arkit") {
-                    withAnimation{
-                        self.showingARView.toggle()
+                    if self.mapViewModel.isUpdatingLcation {
+                        withAnimation{
+                            self.arViewLocation.showingARView.toggle()
+                        }
                     }
                 }
                 
@@ -63,7 +66,7 @@ struct MapButton: View {
         ZStack {
             RoundedRectangle(cornerRadius: 15, style: .continuous)
                 .fill(.white)
-//                .frame(width: self.buttonSize, height: self.buttonSize)
+            //                .frame(width: self.buttonSize, height: self.buttonSize)
                 .shadow(color: .gray, radius: 1, x: 0, y: 0.5)
                 .overlay(
                     RoundedRectangle(cornerRadius: 15)
@@ -74,6 +77,7 @@ struct MapButton: View {
                     .frame(width: self.buttonSize, height: self.buttonSize)
                     .foregroundColor(.black)
             }
+            
         }
         .frame(width: self.buttonSize, height: self.buttonSize)
     }

@@ -8,13 +8,13 @@
 import SwiftUI
 import SpriteKit
 import ARKit
+import MapKit
 
 struct ARView: View {
-    @Binding var showingARView: Bool
-    
+    @StateObject var arViewLocation: ARViewLocation
     var body: some View {
         ZStack{
-            ARViewIndicator()
+            ARViewIndicator(region: self.arViewLocation.region)
                 .ignoresSafeArea()
             
             HStack {
@@ -22,23 +22,9 @@ struct ARView: View {
                 VStack{
                     MapButton(name: "xmark") {
                         withAnimation{
-                            self.showingARView.toggle()
+                            self.arViewLocation.showingARView.toggle()
                         }
                     }
-                    //                    Button {
-                    //                        withAnimation{
-                    //                            self.showingARView.toggle()
-                    //                        }
-                    //                    } label: {
-                    //                        ZStack {
-                    //                            RoundedRectangle(cornerRadius: 15, .circular)
-                    //                                .fill(.white.opacity(0.6))
-                    //                            Image(systemName: "xmark")
-                    //                                .font(.title)
-                    //                                .foregroundColor(.black)
-                    //                        }
-                    //                    }
-                    //                    .frame(width: 60, height: 60)
                     .padding(.trailing)
                     
                     Spacer()
@@ -51,8 +37,12 @@ struct ARView: View {
 
 // MARK: - ARViewIndicator
 struct ARViewIndicator: UIViewControllerRepresentable {
+    var region: MKCoordinateRegion
+    
     func makeUIViewController(context: Context) -> ARViewController {
-        return ARViewController()
+        let arViewController = ARViewController()
+        arViewController.region = self.region
+        return arViewController
     }
     
     func updateUIViewController(_ uiViewController: ARViewController, context:
@@ -68,18 +58,40 @@ struct ARViewIndicator: UIViewControllerRepresentable {
 //}
 
 class ARViewController: UIViewController, ARSKViewDelegate {
-    
+    var region: MKCoordinateRegion = MKCoordinateRegion()
     var sceneView: ARSKView = ARSKView()
+    
     
     private func setSceneView() {
         self.sceneView.delegate = self
-        self.sceneView.showsFPS = true
-        self.sceneView.showsNodeCount = true
+        //        self.sceneView.showsFPS = true
+        //        self.sceneView.showsNodeCount = true
         self.sceneView.isUserInteractionEnabled = true
         self.sceneView.isMultipleTouchEnabled = true
         self.sceneView.isAsynchronous = true
         self.sceneView.shouldCullNonVisibleNodes = true
     }
+    
+    func categoryImageName(storyEntity: StoryEntity) -> String {
+        let category = storyEntity.category
+        var imageName = ""
+        StoryMainCategory.allCases.forEach { mainCategory in
+            let categoryArray = StoryCategory.inside(of: mainCategory).map {
+                $0.rawValue
+            }
+            if categoryArray.contains(category) {
+                imageName = mainCategory.rawValue
+            }
+        }
+        return imageName
+    }
+    
+    //    private func creatARAnchor(storyEntity: StoryEntity) -> ARAnchor {
+    //        let entity = self.filterCategory()
+    //        let node = SKSpriteNode()
+    //        let imageName = self.categoryImageName(storyEntity: entity)
+    //        node.texture = SKTexture(imageNamed: imageName)
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,14 +108,14 @@ class ARViewController: UIViewController, ARSKViewDelegate {
         ])
         
         // Load the SKScene from 'Scene.sks'
-        if let scene = SKScene(fileNamed: "Scene") {
+        if let scene = ARScene(fileNamed: "Scene") {
+            scene.currentRegion = region.center
             self.sceneView.presentScene(scene)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let configuration = ARWorldTrackingConfiguration()
         
         // Run the view's session
@@ -118,13 +130,11 @@ class ARViewController: UIViewController, ARSKViewDelegate {
     }
     
     // MARK: - ARSKViewDelegate
-    
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-        // Create and configure a node for the anchor added to the view's session.
-        let labelNode = SKLabelNode(text: ["👾","🍎","📱","🤔","☀️"].randomElement())
-        labelNode.horizontalAlignmentMode = .center
-        labelNode.verticalAlignmentMode = .center
-        return labelNode;
+        let imageName = StoryMainCategory.allCases.map{ $0.rawValue }.randomElement() ?? ""
+        let imageNode = SKSpriteNode(imageNamed: imageName)
+        print(imageName)
+        return imageNode
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

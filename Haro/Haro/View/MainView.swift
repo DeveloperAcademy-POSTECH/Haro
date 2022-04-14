@@ -11,14 +11,14 @@ struct MainView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var storyOn: Bool = false
     @State private var showingCategoryView: Bool = false
-    @State private var showingARView: Bool = false
+    @StateObject private var arViewLocation: ARViewLocation = ARViewLocation()
     
     var body: some View {
         ZStack {
             TabView {
                 MapView(storyOn: self.$storyOn,
                         showingCategoryView: self.$showingCategoryView,
-                        showingARView: self.$showingARView)
+                        arViewLocation: self.arViewLocation)
                 .accentColor(.blue)
                 .edgesIgnoringSafeArea(.top)
                 .tabItem {
@@ -45,8 +45,8 @@ struct MainView: View {
                     .transition(.move(edge: .bottom))
             }
             
-            if self.showingARView {
-                ARView(showingARView: self.$showingARView)
+            if self.arViewLocation.showingARView {
+                ARView(arViewLocation: self.arViewLocation)
                     .transition(.move(edge: .bottom))
             }
             

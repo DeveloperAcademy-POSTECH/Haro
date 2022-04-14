@@ -68,7 +68,7 @@ struct MapView: View {
     @AppStorage("StoryCategory", store: .standard) var selectedCategoryData: Data = UserDefaults.standard.data(forKey: "StoryCategory") ?? Data()
     
     @Binding var showingCategoryView: Bool
-    @Binding var showingARView: Bool
+    @StateObject var arViewLocation: ARViewLocation
     @StateObject var viewModel = MapViewModel()
      
     func readJSON() -> Data? {
@@ -112,7 +112,6 @@ struct MapView: View {
                 print("Error")
             }
         }
-        
     }
     
     var body: some View {
@@ -131,7 +130,7 @@ struct MapView: View {
             GeometryReader { geometry in
                 // ??
                 MapButtonView(showingCategoryView: self.$showingCategoryView,
-                              showingARView: self.$showingARView,
+                              arViewLocation: self.arViewLocation,
                               mapViewModel: self.viewModel)
                     .padding(.top, geometry.safeAreaInsets.bottom - 35)
             }
@@ -206,6 +205,24 @@ struct CreateStoryButton: View {
 //        MapView()
 //    }
 //}
+
+class ARViewLocation: ObservableObject {
+    @Published var showingARView: Bool
+    @Published var region: MKCoordinateRegion
+    
+    init(showingARView: Bool, region:MKCoordinateRegion) {
+        self.showingARView = showingARView
+        self.region = region
+    }
+    
+    init() {
+        self.showingARView = false
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.014279, longitude: 129.325785), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+    }
+    
+    
+    
+}
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
