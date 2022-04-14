@@ -15,56 +15,56 @@ class ARScene: SKScene {
     var isSceneSetUp: Bool = false
     var currentRegion: CLLocationCoordinate2D?
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        DispatchQueue.main.async {
-            guard let sceneView = self.view as? ARSKView else {
-                print("sceneView Error" )
-                return
-            }
-            
-            self.filteredStoryEntitys = self.filterCategory()
-            self.filteredStoryEntitys?.forEach { storyEntity in
-                if storyEntity.category == "promenade" {
-                    print(storyEntity.category)
-                    
-                    let calculateLatitude = Float(storyEntity.latitude - (self.currentRegion?.latitude ?? 0.0))
-                    let calculateLongitude = Float(storyEntity.longitude - (self.currentRegion?.longitude ?? 0.0))
-                    print(calculateLatitude,calculateLongitude)
-
-                    // Create anchor using the camera's current position
-                    if let currentFrame = sceneView.session.currentFrame {
-                        // Create a transform with a translation of 0.2 meters in front of the camera
-                        var translation = matrix_identity_float4x4
-                        
-                        translation.columns.3.z = calculateLatitude
-                        translation.columns.3.x = calculateLongitude
-                        let transform = simd_mul(currentFrame.camera.transform, translation)
-
-                        // Add a new anchor to the session
-                        print("")
-                        let anchor = ARAnchor(transform: transform)
-                        sceneView.session.add(anchor: anchor)
-                    }
-                }
-            }
-            
-            if let currentFrame = sceneView.session.currentFrame {
-                // Create a transform with a translation of 0.2 meters in front of the camera
-                var translation = matrix_identity_float4x4
-                
-                
-                translation.columns.3.z = -0.5
-                translation.columns.3.x = -0.5
-                let transform = simd_mul(currentFrame.camera.transform, translation)
-
-                // Add a new anchor to the session
-                let anchor = ARAnchor(transform: transform)
-                sceneView.session.add(anchor: anchor)
-            }
-            
-        }
-    }
+    //    required init?(coder aDecoder: NSCoder) {
+    //        super.init(coder: aDecoder)
+    //        DispatchQueue.main.async {
+    //            guard let sceneView = self.view as? ARSKView else {
+    //                print("sceneView Error" )
+    //                return
+    //            }
+    //
+    //            self.filteredStoryEntitys = self.filterCategory()
+    //            self.filteredStoryEntitys?.forEach { storyEntity in
+    //                if storyEntity.category == "promenade" {
+    //                    print(storyEntity.category)
+    //
+    //                    let calculateLatitude = Float(storyEntity.latitude - (self.currentRegion?.latitude ?? 0.0))
+    //                    let calculateLongitude = Float(storyEntity.longitude - (self.currentRegion?.longitude ?? 0.0))
+    //                    print(calculateLatitude,calculateLongitude)
+    //
+    //                    // Create anchor using the camera's current position
+    //                    if let currentFrame = sceneView.session.currentFrame {
+    //                        // Create a transform with a translation of 0.2 meters in front of the camera
+    //                        var translation = matrix_identity_float4x4
+    //
+    //                        translation.columns.3.z = calculateLatitude
+    //                        translation.columns.3.x = calculateLongitude
+    //                        let transform = simd_mul(currentFrame.camera.transform, translation)
+    //
+    //                        // Add a new anchor to the session
+    //                        print("")
+    //                        let anchor = ARAnchor(transform: transform)
+    //                        sceneView.session.add(anchor: anchor)
+    //                    }
+    //                }
+    //            }
+    //
+    //            if let currentFrame = sceneView.session.currentFrame {
+    //                // Create a transform with a translation of 0.2 meters in front of the camera
+    //                var translation = matrix_identity_float4x4
+    //
+    //
+    //                translation.columns.3.z = -0.5
+    //                translation.columns.3.x = -0.5
+    //                let transform = simd_mul(currentFrame.camera.transform, translation)
+    //
+    //                // Add a new anchor to the session
+    //                let anchor = ARAnchor(transform: transform)
+    //                sceneView.session.add(anchor: anchor)
+    //            }
+    //
+    //        }
+    //    }
     
     private func readJSON() -> Data? {
         do {
@@ -97,14 +97,14 @@ class ARScene: SKScene {
         guard let sceneView = self.view as? ARSKView else {
             return
         }
-
+        
         // Create anchor using the camera's current position
         if let currentFrame = sceneView.session.currentFrame {
             // Create a transform with a translation of 0.2 meters in front of the camera
             var translation = matrix_identity_float4x4
             translation.columns.3.z = -1
             let transform = simd_mul(currentFrame.camera.transform, translation)
-
+            
             // Add a new anchor to the session
             let anchor = ARAnchor(transform: transform)
             sceneView.session.add(anchor: anchor)
@@ -121,8 +121,33 @@ class ARScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if !self.isSceneSetUp {
+            guard let sceneView = self.view as? ARSKView else {
+                print("sceneView Error" )
+                return
+            }
             
-            
+            self.filteredStoryEntitys = self.filterCategory()
+            self.filteredStoryEntitys?.forEach { storyEntity in
+                print(storyEntity.category)
+                
+                let calculateLatitude = Float(storyEntity.latitude - (self.currentRegion?.latitude ?? 0.0))
+                let calculateLongitude = Float(storyEntity.longitude - (self.currentRegion?.longitude ?? 0.0))
+                print(calculateLatitude,calculateLongitude)
+                
+                // Create anchor using the camera's current position
+                if let currentFrame = sceneView.session.currentFrame {
+                    // Create a transform with a translation of 0.2 meters in front of the camera
+                    var translation = matrix_identity_float4x4
+                    
+                    translation.columns.3.z = calculateLatitude
+                    translation.columns.3.x = calculateLongitude
+                    let transform = simd_mul(currentFrame.camera.transform, translation)
+                    
+                    // Add a new anchor to the session
+                    let anchor = ARAnchor(transform: transform)
+                    sceneView.session.add(anchor: anchor)
+                }
+            }
         }
         self.isSceneSetUp = true
     }
