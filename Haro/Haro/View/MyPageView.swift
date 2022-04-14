@@ -10,7 +10,8 @@ import SwiftUI
 struct MyPageView: View {
     let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     let image = ImageFileManager.shared.getSavedImage(named: "image") ?? UIImage(named: "noProfile")!
-    
+    @ObservedObject var locationViewModel = LocationViewModel()
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("마이페이지")
@@ -33,9 +34,9 @@ struct MyPageView: View {
                         Image(systemName: "mappin.and.ellipse")
                             .font(.subheadline)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
-                        
-                        Text("운중동")
-                            .font(.subheadline)
+                       
+                        Text(locationViewModel.region)
+                            .font(.callout)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                     }
                 }
@@ -70,11 +71,5 @@ struct MyPageView: View {
         }
         .padding(.horizontal, 18)
         .padding(.vertical, 17)
-    }
-}
-
-struct MyPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPageView()
     }
 }
