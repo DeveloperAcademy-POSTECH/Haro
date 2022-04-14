@@ -1,0 +1,198 @@
+[
+    {
+      "writerName": "gani",
+      "writerPhoto": "Gani",
+      "category": "animal",
+      "text": "중앙공원 고양이를 산책로에서 만났어요! 역시 터줏대감 중앙냥이.. 귀여우니까 같이 봐줘요!!",
+      "photo": "cat01",
+      "like": 33,
+      "comment": [
+        {
+          "writerName": "smile",
+          "writerPhoto": "Smile",
+          "text": "와 때깔이 곱네요! 너무 귀여워요",
+          "time": "3분 전"
+        },
+        {
+          "writerName": "zero",
+          "writerPhoto": "Zero",
+          "text": "킹냥이",
+          "time": "5분 전"
+        },
+        {
+          "writerName": "rey",
+          "writerPhoto": "Rey",
+          "text": "오늘 또 뵈러 가야겠군요",
+          "time": "1시간 전"
+        },
+        {
+          "writerName": "min",
+          "writerPhoto": "Min",
+          "text": "오늘 참치캔 하나 가져다 줬는데 잘 먹더라구요!",
+          "time": "2시간 전"
+        }
+      ]
+    },
+    {
+      "writerName": "smile",
+      "writerPhoto": "Smile",
+      "category": "animal",
+      "text": "삼색 고양이의 99%는 암컷이라는거 알고 계셨나요? 털 색이 X 염색체에 의해 결정된다고 하네요!",
+      "photo": "cat02",
+      "like": 9,
+      "comment": [
+        {
+          "writerName": "rey",
+          "writerPhoto": "Rey",
+          "text": "오... 흥미로워요!",
+          "time": "20분 전"
+        },
+        {
+          "writerName": "min",
+          "writerPhoto": "Min",
+          "text": "앞으로 삼색이 보면 이 글만 생각날 것 같아요",
+          "time": "1시간 전"
+        },
+      ]
+    },
+    {
+        "writerName": "zero",
+        "writerPhoto": "Zero",
+        "category": "animal",
+        "text": "비둘기 무리 출몰... 비둘기 싫어하는 사람들은 여기로 절대 지나가지 마세요 ㅜㅜ 😱",
+        "photo": "pigeon",
+        "like": 15,
+        "comment":
+        [
+            {
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "와 너무 싫은데요..?",
+                "time": "3분 전"
+            }
+            ,{
+                "writerName": "gani",
+                "writerPhoto": "Gani",
+                "text": "저기로는 절대 안가야겠네요🥶",
+                "time": "10분 전"
+            }
+            ,{
+                "writerName": "rey",
+                "writerPhoto": "Rey",
+                "text": "저는 비둘기 귀엽던데..🕊",
+                "time": "20분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "어우... 정확히 어디죠?",
+                "time": "28분 전"
+            }
+        ]
+    }
+    ,{
+        "writerName": "min",
+        "writerPhoto": "Min",
+        "category": "animal",
+        "text": "헐 지금 포공 기숙사 옆 연못 나무위에 다람쥐 있어요!\n엄청 귀엽네요 다들 와서 한번씩 보고 힐링하세요 완전 힐링 체고👍",
+        "photo": "squirrel",
+        "like": 19,
+        "comment":
+        [
+            {
+                "writerName": "gani",
+                "writerPhoto": "Gani",
+                "text": "헐 지금 달려가는중입니다.🏃‍♀️",
+                "time": "3분 전"
+            }
+            ,{
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "헐 저도 아까 봤는데 엄청 귀여웠어요!🐿",
+                "time": "11분 전"
+            }
+            ,{
+                "writerName": "rey",
+                "writerPhoto": "Rey",
+                "text": "헐 진짜 귀엽네요!!",
+                "time": "24분 전"
+            }
+        ]
+    }
+    ,{
+        "writerName": "rey",
+        "writerPhoto": "Rey",
+        "category": "animal",
+        "text": "저 이따가 강아지 데리고 산책 나갈건데 혹시 견주분들 중 포스텍쪽에서 만나서 같이 산책하실 분 계신가요?\n 저희 강아지들끼리 친구 만들어줘요 ㅎㅎ🤩",
+        "photo": "dog",
+        "like": 14,
+        "comment":
+        [
+            {
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "저요!! 어디에서 몇시쯤 하실건가요?",
+                "time": "5분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "제 개는 성격이 안좋아서 아쉽네여 ㅜㅜ",
+                "time": "7분 전"
+            }
+            ,{
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "강아지는 안키우지만 가도 될까요..ㅎㅎ",
+                "time": "13분 전"
+            }
+        ]
+    }
+    ,{
+        "writerName": "rey",
+        "writerPhoto": "Rey",
+        "category": "animal",
+        "text": "저 이따가 강아지 데리고 산책 나갈건데 혹시 견주분들 중 포스텍쪽에서 만나서 같이 산책하실 분 계신가요?\n 저희 강아지들끼리 친구 만들어줘요 ㅎㅎ🤩",
+        "photo": "dog",
+        "like": 14,
+        "comment":
+        [
+            {
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "저요!! 어디에서 몇시쯤 하실건가요?",
+                "time": "5분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "제 개는 성격이 안좋아서 아쉽네여 ㅜㅜ",
+                "time": "7분 전"
+            }
+            ,{
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "강아지는 안키우지만 가도 될까요..ㅎㅎ",
+                "time": "13분 전"
+            }
+            ,{
+                "writerName": "zero",
+                "writerPhoto": "Zero",
+                "text": "저요!! 어디에서 몇시쯤 하실건가요?",
+                "time": "5분 전"
+            }
+            ,{
+                "writerName": "min",
+                "writerPhoto": "Min",
+                "text": "제 개는 성격이 안좋아서 아쉽네여 ㅜㅜ",
+                "time": "7분 전"
+            }
+            ,{
+                "writerName": "smile",
+                "writerPhoto": "Smile",
+                "text": "강아지는 안키우지만 가도 될까요..ㅎㅎ",
+                "time": "13분 전"
+            }
+        ]
+    }
+]
