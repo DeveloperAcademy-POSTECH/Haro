@@ -24,11 +24,11 @@ struct CommunityView: View {
                     }
                     .padding(.all)
                     
-                    Rectangle()
-                        .foregroundColor(.gray)
+                    Image("community")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .cornerRadius(20)
-                        .padding(.horizontal)
-                        .aspectRatio(350/200, contentMode: .fit)
+                        .padding([.leading, .trailing, .bottom])
                     
                     CategoryView().padding(.horizontal)
                 }
@@ -96,3 +96,4 @@ struct CommunityView_Previews: PreviewProvider {
         CommunityView()
     }
 }
+
