@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageView: View {
     let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     let image = ImageFileManager.shared.getSavedImage(named: "image")!
+    @ObservedObject var locationViewModel = LocationViewModel()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -33,7 +34,7 @@ struct MyPageView: View {
                             .font(.callout)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                         
-                        Text("운중동")
+                        Text(locationViewModel.region)
                             .font(.callout)
                             .foregroundColor(Color(red: 149/255, green: 149/255, blue: 149/255))
                     }
@@ -70,11 +71,5 @@ struct MyPageView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 30)
-    }
-}
-
-struct MyPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPageView()
     }
 }
