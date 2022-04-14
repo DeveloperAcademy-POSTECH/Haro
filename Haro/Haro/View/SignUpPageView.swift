@@ -17,29 +17,34 @@ struct SignUpPageView: View {
     
     var body: some View {
         VStack (alignment: .center) {
-            Button {
-                picker.toggle()
-            } label: {
-                if !profileImage.isEmpty {
-                    var img = profileImage[0]
-                    Image(uiImage: img)
-                        .resizable()
-                        .frame(width: 90, height: 90)
-                        .cornerRadius(20)
-                } else {
-                    Text ("프로필 사진")
-                        .font(.caption)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(lineWidth: 1)
-                                .foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255))
-                                .frame(width: 90, height: 90)
-                                
-                        }
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.white)
+                    .frame(width: 90, height: 90)
+                Button {
+                    picker.toggle()
+                } label: {
+                    if !profileImage.isEmpty {
+                        var img = profileImage[0]
+                        Image(uiImage: img)
+                            .resizable()
+                            .frame(width: 90, height: 90)
+                            .cornerRadius(20)
+                    } else {
+                        Text ("프로필 사진")
+                            .font(.caption)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(lineWidth: 1)
+                                    .foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255))
+                                    .frame(width: 90, height: 90)
+                                    
+                            }
+                    }
                 }
-            }
-            .sheet(isPresented: $picker) {
-                ImagePicker(images: $profileImage, picker: $picker)
+                .sheet(isPresented: $picker) {
+                    ImagePicker(images: $profileImage, picker: $picker)
+                }
             }
             
             Spacer()
