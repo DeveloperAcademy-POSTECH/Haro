@@ -69,6 +69,7 @@ struct CommunityMeetingPostView: View {
                     
                     Divider()
                 }
+                .padding(.vertical, 10)
                 .padding(.horizontal, 18)
             }
             
@@ -89,6 +90,7 @@ struct CommunityMeetingPostView: View {
                     .foregroundColor(
                         Color(red: 234/255, green: 246/255, blue: 146/255)
                     )
+                    .padding(.horizontal, 18)
             )
         }
         .navigationBarTitleDisplayMode(.inline)
