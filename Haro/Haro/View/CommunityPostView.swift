@@ -10,6 +10,8 @@ import SwiftUI
 struct CommunityPostView: View {
     let entity: CommunityEntity
     @State var showLike: Bool = false
+    @State var input: String = ""
+    @State var commentNow: [CommentEntity] = []
     
     var body: some View {
         VStack{
@@ -72,6 +74,15 @@ struct CommunityPostView: View {
                     
                     Divider()
                     
+                    ForEach(0..<commentNow.count, id: \.self) {
+                        CommentView(
+                            commentNow[$0].writerPhoto,
+                            commentNow[$0].writerName,
+                            commentNow[$0].text,
+                            commentNow[$0].time
+                        )
+                    }
+                    
                     ForEach(0..<entity.comment.count, id: \.self) {
                         CommentView(
                             entity.comment[$0].writerPhoto,
@@ -80,25 +91,28 @@ struct CommunityPostView: View {
                             entity.comment[$0].time
                         )
                     }
+                    
                 }
                 .padding(.horizontal, 18)
             }
             
             HStack{
-                TextField("댓글을 입력해주세요", text: .constant(""))
+                TextField("댓글을 입력해주세요", text: $input)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 10)
                     .font(.callout)
                     .overlay(Capsule().stroke(.gray))
-                
                 Button {
-                    Void()
+                    self.commentNow.append(CommentEntity(writerName: UserDefaults.standard.string(forKey: "nickname")!, writerPhoto: "noProfile", text: self.input, time: "1분 전"))
+                    input = ""
                 } label: {
                     Image(systemName: "paperplane")
                         .font(.title2)
                         .foregroundColor(.gray)
                 }
+    
             }
+            .padding(.vertical, 5)
             .padding(.horizontal, 18)
         }
         .navigationBarTitleDisplayMode(.inline)
