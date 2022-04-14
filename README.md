@@ -2,7 +2,7 @@
 
 <div align="center">
     
-<img width=200 src="https://i.imgur.com/ia7lpyZ.png">
+<img width=200 src="./Haro/imageFiles/haro.png">
 
 <br>
 <br>
@@ -10,6 +10,8 @@
 📆 **2022. 03. 21. ~ 2022. 04. 15.**
     
 [<img src="https://img.shields.io/badge/Swift-5.6-orange?">](https://developer.apple.com/kr/swift/) [<img src="https://img.shields.io/badge/Xcode-13.3-blue?">](https://developer.apple.com/kr/xcode/)
+
+[📜 BackLog ➡️](https://docs.google.com/spreadsheets/d/1NG3ONCIkoRuogH0pDeNI2IVEOkUw63E5Dq4uSqPcsCE/edit?usp=sharing)
 
 </div>
 
@@ -20,11 +22,12 @@
 
 - A hyperlocal community app for quick and easy access to information on the local area
 
-|<img src="https://picsum.photos/200/300">|<img src="https://picsum.photos/200/300">|<img src="https://picsum.photos/200/300">|
+|<img src="./Haro/imageFiles/login.gif">|<img src="./Haro/imageFiles/main.gif">|<img src="./Haro/imageFiles/story.gif">|
 |:-:|:-:|:-:|
 |`Log in`|`Map`|`Story`|
-|<img src="https://picsum.photos/200/300">|<img src="https://picsum.photos/200/300">|<img src="https://picsum.photos/200/300">|
+|<img src="./Haro/imageFiles/category.gif">|<img src="./Haro/imageFiles/meeting.gif">|<img src="./Haro/imageFiles/community.gif">|
 |`Category`|`Meeting`|`Community`|
+
 
 <br>
 <br>
@@ -35,7 +38,7 @@
 
 |Designer|Developer|Developer|Developer|Developer
 |:-:|:-:|:-:|:-:|:-:|
-|<img src="https://i.imgur.com/bw2q7zD.png">|<img src="https://i.imgur.com/OB39K35.png">|<img src="https://i.imgur.com/88dufsy.png">|<img src="https://i.imgur.com/MEeuyWl.png">|<img src="https://i.imgur.com/DMWns2n.png">|
+|<img src="./Haro/imageFiles/gani.png">|<img src="./Haro/imageFiles/min.png">|<img src="./Haro/imageFiles/rey.png">|<img src="./Haro/imageFiles/smile.png">|<img src="./Haro/imageFiles/zero.png">|
 |Gani|Min|Rey|Smile|Zero|
     
 </div>
