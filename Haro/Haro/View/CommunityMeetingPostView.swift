@@ -13,60 +13,63 @@ struct CommunityMeetingPostView: View {
     var body: some View {
         VStack{
             ScrollView{
-                HStack{
-                    Image(entity.writerPhoto)
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .clipShape(Circle())
-                    Text(entity.writerName)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                        .padding(.leading, 14)
-                    Spacer()
-                }
-                
-                Divider()
-                    .padding(.vertical, 11)
-                
-                HStack {
-                    Text(entity.title)
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("주말")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 11)
-                        .padding(.vertical, 5)
-                        .background(
-                            Color(red: 196/255, green: 197/255, blue: 251/255)
-                        )
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: 7)
-                        )
-                }
-                
-                HStack {
-                    Text(entity.descript)
-                    Spacer()
-                }
-                .padding(.vertical)
+                VStack{
+                    HStack{
+                        Image(entity.writerPhoto)
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .clipShape(Circle())
+                        Text(entity.writerName)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .padding(.leading, 14)
+                        Spacer()
+                    }
                     
-                Image(entity.photo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(12)
-                
-                HStack{
-                    Text("🌞 \(entity.attendee)")
-                        .font(.subheadline)
-                    Spacer()
+                    Divider()
+                        .padding(.vertical, 11)
+                    
+                    HStack {
+                        Text(entity.title)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Spacer()
+                        Text("주말")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 11)
+                            .padding(.vertical, 5)
+                            .background(
+                                Color(red: 196/255, green: 197/255, blue: 251/255)
+                            )
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 7)
+                            )
+                    }
+                    
+                    HStack {
+                        Text(entity.descript)
+                        Spacer()
+                    }
+                    .padding(.vertical)
+                        
+                    Image(entity.photo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(12)
+                    
+                    HStack{
+                        Text("🌞 \(entity.attendee)")
+                            .font(.subheadline)
+                        Spacer()
+                    }
+                    .padding(.vertical, 10)
+                    
+                    Divider()
                 }
-                .padding(.vertical, 10)
-                
-                Divider()
+                .padding(.horizontal, 18)
             }
             
             HStack {
@@ -96,7 +99,6 @@ struct CommunityMeetingPostView: View {
                 .frame(width: 25.5, height: 25.5)
                 .padding(.trailing, 5)
         }
-        .padding(.horizontal)
     }
 }
 

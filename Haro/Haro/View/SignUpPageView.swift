@@ -114,7 +114,9 @@ struct SignUpPageView: View {
                     UserDefaults.standard.set(true, forKey: "token")
                     UserDefaults.standard.set(viewModel.nickName, forKey: "nickname")
                     goNext = true
-                    ImageFileManager.shared.saveImage(image: profileImage[0], name: "image")
+                    if !profileImage.isEmpty {
+                        ImageFileManager.shared.saveImage(image: profileImage[0], name: "image")
+                    }
                 }
             } label: {
 

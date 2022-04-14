@@ -43,7 +43,6 @@ struct CommunityListView: View {
             .listRowBackground(Color.red)
             .listStyle(.plain)
         }
-        .padding(.horizontal, 18)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(title)
         .toolbar {
@@ -74,7 +73,7 @@ struct CommunityMeetingListCell: View {
                     VStack{
                         HStack {
                             Text(title)
-                                .fontWeight(.bold)
+                                .fontWeight(.semibold)
                                 .font(.body)
                                 .minimumScaleFactor(1)
                                 .lineLimit(1)
@@ -84,7 +83,7 @@ struct CommunityMeetingListCell: View {
                         .padding(.vertical, 5)
                         HStack {
                             Text(descript)
-                                .font(.caption)
+                                .font(.subheadline)
                                 .minimumScaleFactor(1)
                                 .lineLimit(3)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -95,6 +94,7 @@ struct CommunityMeetingListCell: View {
                 HStack {
                     Spacer()
                     Text("🌞" + attendee)
+                        .font(.subheadline)
                 }
                 .padding(.bottom, 5)
             }
@@ -102,8 +102,8 @@ struct CommunityMeetingListCell: View {
             .background(.white)
             .cornerRadius(20)
         }
+        .padding(.horizontal, 18)
         .padding(.vertical, 10)
-        .padding(.horizontal, 3)
         .cornerRadius(20)
         .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
     }
@@ -120,9 +120,11 @@ struct CommunityListCell: View {
             VStack {
                 HStack(alignment: .top) {
                     Image(category)
+                        .font(.body)
                         .frame(width: 30, height: 30)
                     HStack {
                         Text(text)
+                            .font(.subheadline)
                             .minimumScaleFactor(1)
                             .lineLimit(3)
                             .fixedSize(horizontal: false, vertical: true)
@@ -132,20 +134,26 @@ struct CommunityListCell: View {
                 HStack {
                     Spacer()
                     Image(systemName: "heart.fill")
+                        .font(.subheadline)
                         .foregroundColor(.red)
                     Text(like)
+                        .font(.subheadline)
+                        .padding(.leading, -6)
                     Image(systemName: "message.fill")
+                        .font(.subheadline)
                         .foregroundColor(Color(red: 227/255, green: 230/255, blue: 233/255))
                     Text(comment)
+                        .font(.subheadline)
+                        .padding(.leading, -6)
                 }
-                .padding(.bottom, 5)
+                .padding(.vertical, 5)
             }
             .padding(10)
             .background(.white)
             .cornerRadius(20)
         }
+        .padding(.horizontal, 18)
         .padding(.vertical, 10)
-        .padding(.horizontal, 3)
         .cornerRadius(20)
         .shadow(color: Color(red: 220/255, green: 222/255, blue: 224/255), radius: 10, x: 0, y: 4)
 
