@@ -1,46 +1,62 @@
-# 🗓 Malendar
+# 🙌🏻 Haro 
 
 <div align="center">
-
-<img width=200 src="https://i.imgur.com/HLyygOX.png">    
     
+<img width=200 src="./Haro/imageFiles/haro.png">
+
 <br>
 <br>
 
-📆 **2022. 04. 25. ~ 2022. 05. 06.**
-
+📆 **2022. 03. 21. ~ 2022. 04. 15.**
+    
 [<img src="https://img.shields.io/badge/Swift-5.6-orange?">](https://developer.apple.com/kr/swift/) [<img src="https://img.shields.io/badge/Xcode-13.3-blue?">](https://developer.apple.com/kr/xcode/)
 
-[📜 BackLog ➡️](https://docs.google.com/spreadsheets/d/1GZk9kV0nV0WlljCNEnlUKKoqDpMngs0d5s4YO_hYB30/edit#gid=0)    
+[📜 BackLog ➡️](https://docs.google.com/spreadsheets/d/1NG3ONCIkoRuogH0pDeNI2IVEOkUw63E5Dq4uSqPcsCE/edit?usp=sharing)
 
 </div>
-    
+
 <br>
 <br>
 
 ## 👀 Preview
 
-- A Calendar app that allows users to customize all UI colors and add memos.
+- A hyperlocal community app for quick and easy access to information on the local area
 
-|<img width=220 src="https://i.imgur.com/5GcJo4l.jpg">|<img width=220 src="https://i.imgur.com/IOgzamz.jpg">|
-|:-:|:-:|
-|`Main`|`Main Memo`|
-|<img width=220 src="https://i.imgur.com/IGN0cfh.jpg">|<img width=220 src="https://i.imgur.com/5Y54z0u.jpg">|
-|`Add Memo`|`UI Color`|
+|<img src="./Haro/imageFiles/login.gif">|<img src="./Haro/imageFiles/main.gif">|<img src="./Haro/imageFiles/story.gif">|
+|:-:|:-:|:-:|
+|`Log in`|`Map`|`Story`|
+|<img src="./Haro/imageFiles/category.gif">|<img src="./Haro/imageFiles/meeting.gif">|<img src="./Haro/imageFiles/community.gif">|
+|`Category`|`Meeting`|`Community`|
+
 
 <br>
 <br>
 
-## 👨🏻‍💻 Developer
+## 👨🏻‍💻👩🏻‍💻👩🏻‍🎨 Team 
 
-|Developer|
-|:-:|
-|<img src="https://i.imgur.com/OB39K35.png" width="160">|
-|Min|
+<div align = "center">
 
-
+|Designer|Developer|Developer|Developer|Developer
+|:-:|:-:|:-:|:-:|:-:|
+|<img src="./Haro/imageFiles/gani.png">|<img src="./Haro/imageFiles/min.png">|<img src="./Haro/imageFiles/rey.png">|<img src="./Haro/imageFiles/smile.png">|<img src="./Haro/imageFiles/zero.png">|
+|Gani|Min|Rey|Smile|Zero|
+    
 </div>
 
+<br>
+<br>
+
+
+## 📝 Project Goal
+
+    
+➡️ Extension of Access to Information
+    
+➡️ Create different forms of information that fit when and where you are
+    
+➡️ A hyperlocal community app for quick and easy access to information on the local area
+
+<br>
 <br>
 
 ## 🛠 Developement Environment
@@ -52,15 +68,22 @@
 |iOS Deployment Target|15.0|
 
 <br>
+<br>
+
 
 ## 🐈‍⬛ Git
 
 ### 1️⃣ Git branching Strategy
 
 - Origin(main branch)
+    - Origin(dev branch)
+        - Local(feature branch)
 
 - Branch
     - Main
+    - Dev
+    - Feature
+    - Fix
 
 - 방법
     - 1. Pull the **Dev** branch of the Origin
@@ -72,7 +95,6 @@
     - 7. Fetch and rebase Origin **Dev** from Local **Dev**
 
 <br>
-    
 
 ### 2️⃣ Commit convention
 
@@ -97,3 +119,77 @@
 
 <br>
 
+### 3️⃣ gitignore
+
+- .DS_Store
+- xcuserdata/
+
+<br>
+<br>
+
+## ⌨️ Code convention
+
+- Variable Name
+    - lowerCamelCase
+
+- Function Name
+    - lowerCamelCase
+
+- Abbreviations must be capitalized
+    - ex) url (x), URL (O)
+    - When an abbreviation begins, it is written in lowercase, otherwise it is always written in uppercase
+ 
+- Stuct, Class
+    - Name should be UpperCamelCased
+    - All explicit self
+
+- if, if else
+
+```swift
+if {
+
+} else {
+
+}
+```
+ 
+- argument
+
+```swift
+func abcdef(A: Int, B: Int)
+
+.background(.regularMaterial, ABCDE)
+.clipShape(RoundedRectangle(cornerRadius: 20),
+                            ABCDE)
+
+abcdef(A: Int(10),
+       B: 100)
+
+abcdef(A: 10, B: 100)
+```
+
+- trnary operator
+ 
+```swift
+Bool ? A : B
+```
+
+<br>
+<br>
+
+## 🏃🏻‍♂️ Sprint
+
+
+- Period
+    - 3 days
+
+- Method
+    - Scrum
+        - 1 session per day
+        - Merge together
+
+    - Development
+        - Pair if needed
+
+    - Retropect
+        - Lesson run by sprint unit
